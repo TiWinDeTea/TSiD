@@ -1,0 +1,179 @@
+\documentclass[12pt,a4paper,twoside]{article}
+\include{packages}
+\include{settings}
+
+\lhead{\small{TZ20 - Compte rendu}}
+\rhead{\small{PINARD Maxime - LAZARE Lucas}}
+\lfoot{\small{UTBM}}
+\rfoot{\small{\today}}
+\pagestyle{fancy}
+
+\title{TZ20 - Compte rendu}
+\author{PINARD Maxime - LAZARE Lucas}
+\date{2015}
+
+\begin{document}
+    \maketitle{}
+    \newpage{}
+    %\begin{onehalfspace}
+
+    \section{TSiD}
+    TSiD est un projet de Lazare Lucas et Pinard Maxime. Ce projet consiste en la conception et la programmation d'un serveur qui permettra de gérer des fichier par internet pour pouvoir y accèder de n'importe ou et les partager avec d'autres personnes. Sur ce serveur chaque utilisateur aura un espace privé ou lui seul aura accès pour y stocker des fichers personnels ou autre. Un espace publique sera aussi disponible pour partager des fichier avec les autres membres. Dans l'espace publique un utilisateur aura la possibilité de supprimer un fichier peu de temps apres l'avoir partagé, au cas ou il se serai trompé, mais après ce laps de temps un système de vote par tout les utilisateurs se mettra en place pour la suppression du fichier.
+
+    \section{Définitions utiles}
+
+    \paragraph*{Un Réseau:\\}
+    Un réseau informatique est un groupe de machines reliées entre elles pour échanger des informations. Les informations peuvent être transmises via câbles (transmission par signal electrique), fibre optique (ondes lumineuses) ou ondes radio, qui forment un support permettant aux appareils de communiquer en utilisant des protocoles (ex: IEEE 802.11: le wifi, 10BASE5\ldots).
+
+    \paragraph*{Protocole IP:\\}
+    Un protocole définit la manière dont les informations sont echangées entre les différents équipements du réseau. Des logiciels, dédiés a la gestion de ces protocoles, sont instalés sur les equipements intermédiaires (ex: routeurs\ldots{}). Le protocole le plus répandu étant l'Internet Protocole (IP), permettant d'acheminer des paquets de données. Pour cela, l'adresse IP de l'expéditeur et du destinataire sont ajouté au paquet de données ainsi que différentes autres données qui permettent de controler l'acheminement des données. Cela forme un paquet IP.
+
+    \paragraph*{Adresse IP:\\}
+    L'adresse IP est une adresse attribuée à chaque équipement connecté directement au réseau internet (nottement box du FAI). Celle-ci est composé de 4 (IPv4) ou 6 (IPv6) séquence de nombres de 0 à 255 et est commune à tout les équipements du réseau local.
+    Par exemple, si vous êtes connectés à une box ayant pour adresse 19.0.92.13, vous aurez la même adresse si vous allez sur internet. Afin que votre routeur puisse reconnaitre les différents équipement du réseau local, celui-ci vous assigne une adresse IP Locale, qui n'est valable que pour le réseau local. Comme l'adresse IP ``Internet'', celle-ci est unique sur le réseau où vous êtes.
+
+    \paragraph*{Routage IP:\\}
+    Le paquet IP est ensuite déposé sur l'ordinateur le plus proche, souvent le serveur du FAI (Fournisser d'Acces Internet) qui va ensuite le rediriger sur un autre ordinateur/serveur\ldots{} jusqu'à arriver a celui du FAI du destinataire qui va ensuite transmettre le paquet au destinataire.
+
+    \paragraph*{Port:\\}
+    Une machine peut se connecter à une autre machine en utilisant son adresse IP. Cependant, une machine faisant serveur web fourni parfois plusieurs services (site web HTTP, serveur FTP, messagerie IMAP, accès SSH, …). Dès lors, comment indiquer au serveur quel système nous souhaitons utiliser ? C'est là qu'intervient le numéro de port, envoyé par la machine qui se connecte : 20 pour le FTP, 22 pour le SSH/SFTP, 80 pour l'HTTP, 143 pour l'IMAP,\ldots{} Le port est en fait un numéro logique au niveau du serveur, qui lui permet de savoir quoi faire avec le client. Un port peut être dans deux états : ouvert ou fermé. Si celui-ci est fermé, la machine n'écoute pas ce qui y arrive, c'est à dire que les requêtes effectués en passant par celui-ci sont ignorées.
+
+    \paragraph*{Socket:\\}
+    Le socket, quant à lui, est tout simplement l'association entre le programme en cours, le port local (du client) et l'ip locale, avec l'ip du serveur, son numéro de port. Y est enfin indiqué le port local ouvert, afin que le serveur puisse répondre au client.
+
+    \paragraph*{La Programmation Orientée Objet:\\}
+    La POO est un des grands paradigmes de la programmation, c'est à dire une des grandes façon d'écrire un programme. Les principaux autres paradigmes sont la programmation impérative et la programmation déclarative. Comme son nom l'indique, c'est un type de programmation qui utilise les objets pour arriver à ses fins. Mais alors, qu'est-ce qu'un objet ? C'est une sorte de boite contenant des variables (dans le cas d'un socket, il peut s'agir par exemple de l'adresse de sortie, du port, …), et des fonctions. Les variables sont habituellement inaccessibles depuis l'exterieur de l'objet, contrairement aux fonctions qu'il contient. On peut se le représenter comme étant une boite noire dont on ne voit pas le contenu. On peut actionner des interrupteurs qui modifieront le contenu de la boite et ce qui en ressort, mais on ne sait rien des détails de ce qu'il se passe. C'est en quelque sorte une sécurité : le programmeur ne peut pas faire n'importe quoi avec l'objet, à moins qu'il n'essaye vraiment d'aller dans ce sens, car on est obligé de passer par ses fonctions pour le modifier.
+
+    \paragraph*{Application Programming Interface:\\}
+    Une API ou ``interface de programmation'' est un ensemble de classes, méthodes et fonctions fournies par un logiciel pour la création d'autre logiciels.
+
+    \section{Ce que nous utiliseront}
+
+    \paragraph*{Language de programmation\\}
+    Nous utiliseron le language C++ qui est une évolution du C, en effet il apporte de nouvelles fonctionalités dont les principales sont la POO et la surcharge d'opérateurs et de fonctions.
+
+    \paragraph*{API\\}
+    Nous utiliseron l'API SFML qui nous permettra de gérer plus facilement le réseau.\\
+
+    \begin{itemize}
+    	\item{} La classe \lstinline$sf::Socket (#include <Socket.hpp>)$
+    	\begin{itemize}
+    		\item{} La base pour les autres sockets
+    	\end{itemize}
+    	\item{} La Classe \lstinline$sf::TcpSocket (#include <TcpSocket.hpp>)$
+    	\begin{itemize}
+    		\item{} Dépend de \lstinline$sf::Socket$
+    		\item{} \lstinline$TcpSocket()$\;: créé un Socket
+    		\item{} \lstinline$Status connect(const IpAddress &remoteAddress, unsigned short remotePort, Time timeout=Time::Zero)$\;: permet au client de lancer une connection. Renvoie le status du socket
+    		\item{} \lstinline$void disconnect()$\;: déconnecte le client du server
+    		\item{} \lstinline$Status send(Packet &packet)$\;: envoi un packet au client/serveur préalablement connecté. Renvoie le status du socket.
+    		\item{} \lstinline$Status receive(Packet &packet)$\;: récupère un packet provenant d'un client/serveur préablement connecté. Renvoie le status du socket.
+    		\item{} \lstinline$void setBlocking(bool blocking)$\;: permet de mettre un socket en position bloquante/non bloquante.
+    	\end{itemize}
+    	\item{} La Classe \lstinline$sf::Packet (#include <Packet.hpp>)$
+        \begin{itemize}
+            \item{} \lstinline$Packet()$\;: créé un packet
+            \item{} \lstinline$append(const void* data, std::size_t sizeInBytes)$\;: ajoute des données au packet.
+            \item{} \lstinline$const void* getData() const$\;: renvoie un pointeur vers les données contenues dans le packet.
+            \item{} \lstinline$std::size_t getDataSize() const$\;: renvoie le nombre de bytes contenues dans le packet.
+            \item{} \lstinline$bool operator BoolType() const$\;: testes la validité du packet.
+            \item{} \lstinline$Packet& operator<< (bool data)$\;: surchage de $<<$
+            \item{} \lstinline$Packet& operator>> (bool& data)$\;: surcharge de $>>$
+        \end{itemize}
+        \item{} La Classe \lstinline$sf::TcpListener (#include <TcpListener.hpp>)$
+        \begin{itemize}
+            \item{} un socket qui permet d'attendre et d'accepter un nouveau client
+            \item{} \lstinline$TcpListener ()$\;: créé un listener
+            \item{} \lstinline$Status listen (unsigned short port)$\;: commence a écouter pour la connection d'un client sur le port donné, retourne le status du socket
+            \item{} \lstinline$void close ()$\;: arrete d'écouter pour la connection d'un client
+            \item{} \lstinline$Status accept (TcpSocket &socket)$\;: accepte un client et retourne le status du socket
+        \end{itemize}
+        \item{} La Classe \lstinline$sf::SocketSelector (#include <SocketSelector.hpp>)$
+        \begin{itemize}
+            \item{} un multiplexer (selector) qui permet de lire plusieurs sockets
+            \item{} \lstinline$SocketSelector ()$\;: créé un selector
+            \item{} \lstinline$void add (Socket &socket)$\;: ajoute un socket au selector
+            \item{} \lstinline$void remove (Socket &socket)$\;: supprime un socket du selector
+            \item{} \lstinline$bool wait (Time timeout=Time::Zero)$\;: attend jusqu'a ce que un ou plusieurs socket soient pret
+            \item{} \lstinline$bool isReady (Socket &socket)const$\;: teste un socket pour savoir si il est pret
+        \end{itemize}
+        \item{} La Classe \lstinline$std::thread (#include <thread>)$
+        \begin{itemize}
+            \item{} multithreading standard
+            \item{} \lstinline$thread(public member function)$\;: créé un thread
+            \item{} \lstinline$void join()$\;: mets la fonction en pause jusqu'à ce que le thread se termi
+            \item{} \lstinline$void detach()$\;: délie le thread de la fonction l'ayant appelé. En particulier, permet de quitter la fonction appelante même si le thread n'est pas terminé. Après avoir appelé cette fonction, le thread ne peux plus joindre et la variable peut être détruite sans problème.
+        \end{itemize}
+    \end{itemize}
+
+    \section{Les fonctionalités}
+
+    \subsection*{Programmes prévus}
+
+    \begin{itemize}
+        \item{} Serveur pour Linux
+        \item{} Client pour Linux
+        \item{} Client pour Windows
+    \end{itemize}
+
+    \subsection*{Coté serveur}
+
+    \begin{itemize}
+        \item{} Accès au serveur uniquement aux possesseurs de compte
+        \item{} Un espace ``public'', où les membres déposent des fichiers à partager (Rangés par dossiers et catégories)
+        \item{} Un espace ``privé'', auquel seul le membre ayant déposés ses fichiers peut avoir accès (entre 2 et 5 Gio)
+        \item{} Pour les fichiers de l'espace public, le pseudo du posteur est visible
+        \item{} Un posteur peut supprimer son propre fichier de l'espace public sous 24h
+        \item{} Un log des connections et tentatives de connections avec IP (un fichier log par mois) (Nom d'utilisateur, réussite ou non de la connection, ip fournie, date, \ldots{})
+        \item{} Empêcher le multi-compte
+        \begin{itemize}
+            \item{} Logiciel client qui stocke une id et son mot de passe dans un dossier système (administration nécessaire une seule fois) $->$ Un executable pour windows et un pour linux (pas le même dossier d'enregistrement de l'id/mdp)
+            \item{} Ces données seront enregistré dans un fichier nommé [nom].dll
+            \item{} Le mot de passe est crypté. $->$ Code César avec pour clef un Hash du pseudo de l'utilisateur
+            \item{} Celui-ci doit être modifiable.
+        \end{itemize}
+        \item{} Le serveur ne stocke pas les mots de passes, seulement leur hash
+        \item{} Charte à l'inscription $>>$ droit d'utilisation des cookies, pas de fichier illégal sur le serveur,\ldots{}
+        \item{} On n'autorise qu'une seule fois un pseudo et une adresse mail
+        \item{} L'identifiant ne sera pas le pseudo, mais l'adresse mail
+        \item{} Les pseudos des administrateurs sont précédés d'un @ ou d'un \%
+        \item{} L'uploader peut inclure une description du fichier (250 caractères)
+        \item{} Lorsqu'un membre veut inviter quelqu'un, il doit entrer son adresse mail. On envoi à cette adresse un mot de passe généré aléatoirement. Connection sous 48h obligatoire. Sinon, compte supprimé.
+        Le pseudo est alors à choisir.
+        \item{} Timeout des sessions (temps à définir)
+        \item{} Les utilisateurs peuvent faire des sous dossiers publics
+        \item{} Possibilité d'envoyer un mail à un membre via le serveur (sans connaitre son adresse mail); l'utilisateur peut choisir de désactiver ce service.
+    \end{itemize}
+
+    \subsection*{Coté client}
+
+    \paragraph*{}
+    Pas de GUI
+
+    \paragraph*{Commandes:}
+    \begin{description}
+        \item[gnuk]{} get new user key -- generate a key for a new user to register
+        \item[cd path]{} Change remote directory to ``path''
+        \item[help]{} Display this help
+        \item[?]{} Synonym for help
+        \item[put local-path {[}remote-path{]}]{} Upload a file
+        \item[get remote-path {[}local-path{]}]{} Download a file
+        \item[pwd]{} Display remote working directory
+        \item[exit]{} Quit sftp
+        \item[quit]{} Quit sftp
+        \item[bye]{} Quit sftp
+        \item[rename oldpath newpath]{} Rename remote file
+        \item[rmdir path]{} Remove remote directory
+        \item[rmdir --even-non-empty path]{}Remove remote directory even if it is not empty
+        \item[rm path]{} Delete remote file
+        \item[version]{} Show client version
+        \item[passwd]{} Change Password
+        \item[tma path]{} Display Readme
+        \item[df]{} Display memory usage
+        \item[deleteaccount]{} Delete the account and its personal datas. Asks for passwd. Also removes its pseudo from the list
+        \item[msg ``text'']{} Sends a message to admins
+        \item[ls]{} List file in the actual directory
+    \end{description}
+
+    %\end{onehalfspace}
+\end{document}
