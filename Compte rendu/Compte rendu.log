@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.9.23)  6 OCT 2015 11:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.9.23)  6 OCT 2015 14:45
 entering extended mode
-**"C:/Users/Maxime/CloudStation/UTBM/TC03/TZ20/Compte rendu/Compte rendu.tex"
-("C:/Users/Maxime/CloudStation/UTBM/TC03/TZ20/Compte rendu/Compte rendu.tex"
+**"C:/Users/Maxime/GitHub/TSiD/Compte rendu/Compte rendu.tex"
+("C:/Users/Maxime/GitHub/TSiD/Compte rendu/Compte rendu.tex"
 LaTeX2e <2015/01/01> patch level 2
 Babel <3.9m> and hyphenation patterns for 69 languages loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -627,76 +627,75 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 
 
 {C:/Users/Maxime/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Overfull \hbox (16.78242pt too wide) in paragraph at lines 28--29
+Overfull \hbox (16.78242pt too wide) in paragraph at lines 29--30
 \OT1/lmr/m/n/12 Un pro-to-cole definit la maniere dont les in-for-ma-tions so
 nt echangees en-tre les differents equipements
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 55--56
+Underfull \hbox (badness 10000) in paragraph at lines 56--57
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 58.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 59.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmr.fd"
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 58.
-LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 58.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 59.
+LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 59.
 
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ot1lmtt.fd"
 File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OT1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 58.
+(Font)              Font shape `OT1/lmtt/b/n' tried instead on input line 59.
 
-Overfull \hbox (24.00177pt too wide) in paragraph at lines 66--67
+Overfull \hbox (24.00177pt too wide) in paragraph at lines 67--68
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
  []
 
-
-Overfull \hbox (17.16043pt too wide) in paragraph at lines 69--70
+[3]
+Overfull \hbox (17.16043pt too wide) in paragraph at lines 70--71
 [][][][][][][][][][][][][][][][][][][][][][][]\OT1/lmr/m/n/12 : recupere un p
 acket provenant d'un clien-t/serveur
  []
 
-[3]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 79.
+(Font)              <12> on input line 80.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 79.
+(Font)              <8> on input line 80.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 79.
- [4] [5]
-LaTeX Font Info:    Try loading font information for OT1+lmss on input line 154
+(Font)              <6> on input line 80.
+[4] [5]
+LaTeX Font Info:    Try loading font information for OT1+lmss on input line 155
 .
  ("C:\Program Files\MiKTeX 2.9\tex\latex\lm\ot1lmss.fd"
 File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [6]
-[7] ("Compte rendu.aux") ) 
+) [6] [7]
+("Compte rendu.aux") ) 
 Here is how much of TeX's memory you used:
  5840 strings out of 493673
- 76638 string characters out of 3143957
- 217839 words of memory out of 3000000
+ 76590 string characters out of 3143957
+ 228839 words of memory out of 3000000
  9070 multiletter control sequences out of 15000+200000
  50590 words of font info for 62 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 37i,11n,60p,1203b,1292s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm
-.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program 
-Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rmtt.enc}{C:/Program Files/MiKTeX 2.9/fo
-nts/enc/dvips/lm/lm-mathsy.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/
-lm/lmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi12.pfb><C:
-/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiK
-TeX 2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
-1/public/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmssbx
-10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Progra
-m Files/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/lm/lmtt12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pub
-lic/lm/lmtti10.pfb>
-Output written on "Compte rendu.pdf" (7 pages, 225236 bytes).
+ 37i,11n,60p,1187b,1292s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rm.enc
+}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Program File
+s/MiKTeX 2.9/fonts/enc/dvips/lm/lm-rmtt.enc}{C:/Program Files/MiKTeX 2.9/fonts/
+enc/dvips/lm/lm-mathsy.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/l
+mbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmmi12.pfb><C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><C:/Program Files/MiKTeX 
+2.9/fonts/type1/public/lm/lmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
+blic/lm/lmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmssbx10.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/lm/lmtk10.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/lm/lmtt12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
+lm/lmtti10.pfb>
+Output written on "Compte rendu.pdf" (7 pages, 226039 bytes).
 PDF statistics:
  70 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
