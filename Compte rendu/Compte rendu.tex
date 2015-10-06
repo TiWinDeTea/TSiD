@@ -164,7 +164,7 @@
         \item[bye]{} Quit sftp
         \item[rename oldpath newpath]{} Rename remote file
         \item[rmdir path]{} Remove remote directory
-        \item[rmdir --even-non-empty path]{}Remove remote directory even if it is not empty
+        \item[rmdir -f path]{}Remove remote directory even if it is not empty
         \item[rm path]{} Delete remote file
         \item[version]{} Show client version
         \item[passwd]{} Change Password
@@ -175,5 +175,13 @@
         \item[ls]{} List file in the actual directory
     \end{description}
 
-    %\end{onehalfspace}
+    \section{Problèmes rencontrés}
+
+    \paragraph*{SFML sur RaspBerry pi\\}
+    SFML n'étant pas disponible pour les processeurs ARM (présent sur le RaspBerry pi) il sera nécéssaire de compiler nous-même SFML avant de l'installer.
+
+    \paragraph*{L'envoi de données\\}
+    Lors de nos premiers essais d'envoi de fichiers sous forme de tableaux de données nous avons rencontrés un problème: les packets reçus n'étaient pas de meme taille que les packets reçus nous allons donc utiliser la classe \lstinline$sf::Packet (#include <Packet.hpp>)$ fournie par SFML pour remédier a ce problème. En effet cette classe assure qu'a l'arrivé les paquets sont identiques et dans le même ordre que les originaux.
+
+    %\end{onehalfspace} 
 \end{document}
