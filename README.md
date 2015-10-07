@@ -8,7 +8,7 @@ TSiD Project is a community server meant to have its users as 'administrators'
 
 ## Authors
 <br/>
-+ Maxime PINARD - main developer
++ Maxime PINARD - main developer (maxime.pin@live.fr)
 + Lucas LAZARE - main developer (lazarelucas@yahoo.fr)
 <br/>
 
