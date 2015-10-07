@@ -9,7 +9,7 @@ In this branch lies the v0 of TSiD Project
 
 ##Authors
 <br/>
-+ Maxime PINARD - main developer
++ Maxime PINARD - main developer (maxime.pin@live.fr)
 + Lucas LAZARE - main developer (lazarelucas@yahoo.fr)
 
 ##Download
