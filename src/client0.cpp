@@ -18,7 +18,44 @@ enum SCommand : signed char {
 	Ls
 };
 
-unsigned int getFileLength( std::string const& filename ) {
+bool interpretServerAns( signed char sanswer){								//Sends message to console telling the problem // success
+	
+	std::cout << "Server :";
+
+	switch( sanswer ){
+
+	case NotAuthorized :
+		std::cout << "action unauthorized" << std::endl;
+		return false;
+
+	case TooBig:
+		std::cout << "file too heavy" << std::endl;
+		return false;
+	
+	case AlreadyExist:
+		std::cout << "this file already exists" << std::endl;
+		return false;
+
+	case ServerFailure:
+		std::cout << "an error has occured" << std::endl;
+		return false;
+	
+	case UnknownIssue:
+		std::cout << "dafuq has happened ?!?" << std::endl;
+		return false;
+
+	case ServerReady:
+		std::cout << "ready" << std::endl;
+		return true;
+	
+	default:
+		std::cout << "unexpected answer from server" << std::endl;
+		return false;
+	}
+}
+
+
+unsigned int getFileLength( std::string const& filename ) {						//Retrieving file size in bytes
 
 	std::ifstream file( filename.c_str(), std::ios::binary | std::ios::in );
 	if( !file.fail() )
@@ -58,22 +95,11 @@ bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket&
 		std::cout << "There was an error retrieving server state" << std::endl;
 		return false;
 	}
-
-	switch( static_cast<char>(server_state) ){
-		case ServerReady :
-			return true;
-
-
-		default:
-			std::cout << "The server is busy" << std::endl;
-			return false;
-	}
-	std::cout << "Unknown error" << std::endl;
-	return false;
+	return interpretServerAns( static_cast<char>(server_state) );
 }
 
 
-bool sconnect( sf::TcpSocket& socket ) {
+bool sconnect( sf::TcpSocket& socket ) {								//Connect the client to the server
 
 	unsigned short remote_port;
 	std::string remote_address;
@@ -94,7 +120,7 @@ bool sconnect( sf::TcpSocket& socket ) {
 }
 
 
-bool sendData( sf::TcpSocket& server ){
+bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 
 	std::ifstream input_file;
 	unsigned int file_size;
@@ -158,7 +184,7 @@ bool sendData( sf::TcpSocket& server ){
 }
 
 
-bool retrieveData( sf::TcpSocket& server ) {
+bool retrieveData( sf::TcpSocket& server ) {								//Retrieves a file from the server
 	return false;
 }
 
