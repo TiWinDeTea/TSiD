@@ -61,7 +61,6 @@ int main( int argc, char* argv[]){
 				else{
 					std::cout << "Client data retrieved successfully" << std::endl;
 				}
-				client.disconnect();
 				break;
 
 			case Download :
@@ -73,7 +72,6 @@ int main( int argc, char* argv[]){
 				else{
 					std::cout << "Datas sent to client successfully" << std::endl;
 				}
-				client.disconnect();
 				break;
 
 			case Ls :
