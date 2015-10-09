@@ -24,7 +24,7 @@ bool sconnect( sf::TcpSocket& socket ) {								//Connect the client to the serv
 	return true;
 }
 
-int main(int argc, char* argv[]) {
+int main() {
 
 	sf::TcpSocket socket;
 	std::string user_input;

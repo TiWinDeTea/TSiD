@@ -32,7 +32,7 @@ bool getClient( sf::TcpSocket& socket ){
 }
 
 
-int main( int argc, char* argv[]){
+int main(){
 
 	sf::TcpSocket client;
 	if( !getClient( client ) ){
