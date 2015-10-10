@@ -14,7 +14,7 @@ In this branch lies the v0 of TSiD Project
 
 ##Download
 <br/>
-You can get wether the server or the client from the [git hub repo](https://github.com/Organic-Code/TSiD).
+You can get either the server or the client from the [git hub repo](https://github.com/Organic-Code/TSiD).
 <br/>
 
 ##Requirements
