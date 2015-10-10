@@ -37,10 +37,15 @@ License : MIT License
 What will go on when v0 will be finished ?
 
 + Client decides wether to download or upload files
-+ Client has access to a small set of commands (ls, pwd, ...)
++ Client has access to a small set of commands (ls, pwd, cd, bye/quit/exit)
 + Client has a restricted access to some of the downloadable files
 + Server won't have multithread yet, wich means one client at the time
 <br/>
+What's done yet ?
++ Client can upload and download files
++ Client can use 'ls', 'put', 'get', 'bye' and synonyms.
+<br/>
+Next step will probably be to organize files to have something 'nice and clean'
 
 ##Contribute
 

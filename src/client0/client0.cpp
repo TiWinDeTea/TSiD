@@ -38,14 +38,19 @@ int main() {
 
 		if( user_input == "help"){
 
-			std::cout << "available commands : help — ls — up — down — q" << std::endl;
+			std::cout << "available commands :	help" 
+				<< "			ls"
+				<< "			up"
+				<< "			down"
+				<< "			bye / quit / exit"
+				<< std::endl;
 		}
-		else if( user_input == "up" ){
+		else if( user_input == "put" ){
 
 			if( !sendData( socket ) )
 				std::cout << "Failed to upload data to server" << std::endl;
 		}
-		else if( user_input == "down" ){
+		else if( user_input == "get" ){
 
 			if( !retrieveData( socket ) )
 				std::cout << "Failed to retrieve data from server" << std::endl;
@@ -55,12 +60,12 @@ int main() {
 			if( !retrieveFileList( socket ) )
 				std::cout << "Failed to retrieve file list" << std::endl;
 		}
-		else if( user_input != "q" ){
+		else if( user_input != "bye" && user_input != "exit" && user_input != "quit" ){
 
 			std::cout << "Unknown command. Type 'help' for a list of available commands" << std::endl << std::endl;
 		}
 
-	}while( user_input != "q" );
+	}while( user_input != "bye" && user_input != "exit" && user_input != "quit" );
 
 	sf::Packet bye;
 	bye << Disconnect;
