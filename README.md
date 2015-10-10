@@ -14,7 +14,7 @@ TSiD Project is a community server meant to have its users as 'administrators'
 
 ## Download
 <br/>
-You can get wether the server or the client from the [git hub repo](https://github.com/Organic-Code/TSiD)
+You can get either the server or the client from the [git hub repo](https://github.com/Organic-Code/TSiD)
 Although there is no real concrete work done yet
 <br/>
 
