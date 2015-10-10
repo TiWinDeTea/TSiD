@@ -38,11 +38,11 @@ int main() {
 
 		if( user_input == "help"){
 
-			std::cout << "available commands :	help" 
-				<< "			ls"
-				<< "			up"
-				<< "			down"
-				<< "			bye / quit / exit"
+			std::cout << "available commands :	help" << std::endl
+				<< "			ls" << std::endl
+				<< "			up" << std::endl
+				<< "			down" << std::endl
+				<< "			bye / quit / exit" << std::endl
 				<< std::endl;
 		}
 		else if( user_input == "put" ){
