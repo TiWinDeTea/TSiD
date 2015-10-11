@@ -7,12 +7,19 @@
 bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {								//Connect the client to the server
 
 	unsigned short remote_port;
-	std::string remote_address;
+	std::string remote_address, user_pass;
 
 	std::cout << "User ID : ";
 	std::cin >> user_id;
 
-	std::cout << "Remote address : ";
+	std::cout << "User passwd : ";
+	setStdcinEcho( false );
+	std::cin.ignore();
+	std::getline(std::cin, user_pass);
+	setStdcinEcho();
+
+
+	std::cout << std::endl << "Remote address : ";
 	std::cin >> remote_address;
 	std::cout << "Remote port : ";
 	std::cin >> remote_port;

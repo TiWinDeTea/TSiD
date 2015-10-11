@@ -50,11 +50,8 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 bool retrieveData( sf::TcpSocket& server ){
 
 	sf::Packet spacket;
-	unsigned int filesize;
-	unsigned int bytes_per_packet;
-	std::ofstream output_file;
-	
-	if( !startDownload( server, spacket, filesize, bytes_per_packet, output_file ) ){
+	unsigned int filesize(0);
+	unsigned int bytes_per_packet; std::ofstream output_file; if( !startDownload( server, spacket, filesize, bytes_per_packet, output_file ) ){
 		std::cout << "Could not download" << std::endl;
 		return false;
 	}
@@ -62,13 +59,12 @@ bool retrieveData( sf::TcpSocket& server ){
 	unsigned int loop_number(filesize/bytes_per_packet);
 	char* input_data_array = new char[bytes_per_packet];
 	sf::Int8 input_data;
-	unsigned char percentage_count(0);
 
 	spacket << ClientReady;
 	server.send(spacket);
 	spacket.clear();
 
-	std::cout << "Download is starting" << std::endl;
+	std::cout << "Download is starting" << std::endl << "\e[?25l";
 	for( unsigned int i(0) ; i<loop_number ; ++i){
 
 		server.receive( spacket );
@@ -81,16 +77,9 @@ bool retrieveData( sf::TcpSocket& server ){
 		output_file.write( input_data_array, bytes_per_packet );
 		spacket.clear();
 
-		spacket << ServerReady;
-		server.send( spacket );				//Sync with server
-		spacket.clear();
-
-		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
-			percentage_count = static_cast<unsigned char>(100*i/loop_number);
-			std::cout << "[" << static_cast<short>(percentage_count) << "%] - File being transfered" << std::endl;
-		}
+		std::cout << "\r[" << static_cast<short>(100*i/loop_number) << "%] - File being transfered ( " << i << "/" << loop_number+(filesize>0) << " )";
 	}
-
+	
 	filesize -= loop_number * bytes_per_packet;
 	if( filesize > 0 ){
 
@@ -99,11 +88,10 @@ bool retrieveData( sf::TcpSocket& server ){
 			spacket >> input_data;
 			if(j%4==3)
 				output_file << static_cast<char>(input_data);
-			//input_data_array[j] = static_cast<char>(input_data);
 		}
-		//output_file.write( input_data_array, filesize );
+		std::cout << "\r[100%] - File being transfered ( " << loop_number+1 << "/" << loop_number+1 << ")";
 	} 
-	std::cout << "Transfer terminated successfully" << std::endl;
+	std::cout << std::endl << "Transfer terminated successfully" << std::endl << "\e[?25h";
 	delete input_data_array;
 	return true;
 }

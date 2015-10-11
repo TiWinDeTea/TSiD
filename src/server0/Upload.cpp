@@ -82,9 +82,6 @@ bool sendData( sf::TcpSocket& client, sf::Packet cpacket){									// Sends a fi
 		}
 		cpacket.clear();
 
-		client.receive(cpacket);						//Sync with client
-		cpacket.clear();
-
 		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
 			percentage_count = static_cast<unsigned char>(100*i/loop_number);
 			std::cout << "[" << static_cast<short>(percentage_count) << "%] - File being transfered" << std::endl;	//Displaying upload percentage

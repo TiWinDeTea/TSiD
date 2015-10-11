@@ -6,5 +6,6 @@
 #include "Download.cpp"
 #include "retrieveFileList.cpp"
 #include "userInputInterpret.cpp"
+#include "setStdcinEcho.cpp"
 
 #endif

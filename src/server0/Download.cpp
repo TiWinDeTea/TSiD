@@ -57,10 +57,6 @@ bool retrieveData( sf::TcpSocket& client, sf::Packet& cpacket ){
 		output_file.write( input_data_array, bytes_per_packet );
 		cpacket.clear();
 
-		cpacket << ServerReady;
-		client.send( cpacket );				//Sync with client
-		cpacket.clear();
-
 		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
 			percentage_count = static_cast<unsigned char>(100*i/loop_number);
 			std::cout << "[" << static_cast<short>(percentage_count) << "%] - File being transfered" << std::endl;

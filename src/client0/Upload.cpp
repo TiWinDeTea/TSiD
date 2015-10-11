@@ -62,9 +62,8 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 	char input_data_array[NB_BYTE_PER_PACKET];
 	sf::Packet spacket;
 	spacket.clear();
-	unsigned char percentage_count(0);
 
-	std::cout << "Upload is starting" << std::endl;
+	std::cout << "Upload is starting" << std::endl << "\e[?25l";
 	for( unsigned int i(0) ; i<loop_number ; ++i ){					//Reading an sending the file
 
 		input_file.read( input_data_array, NB_BYTE_PER_PACKET);
@@ -73,19 +72,13 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 
 		if( server.send(spacket) == sf::Socket::Disconnected ){
 
-			std::cout << "Lost connection with server !" << std::endl;
+			std::cout << "Lost connection with server !" << std::endl << "\e[?25h";
 			return false;
 		}
+
 		spacket.clear();
 
-		server.receive(spacket);						//Sync with server
-		spacket.clear();
-
-		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
-			percentage_count = static_cast<unsigned char>(100*i/loop_number);
-			std::cout << "[" << static_cast<short>(percentage_count) << "%] - File being transfered" << std::endl;	//Displaying upload percentage
-		}
-
+		std::cout << "\r[" << static_cast<short>(100*i/loop_number) << "%] - File being transfered ( " << i << "/" << loop_number+(file_size>0) << " )";
 	}
 
 	file_size -= loop_number * NB_BYTE_PER_PACKET;
@@ -102,11 +95,13 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 			return false;
 		}
 
+		std::cout << "\r[100%] - File being transfered ( " << loop_number+1 << "/" << loop_number+1 << " )";
+
 		delete file_tail;
 
 	}
 
-	std::cout << "Transfer terminated successfully" << std::endl;
+	std::cout << std::endl << "Transfer terminated successfully" << std::endl << "\e[?25h";
 
 	return true;
 }
