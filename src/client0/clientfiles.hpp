@@ -5,4 +5,6 @@
 #include "Upload.cpp"
 #include "Download.cpp"
 #include "retrieveFileList.cpp"
+#include "userInputInterpret.cpp"
+
 #endif

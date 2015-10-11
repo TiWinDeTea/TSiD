@@ -11,7 +11,7 @@ bool retrieveFileList( sf::TcpSocket& server ){
 	server.send( spacket );
 	spacket.clear();
 
-	sf::Int8 file;
+	sf::Int32 file;
 	unsigned int filename_length;
 
 	server.receive( spacket );
@@ -27,15 +27,15 @@ bool retrieveFileList( sf::TcpSocket& server ){
 		server.receive( spacket );
 		
 		spacket >> filename_length;
-		for( unsigned int i(0) ; i < 4*filename_length ; ++i){
+		for( unsigned int i(0) ; i < filename_length ; ++i ){
 
 			spacket >> file;
-			std::cout << static_cast<char>(file);
+			std::wcout << static_cast<wchar_t>( file );
 		}
 		std::cout << std::endl;
 		spacket.clear();
 
-	}while( filename_length != 0);
+	}while( filename_length != 0 );
 
 	return true;
 }

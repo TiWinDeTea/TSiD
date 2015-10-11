@@ -27,21 +27,15 @@ bool listFiles( sf::TcpSocket& client, sf::Packet& cpacket ){
 	client.send( cpacket );
 	cpacket.clear();
 
-	std::string file_name;
-
 	while( (redfile = readdir( directory )) != NULL ){
 
-		file_name = redfile->d_name;
+		std::string tmp( redfile->d_name );
 		
-		cpacket << static_cast<unsigned int>(file_name.length());
+		cpacket << static_cast<unsigned int>( tmp.length() );
 
-		std::cout << "Length : " << file_name.length() << std::endl;
-
-		for( unsigned short i(0) ; i < file_name.length() ; ++i ){
-			cpacket << file_name[i];
-			std::cout << file_name[i];
+		for( unsigned short i(0) ; i < tmp.length() ; ++i ){
+			cpacket << static_cast<sf::Int32>( redfile->d_name[i] );
 		}
-		std::cout << std::endl;
 
 		client.send( cpacket );
 		cpacket.clear();
