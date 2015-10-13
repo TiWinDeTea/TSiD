@@ -4,6 +4,8 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <fstream>
+#include "../common/SCommand.cpp"
+#include "../common/fileExist.hpp"
 
 #define NB_BYTE_PER_PACKET 8192
 

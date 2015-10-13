@@ -1,10 +1,4 @@
-#include <SFML/Network.hpp>
-#include <iostream>
-#include <fstream>
-
-#define NB_BYTE_PER_PACKET 8192
-
-
+#include "../../include/server0/upload.hpp"
 
 unsigned int getFileLength( std::string const& filename ) {						//Retrieving file size in bytes
 
