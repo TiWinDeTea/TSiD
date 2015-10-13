@@ -41,11 +41,11 @@ What will go on when v0 will be finished ?
 + Client has a restricted access to some of the downloadable files
 + Server won't have multithread yet, wich means one client at the time
 <br/>
+</ul>
 What's done yet ?
+<ul>
 + Client can upload and download files
 + Client can use 'ls', 'put', 'get', 'bye' and synonyms.
-<br/>
-Next step will probably be to organize files to have something 'nice and clean'
 
 ##Contribute
 
