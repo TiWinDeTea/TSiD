@@ -1,9 +1,4 @@
-#include <SFML/Network.hpp>
-#include <iostream>
-#include <fstream>
-
-#define NB_BYTE_PER_PACKET 8192
-
+#include "include/client0/upload.hpp"
 
 unsigned int getFileLength( std::string const& filename ) {						//Retrieving file size in bytes
 
@@ -16,10 +11,8 @@ unsigned int getFileLength( std::string const& filename ) {						//Retrieving fi
 }
 
 
-bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server ) {		//Starts an upload (opening file and telling the server its name and size)
+bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string filename ) {		//Starts an upload (opening file and telling the server its name and size)
 													//Also retrieves server's answer (upload accepted or denied)
-	std::string filename;
-	
 	std::cout << "File name : ";
 	std::cin >> filename;
 
@@ -50,10 +43,11 @@ bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket&
 
 bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 
+	std::string file_name;
 	std::ifstream input_file;
 	unsigned int file_size;
 
-	if( !startUpload( input_file, file_size, server) ){				//Preparing to upload
+	if( !startUpload( input_file, file_size, server, file_name ) ){				//Preparing to upload
 		std::cout << "Could not send the file" << std::endl;
 		return false;
 	}
@@ -61,6 +55,7 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 	unsigned int loop_number=file_size/NB_BYTE_PER_PACKET;
 	char input_data_array[NB_BYTE_PER_PACKET];
 	sf::Packet spacket;
+	unsigned char percentage_count(0);
 	spacket.clear();
 
 	std::cout << "Upload is starting" << std::endl << "\e[?25l";
@@ -78,7 +73,11 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 
 		spacket.clear();
 
-		std::cout << "\r[" << static_cast<short>(100*i/loop_number) << "%] - File being transfered ( " << i << "/" << loop_number+(file_size>0) << " )";
+
+		if( percentage_count < static_cast<unsigned char>(100*i/loop_number) ){
+			percentage_count = static_cast<unsigned char>(100*i/loop_number);
+			percentageDisplay( percentage_count, file_name, file_size, i*NB_BYTE_PER_PACKET );
+		}
 	}
 
 	file_size -= loop_number * NB_BYTE_PER_PACKET;
@@ -95,7 +94,7 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 			return false;
 		}
 
-		std::cout << "\r[100%] - File being transfered ( " << loop_number+1 << "/" << loop_number+1 << " )";
+		percentageDisplay( 100, file_name, file_size);
 
 		delete file_tail;
 

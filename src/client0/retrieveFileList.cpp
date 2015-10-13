@@ -1,6 +1,4 @@
-#include <iostream>
-#include <SFML/Network.hpp>
-#include "../common/commonfiles.hpp"
+#include "include/client0/retrieveFileList.hpp"
 
 
 bool retrieveFileList( sf::TcpSocket& server ){

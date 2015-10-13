@@ -1,8 +1,7 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <fstream>
-#include "clientfiles.hpp"
-#include "../common/commonfiles.hpp"
+#include "include/client0/userInputInterpret.hpp"
 
 bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {								//Connect the client to the server
 

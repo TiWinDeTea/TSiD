@@ -1,11 +1,4 @@
-#include <SFML/Network.hpp>
-#include <dirent.h>
-#include <iostream>
-#include "../common/commonfiles.hpp"
-
-#ifndef WIN32
-	#include <sys/types.h>
-#endif
+#include "include/listFiles.hpp"
 
 bool listFiles( sf::TcpSocket& client, sf::Packet& cpacket ){
 	

@@ -1,14 +1,9 @@
-#include <SFML/Network.hpp>
-#include <iostream>
-#include <fstream>
-#include "../common/commonfiles.hpp"
+#include "include/client0/download.hpp"
 
-bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file ){
+bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& filename ){
 
-	std::string filename;
 	std::cout << "File to download : ";
 	std::cin >> filename;
-
 	if( fileExist( filename ) ){
 		std::cout << "This file already exists ! Aborting." << std::endl;
 		return false;
@@ -49,9 +44,12 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 
 bool retrieveData( sf::TcpSocket& server ){
 
+	std::string filename;
 	sf::Packet spacket;
 	unsigned int filesize(0);
-	unsigned int bytes_per_packet; std::ofstream output_file; if( !startDownload( server, spacket, filesize, bytes_per_packet, output_file ) ){
+	unsigned int bytes_per_packet; std::ofstream output_file;
+	
+	if( !startDownload( server, spacket, filesize, bytes_per_packet, output_file, filename ) ){
 		std::cout << "Could not download" << std::endl;
 		return false;
 	}
@@ -59,12 +57,14 @@ bool retrieveData( sf::TcpSocket& server ){
 	unsigned int loop_number(filesize/bytes_per_packet);
 	char* input_data_array = new char[bytes_per_packet];
 	sf::Int8 input_data;
+	unsigned char percentage_count(0);
 
 	spacket << ClientReady;
 	server.send(spacket);
 	spacket.clear();
 
-	std::cout << "Download is starting" << std::endl << "\e[?25l";
+	std::cout << "Download is starting" << std::endl;
+	std::cout << filesize << std::endl;
 	for( unsigned int i(0) ; i<loop_number ; ++i){
 
 		server.receive( spacket );
@@ -77,7 +77,10 @@ bool retrieveData( sf::TcpSocket& server ){
 		output_file.write( input_data_array, bytes_per_packet );
 		spacket.clear();
 
-		std::cout << "\r[" << static_cast<short>(100*i/loop_number) << "%] - File being transfered ( " << i << "/" << loop_number+(filesize>0) << " )";
+		if( percentage_count < static_cast<unsigned char>(100*i/loop_number) ){
+			percentage_count = static_cast<unsigned char>(100*i/loop_number);
+			percentageDisplay( percentage_count, filename, filesize, i*bytes_per_packet);
+		}
 	}
 	
 	filesize -= loop_number * bytes_per_packet;
@@ -89,9 +92,9 @@ bool retrieveData( sf::TcpSocket& server ){
 			if(j%4==3)
 				output_file << static_cast<char>(input_data);
 		}
-		std::cout << "\r[100%] - File being transfered ( " << loop_number+1 << "/" << loop_number+1 << ")";
+		percentageDisplay( 100, filename, filesize, filesize );
 	} 
-	std::cout << std::endl << "Transfer terminated successfully" << std::endl << "\e[?25h";
+	std::cout << std::endl << "Transfer terminated successfully" << std::endl;
 	delete input_data_array;
 	return true;
 }

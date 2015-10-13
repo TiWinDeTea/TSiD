@@ -1,3 +1,6 @@
+#ifndef SCOMMAND_HPP_INCLUDED
+#define SCOMMAND_HPP_INCLUDED
+
 enum SCommand : signed char {
 	NotAuthorized = -127,
 	TooBig,
@@ -18,3 +21,5 @@ enum SCommand : signed char {
 	Ls,
 	Disconnect
 };
+
+#endif

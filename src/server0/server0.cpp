@@ -2,8 +2,10 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include "../common/commonfiles.hpp"
-#include "serverfiles.hpp"
+#include "include/common/SCommand.hpp"
+#include "include/server0/upload.hpp"
+#include "include/server0/download.hpp"
+#include "include/server0/listFiles.hpp"
 
 
 bool getClient( sf::TcpSocket& socket ){

@@ -1,7 +1,4 @@
-#include <SFML/Network.hpp>
-#include <iostream>
-#include <fstream>
-#include "../common/commonfiles.hpp"
+#include "include/download.hpp"
 
 bool retrieveData( sf::TcpSocket& client, sf::Packet& cpacket ){
 

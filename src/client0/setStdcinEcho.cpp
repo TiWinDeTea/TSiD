@@ -1,10 +1,4 @@
-#ifdef WIN32
-	#include <IntSafe.h>
-	#include <WinNT.h>
-#else
-	#include <termios.h>
-	#include <unistd.h>
-#endif
+#include "include/client0/setStdcinEcho.hpp"
 
 void setStdcinEcho(bool enable = true)
 {
