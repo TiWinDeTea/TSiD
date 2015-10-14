@@ -4,7 +4,7 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <fstream>
-#include "../common/SCommand.cpp"
+#include "../common/SCommand.hpp"
 #include "../common/fileExist.hpp"
 
 bool retrieveData( sf::TcpSocket& client, sf::Packet& cpacket );

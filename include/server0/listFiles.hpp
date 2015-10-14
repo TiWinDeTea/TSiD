@@ -4,7 +4,7 @@
 #include <SFML/Network.hpp>
 #include <dirent.h>
 #include <iostream>
-#include "../common/SCommand.cpp"
+#include "../common/SCommand.hpp"
 
 #ifndef WIN32
 	#include <sys/types.h>

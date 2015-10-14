@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include "../../include/common/SCommand.cpp"
+#include "../../include/common/SCommand.hpp"
 #include "../../include/server0/upload.hpp"
 #include "../../include/server0/download.hpp"
 #include "../../include/server0/listFiles.hpp"
