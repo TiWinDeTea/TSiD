@@ -1,31 +1,31 @@
+project(TSiD)
+
 cmake_minimum_required(VERSION 2.8.9)
 
-#project configuration
-project(TSiD)
-set(EXECUTABLE_OUTPUT_PATH build/)
+set(SERVER server0)
+set(CLIENT client0)
 
-#include SFML
-include_directories(D:/CloudStation/Programmation/C++/SFML-2.3.2-windows-gcc-4.8.1-tdm-32-bit/include)
-link_directories(D:/CloudStation/Programmation/C++/SFML-2.3.2-windows-gcc-4.8.1-tdm-32-bit/lib)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 
-#Génération de la liste des fichiers sources
-file(
-    GLOB_RECURSE
-    source_files
-    src/server0/*
-    src/common/*
+set(CMAKE_DISABLE_SOURCE_CHANGES ON)
 
-)
+set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 
-#executable declaration
-add_executable(
-    server0
-    ${source_files}
-)
+if( NOT CMAKE_BUILD_TYPE )
+	set(CMAKE_BUILD_TYPE "Release")
+endif()
 
-#Configuration of link edition
-target_link_libraries(
-    server0
-    sfml-system
-    sfml-network
-)
+include(CheckCXXSourceRuns)
+include(CheckIncludeFiles)
+
+include(cmake/config.cmake)
+
+find_package(SFML 2.3 REQUIRED system network)
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+	include(cmake/macros/gcc-settings.cmake)
+elseif(CMAKE_COMPILER MATCHES "clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+	include(cmake/macros/clang-settings.cmake)
+endif()
+
+add_subdirectory(src)

@@ -1,7 +1,7 @@
-#include "include/client0/setStdcinEcho.hpp"
+#include "../../include/client0/setStdcinEcho.hpp"
 
-void setStdcinEcho(bool enable = true)
-{
+void setStdcinEcho( bool enable ) {
+
 #ifdef WIN32
     HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE); 
     DWORD mode;

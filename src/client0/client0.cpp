@@ -1,7 +1,8 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <fstream>
-#include "include/client0/userInputInterpret.hpp"
+#include "../../include/client0/userInputInterpret.hpp"
+#include "../../include/client0/setStdcinEcho.hpp"
 
 bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {								//Connect the client to the server
 
@@ -15,7 +16,7 @@ bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {								//Connect 
 	setStdcinEcho( false );
 	std::cin.ignore();
 	std::getline(std::cin, user_pass);
-	setStdcinEcho();
+	setStdcinEcho( true );
 
 
 	std::cout << std::endl << "Remote address : ";

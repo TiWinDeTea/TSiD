@@ -1,4 +1,4 @@
-#include "include/client0/userInputInterpret"
+#include "../../include/client0/userInputInterpret.hpp"
 
 void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 

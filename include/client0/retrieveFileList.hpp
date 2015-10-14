@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <SFML/Network.hpp>
-#include "include/common/SCommand.hpp"
+#include "../common/SCommand.hpp"
 
 
 bool retrieveFileList( sf::TcpSocket& server );

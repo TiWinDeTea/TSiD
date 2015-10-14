@@ -5,6 +5,6 @@
 #include <iomanip>
 
 void approxDisplay( unsigned int numb );
-void percentageDisplay( unsigned char percentage, std::string filename, unsigned int filesize, unsigned int alreadygot=0 );
+void percentageDisplay( unsigned char percentage, std::string filename, unsigned int filesize, unsigned int alreadygot );
 
 #endif

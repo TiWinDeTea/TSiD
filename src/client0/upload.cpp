@@ -1,11 +1,11 @@
-#include "include/client0/upload.hpp"
+#include "../../include/client0/upload.hpp"
 
 unsigned int getFileLength( std::string const& filename ) {						//Retrieving file size in bytes
 
 	std::ifstream file( filename.c_str(), std::ios::binary | std::ios::in );
 	if( !file.fail() ){
 		file.seekg( 0, std::ios::end );
-		return file.tellg();
+		return static_cast<unsigned int>( file.tellg() );
 	}
 	return 0;
 }
@@ -58,7 +58,7 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 	unsigned char percentage_count(0);
 	spacket.clear();
 
-	std::cout << "Upload is starting" << std::endl << "\e[?25l";
+	std::cout << "Upload is starting" << std::endl;
 	for( unsigned int i(0) ; i<loop_number ; ++i ){					//Reading an sending the file
 
 		input_file.read( input_data_array, NB_BYTE_PER_PACKET);
@@ -67,7 +67,7 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 
 		if( server.send(spacket) == sf::Socket::Disconnected ){
 
-			std::cout << "Lost connection with server !" << std::endl << "\e[?25h";
+			std::cout << "Lost connection with server !" << std::endl;
 			return false;
 		}
 
@@ -94,13 +94,13 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 			return false;
 		}
 
-		percentageDisplay( 100, file_name, file_size);
+		percentageDisplay( 100, file_name, file_size, file_size );
 
 		delete file_tail;
 
 	}
 
-	std::cout << std::endl << "Transfer terminated successfully" << std::endl << "\e[?25h";
+	std::cout << std::endl << "Transfer terminated successfully" << std::endl;
 
 	return true;
 }

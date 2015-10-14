@@ -5,7 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include "percentageDisplay.hpp"
-#include "include/common/SCommand.hpp"
+#include "../common/SCommand.hpp"
+#include "serverAnsInterpret.hpp"
 
 #define NB_BYTE_PER_PACKET 8192
 

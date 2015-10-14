@@ -9,6 +9,6 @@
 	#include <unistd.h>
 #endif
 
-void setStdcinEcho(bool enable = true);
+void setStdcinEcho(bool enable);
 
 #endif

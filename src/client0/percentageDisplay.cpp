@@ -1,4 +1,4 @@
-#include "include/client0/percentageDisplay.hpp"
+#include "../../include/client0/percentageDisplay.hpp"
 
 void approxDisplay( unsigned int numb ){
 
@@ -17,10 +17,7 @@ void approxDisplay( unsigned int numb ){
 	std::cout << std::showpoint;
 }
 
-void percentageDisplay( unsigned char percentage, std::string filename, unsigned int filesize, unsigned int alreadygot=0 ){
-
-	if( alreadygot == 0)
-		alreadygot=filesize;
+void percentageDisplay( unsigned char percentage, std::string filename, unsigned int filesize, unsigned int alreadygot ){
 
 	std::cout << std::flush << ' ' << filename << "  -  ";
 	approxDisplay( filesize );

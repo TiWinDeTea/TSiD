@@ -1,4 +1,4 @@
-#include "include/client0/download.hpp"
+#include "../../include/client0/download.hpp"
 
 bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& filename ){
 

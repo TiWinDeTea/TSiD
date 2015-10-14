@@ -1,4 +1,4 @@
-#include "include/client0/serverAnsInterpret.hpp"
+#include "../../include/client0/serverAnsInterpret.hpp"
 
 bool interpretServerAns( signed char sanswer){								//Sends message to console telling the problem // success
 	
