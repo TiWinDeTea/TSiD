@@ -6,6 +6,7 @@ set(SERVER_SRC
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/server0.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/upload.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/fileExist.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/common/getFileLength.cpp
 )
 
 message("	-> Prepared : Server sources")
@@ -20,6 +21,7 @@ set(CLIENT_SRC
 	${CMAKE_CURRENT_SOURCE_DIR}/client0/upload.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/client0/userInputInterpret.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/fileExist.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/common/getFileLength.cpp
 )
 
 message("	-> Prepared : Client sources")

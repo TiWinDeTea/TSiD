@@ -5,13 +5,12 @@
 #include <iostream>
 #include <fstream>
 #include "percentageDisplay.hpp"
-#include "../common/SCommand.hpp"
 #include "serverAnsInterpret.hpp"
+#include "../common/SCommand.hpp"
+#include "../common/getFileLength.hpp"
 
 #define NB_BYTE_PER_PACKET 8192
 
-
-unsigned int getFileLength( std::string const& filename );
 bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string filename );
 bool sendData( sf::TcpSocket& server );
 

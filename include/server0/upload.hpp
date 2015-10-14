@@ -6,10 +6,10 @@
 #include <fstream>
 #include "../common/SCommand.hpp"
 #include "../common/fileExist.hpp"
+#include "../common/getFileLength.hpp"
 
 #define NB_BYTE_PER_PACKET 8192
 
-unsigned int getFileLength( std::string const& filename );
 bool sendData( sf::TcpSocket& client, sf::Packet cpacket);
 
 #endif
