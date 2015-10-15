@@ -1,8 +1,8 @@
 #ifndef SETSTDCINECHO_HPP_INCLUDED
 #define SETSTDCINECHO_HPP_INCLUDED
 
-#ifdef WIN32
-	#include <IntSafe.h>
+#ifdef _WIN32
+	#include <windows.h>
 	#include <WinNT.h>
 #else
 	#include <termios.h>
