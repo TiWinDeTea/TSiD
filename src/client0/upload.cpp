@@ -3,8 +3,8 @@
 
 bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string filename ) {		//Starts an upload (opening file and telling the server its name and size)
 													//Also retrieves server's answer (upload accepted or denied)
-	std::cout << "File name : ";
-	std::cin >> filename;
+	std::cin.ignore();
+	std::getline( std::cin , filename);
 
 	file_size = getFileLength( filename ) ;
 	infile.open(filename.c_str(), std::ios::binary | std::ios::in);

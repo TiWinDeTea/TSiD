@@ -2,8 +2,8 @@
 
 bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& filename ){
 
-	std::cout << "File to download : ";
-	std::cin >> filename;
+	std::cin.ignore();
+	std::getline( std::cin, filename);
 	if( fileExist( filename ) ){
 		std::cout << "This file already exists ! Aborting." << std::endl;
 		return false;
