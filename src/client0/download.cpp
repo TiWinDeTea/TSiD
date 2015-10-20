@@ -1,8 +1,9 @@
 #include "../../include/client0/download.hpp"
 
-bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& filename ){
+bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& directory ){
 
 	std::cin.ignore();
+	std::string filename;
 	std::getline( std::cin, filename);
 	if( fileExist( filename ) ){
 		std::cout << "This file already exists ! Aborting." << std::endl;
@@ -12,7 +13,8 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 	int server_state;
 
 	spacket.clear();
-	spacket << Download << filename;
+	spacket << Download << (directory + filename);
+	directory = filename;
 	server.send( spacket );
 	spacket.clear();
 
@@ -42,9 +44,9 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 }
 
 
-bool retrieveData( sf::TcpSocket& server ){
+bool retrieveData( sf::TcpSocket& server, std::string current_directory ){
 
-	std::string filename;
+	std::string filename(current_directory);
 	sf::Packet spacket;
 	unsigned int filesize(0);
 	unsigned int bytes_per_packet; std::ofstream output_file;

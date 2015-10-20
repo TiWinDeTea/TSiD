@@ -1,13 +1,14 @@
 #include "../../include/client0/upload.hpp"
 
 
-bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string filename ) {		//Starts an upload (opening file and telling the server its name and size)
+bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string directory ) {		//Starts an upload (opening file and telling the server its name and size)
 													//Also retrieves server's answer (upload accepted or denied)
 	std::cin.ignore();
+	std::string filename;
 	std::getline( std::cin , filename);
 
 	file_size = getFileLength( filename ) ;
-	infile.open(filename.c_str(), std::ios::binary | std::ios::in);
+	infile.open( filename.c_str(), std::ios::binary | std::ios::in);
 
 	if( file_size == 0 || infile.fail() ) {
 
@@ -17,7 +18,7 @@ bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket&
 
 	sf::Packet packet;
 
-	packet << Upload << filename << file_size << NB_BYTE_PER_PACKET;
+	packet << Upload << (directory+filename) << file_size << NB_BYTE_PER_PACKET;
 	server.send(packet);
 	packet.clear();
 
@@ -33,13 +34,12 @@ bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket&
 }
 
 
-bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
+bool sendData( sf::TcpSocket& server, std::string current_directory ){									// Sends a file to the server
 
-	std::string file_name;
 	std::ifstream input_file;
 	unsigned int file_size;
 
-	if( !startUpload( input_file, file_size, server, file_name ) ){				//Preparing to upload
+	if( !startUpload( input_file, file_size, server, current_directory ) ){				//Preparing to upload
 
 		std::cout << "Could not send the file" << std::endl;
 		return false;
@@ -70,7 +70,7 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 		if( percentage_count < static_cast<unsigned char>(100*i/loop_number) ){
 
 			percentage_count = static_cast<unsigned char>(100*i/loop_number);
-			percentageDisplay( percentage_count, file_name, file_size, i*NB_BYTE_PER_PACKET );
+			percentageDisplay( percentage_count, "", file_size, i*NB_BYTE_PER_PACKET );
 		}
 	}
 
@@ -89,7 +89,7 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 			return false;
 		}
 
-		percentageDisplay( 100, file_name, file_size, file_size );
+		percentageDisplay( 100, "", file_size, file_size );
 
 		delete file_tail;
 

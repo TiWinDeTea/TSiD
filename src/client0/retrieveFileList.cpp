@@ -1,11 +1,11 @@
 #include "../../include/client0/retrieveFileList.hpp"
 
 
-bool retrieveFileList( sf::TcpSocket& server ){
+bool retrieveFileList( sf::TcpSocket& server, std::string current_directory ){
 
 	sf::Packet spacket;
 	
-	spacket << Ls;
+	spacket << Ls << current_directory;
 	server.send( spacket );
 	spacket.clear();
 

@@ -3,6 +3,7 @@
 void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 
 	std::string user_input;
+	std::string current_directory("/");
 
 	do{
 		std::cout << user_id << "@TSiD >";
@@ -19,17 +20,17 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 		}
 		else if( user_input == "put" ){
 
-			if( !sendData( server ) )
+			if( !sendData( server, current_directory ) )
 				std::cout << "Failed to upload data to server" << std::endl;
 		}
 		else if( user_input == "get" ){
 
-			if( !retrieveData( server ) )
+			if( !retrieveData( server, current_directory ) )
 				std::cout << "Failed to retrieve data from server" << std::endl;
 		}
 		else if( user_input == "ls" ){
 
-			if( !retrieveFileList( server ) )
+			if( !retrieveFileList( server, current_directory ) )
 				std::cout << "Failed to retrieve file list" << std::endl;
 		}
 		else if( user_input != "bye" && user_input != "exit" && user_input != "quit" ){

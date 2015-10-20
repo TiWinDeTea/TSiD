@@ -9,7 +9,7 @@
 #include "../common/fileExist.hpp"
 #include "serverAnsInterpret.hpp"
 
-bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& filename );
-bool retrieveData( sf::TcpSocket& server );
+bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& directory );
+bool retrieveData( sf::TcpSocket& server, std::string current_directory );
 
 #endif

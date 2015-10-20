@@ -11,7 +11,7 @@
 
 #define NB_BYTE_PER_PACKET 8192
 
-bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string filename );
-bool sendData( sf::TcpSocket& server );
+bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string directory );
+bool sendData( sf::TcpSocket& server, std::string current_directory );
 
 #endif

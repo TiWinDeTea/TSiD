@@ -6,6 +6,6 @@
 #include "../common/SCommand.hpp"
 
 
-bool retrieveFileList( sf::TcpSocket& server );
+bool retrieveFileList( sf::TcpSocket& server, std::string current_directory );
 
 #endif
