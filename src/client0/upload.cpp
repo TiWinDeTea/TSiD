@@ -1,4 +1,4 @@
-	#include "../../include/client0/upload.hpp"
+#include "../../include/client0/upload.hpp"
 
 
 bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string filename ) {		//Starts an upload (opening file and telling the server its name and size)
