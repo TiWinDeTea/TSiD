@@ -30,7 +30,7 @@ bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {								//Connect 
 		return false;
 	}
 
-	std::cout << "Successfully connected" << std::endl;
+	std::cout << "Connected to server" << std::endl;
 	return true;
 }
 
