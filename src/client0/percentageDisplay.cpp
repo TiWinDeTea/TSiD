@@ -6,11 +6,11 @@ void approxDisplay( unsigned int numb ){
 	std::cout << std::showpoint;
 
 	if( numb > 1024*1024 ){
-		
-		std::cout << std::setw( 6 ) << static_cast<double>( (10*numb)/(1024*1024) )/10 << " MiB";
+
+		std::cout << std::setw( 6 ) << static_cast<double>( (100*numb)/(1024*1024) )/100 << " MiB";
 	} else if( numb > 1024 ){
 
-		std::cout << std::setw( 6 ) << static_cast<double>( (10*numb)/1024 )/10 << " KiB";
+		std::cout << std::setw( 6 ) << static_cast<double>( (100*numb)/1024 )/100 << " KiB";
 	} else std::cout << std::setw( 6 ) << numb << " B";
 
 	std::setprecision( 6 );
@@ -30,7 +30,7 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 	for( unsigned char i(0) ; i < 50 ; ++i){
 
 		if( i >= static_cast<unsigned char>(percentage/2) ){
-			
+
 			if( !was_displayed ){
 				
 				was_displayed = true;
