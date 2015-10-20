@@ -20,7 +20,7 @@ Although there is no real concrete work done yet
 
 ## Requirements
 <br/>
-+ Platform : Linux, Windows, or Mac OSX
++ Platform : Linux, Windows, or Mac OSX (Mac OSX support is theoretical)
 + SFML ≥ 2.2
 + A compiler that supports c++11
 <br/>
