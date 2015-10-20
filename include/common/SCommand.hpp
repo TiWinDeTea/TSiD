@@ -19,7 +19,9 @@ enum SCommand : signed char {
 	Upload = 1,
 	Download,
 	Ls,
-	Disconnect
+	Disconnect,
+	Pwd,
+	Cd
 };
 
 #endif
