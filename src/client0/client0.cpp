@@ -3,6 +3,7 @@
 #include <fstream>
 #include "../../include/client0/userInputInterpret.hpp"
 #include "../../include/client0/setStdcinEcho.hpp"
+#include "../../include/client0/serverAnsInterpret.hpp"
 
 bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {								//Connect the client to the server
 
@@ -31,7 +32,17 @@ bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {								//Connect 
 	}
 
 	std::cout << "Connected to server" << std::endl;
-	return true;
+
+	sf::Packet user;
+	user << user_id << user_pass;
+	socket.send( user );
+	user.clear();
+
+	int id_state;
+	socket.receive( user );
+	user >> id_state;
+
+	return interpretServerAns( static_cast<char>(id_state) );
 }
 
 int main() {

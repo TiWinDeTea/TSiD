@@ -10,6 +10,7 @@ bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket&
 	infile.open(filename.c_str(), std::ios::binary | std::ios::in);
 
 	if( file_size == 0 || infile.fail() ) {
+
 		std::cout << "There was a problem reading the file" << std::endl;
 		return false;
 	}
@@ -24,6 +25,7 @@ bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket&
 
 	server.receive(packet);
 	if( packet.getDataSize() > sizeof( int ) || !(packet >> server_state) ){
+
 		std::cout << "There was an error retrieving server state" << std::endl;
 		return false;
 	}
@@ -38,6 +40,7 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 	unsigned int file_size;
 
 	if( !startUpload( input_file, file_size, server, file_name ) ){				//Preparing to upload
+
 		std::cout << "Could not send the file" << std::endl;
 		return false;
 	}
@@ -65,6 +68,7 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 
 
 		if( percentage_count < static_cast<unsigned char>(100*i/loop_number) ){
+
 			percentage_count = static_cast<unsigned char>(100*i/loop_number);
 			percentageDisplay( percentage_count, file_name, file_size, i*NB_BYTE_PER_PACKET );
 		}
@@ -79,6 +83,7 @@ bool sendData( sf::TcpSocket& server ){									// Sends a file to the server
 			spacket << file_tail[j];
 
 		if( server.send(spacket) == sf::Socket::Disconnected ){
+
 			std::cout << "Too bad. You almost done it but you were disconnected by server :(" << std::endl;
 			delete file_tail;
 			return false;

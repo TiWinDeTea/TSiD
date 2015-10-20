@@ -33,10 +33,9 @@ bool interpretServerAns( signed char sanswer){								//Sends message to console
 		return false;
 
 	case BadID:
-		std::cout << "Message from server : bad password or user name" << std::endl;
-		return false;
+		std::cout << 
 
-	case ServerReady:					//ServerReady or GoodID
+	case ServerReady:
 		std::cout << "Server ready" << std::endl;
 		return true;
 	
