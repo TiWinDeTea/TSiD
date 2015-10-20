@@ -20,7 +20,7 @@ You can get either the server or the client from the [git hub repo](https://gith
 ##Requirements
 <br/>
 Server and Client :
-+ Platform : Linux, Windows, Mac OSX
++ Platform : Linux, Windows, Mac OSX (MAC OSX support is theorical)
 + SFML ≥ 2.2
 + A compiler that supports c++11
 <br/>
