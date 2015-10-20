@@ -12,8 +12,8 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 
 			std::cout << "available commands :	help" << std::endl
 				<< "			ls" << std::endl
-				<< "			up" << std::endl
-				<< "			down" << std::endl
+				<< "			put" << std::endl
+				<< "			get" << std::endl
 				<< "			bye / quit / exit" << std::endl
 				<< std::endl;
 		}
