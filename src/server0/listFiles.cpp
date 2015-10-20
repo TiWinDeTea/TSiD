@@ -14,7 +14,7 @@ bool listFiles( sf::TcpSocket& client, sf::Packet& cpacket ){
 		cpacket << ServerFailure;
 		client.send( cpacket );
 		return false;
-	}
+	}//else
 	
 	cpacket << ServerReady;
 	client.send( cpacket );

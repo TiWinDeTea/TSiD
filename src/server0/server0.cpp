@@ -33,6 +33,40 @@ bool getClient( sf::TcpSocket& socket ){
 	return true;
 }
 
+bool connectUser(sf::TcpSocket& client, sf::Packet& cpacket, std::string& client_id){
+	
+	std::string client_pass, client_real_pass;
+	client.receive(cpacket);
+	cpacket >> client_id >> client_pass;
+	cpacket.clear();
+
+	std::ifstream user_file( ("UsersData/" + client_id).c_str(), std::ios::in );
+
+	if( user_file.fail() ){
+
+		cpacket << BadID;
+		client.send( cpacket );
+		cpacket.clear();
+		return false;
+
+	}//else
+	
+	std::getline( user_file, client_real_pass );
+
+	if( client_real_pass == client_pass ){
+
+		cpacket << GoodID;
+		client.send( cpacket );
+		cpacket.clear();
+		return true;
+	}//else
+
+	cpacket << BadID;
+	client.send( cpacket );
+	cpacket.clear();
+	return false;
+}
+
 
 int main(){
 
@@ -45,6 +79,14 @@ int main(){
 	}
 
 	sf::Packet cpacket;
+	std::string client_id;
+	if ( !connectUser( client, cpacket, client_id ) ){
+
+		std::cout << client_id << " tried to connect (IP: " << client.getRemoteAddress() << ")" << std::endl;
+		client.disconnect();
+		return 2;
+	}
+
 	int client_command;
 	do{
 		client_command = 0;
