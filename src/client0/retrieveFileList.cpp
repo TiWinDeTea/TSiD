@@ -5,7 +5,7 @@ bool retrieveFileList( sf::TcpSocket& server, std::string current_directory ){
 
 	sf::Packet spacket;
 	
-	spacket << Ls << current_directory;
+	spacket << current_directory << Ls;
 	server.send( spacket );
 	spacket.clear();
 

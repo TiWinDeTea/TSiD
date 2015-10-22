@@ -13,7 +13,7 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 	int server_state;
 
 	spacket.clear();
-	spacket << Download << (directory + filename);
+	spacket << (directory + filename) << Download;
 	directory = filename;
 	server.send( spacket );
 	spacket.clear();

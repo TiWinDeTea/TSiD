@@ -6,7 +6,7 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 	std::string current_directory("/");
 
 	do{
-		std::cout << user_id << "@TSiD >";
+		std::cout << user_id << "@TSiD " << current_directory << " $ ";
 		std::cin >> user_input;
 
 		if( user_input == "help"){
