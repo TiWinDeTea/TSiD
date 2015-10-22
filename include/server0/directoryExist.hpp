@@ -1,9 +1,8 @@
-#ifndef LISTFILES_HPP_INCLUDED
-#define LISTFILES_HPP_INCLUDED
+#ifndef DIRECTORYEXIST_HPP_INCLUDED
+#define DIRECTORYEXIST_HPP_INCLUDED
 
 #include <SFML/Network.hpp>
 #include <dirent.h>
-#include <iostream>
 #include "../common/SCommand.hpp"
 #include "Client.hpp"
 
@@ -11,6 +10,6 @@
 	#include <sys/types.h>
 #endif
 
-bool listFiles( Client& client );
+void directoryExist(Client& client);
 
 #endif

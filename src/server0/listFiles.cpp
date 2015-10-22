@@ -4,14 +4,14 @@ bool listFiles(Client& client){
 	
 	//checking allowance and sending what's up about this
 	
-	DIR* directory = opendir(".");
+	DIR* directory = opendir(client.path.c_str());
 	struct dirent* redfile = NULL;
 	client.packet.clear();
 
 	if( directory == NULL ){
 
 		std::cout << "Could not open current directory" << std::endl;
-		client.packet << ServerFailure;
+		client.packet << VoidDirectory;
 		client.socket.send( client.packet );
 		return false;
 	}//else

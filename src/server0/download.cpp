@@ -2,11 +2,10 @@
 
 bool retrieveData(Client& client){
 
-	std::string filename;
 	unsigned int filesize;
 	unsigned int bytes_per_packet;
 
-	if( !(client.packet >> filename >> filesize >> bytes_per_packet) ){
+	if( !(client.packet >> filesize >> bytes_per_packet) ){
 		std::cout << "There was an error reading file infos." << std::endl;
 		client.packet.clear();
 		client.packet << UnknownIssue;
@@ -16,17 +15,17 @@ bool retrieveData(Client& client){
 
 	client.packet.clear();
 
-	if( fileExist( filename ) ){
+	if( fileExist( client.path ) ){
 		std::cout << "This file already exists ! Aborting." << std::endl;
 		client.packet << AlreadyExist;
 		client.socket.send(client.packet);
 		return false;
 	}
 
-	std::ofstream output_file ( filename.c_str(), std::ios::binary | std::ios::out );
+	std::ofstream output_file ( client.path.c_str(), std::ios::binary | std::ios::out );
 
 	if( output_file.fail() ){
-		std::cout << "Couldn't create file " << filename << "." << std::endl;
+		std::cout << "Couldn't create file " << client.path << std::endl;
 		client.packet << ServerFailure;
 		client.socket.send(client.packet);
 		return false;
@@ -41,7 +40,7 @@ bool retrieveData(Client& client){
 	client.socket.send(client.packet);
 	client.packet.clear();
 
-	std::cout << "Download is starting (filename : " << filename << ")" << std::endl;
+	std::cout << "Download is starting (filename : " << client.path << ")" << std::endl;
 	for( unsigned int i(0) ; i<loop_number ; ++i){
 
 		client.socket.receive( client.packet );

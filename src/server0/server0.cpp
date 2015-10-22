@@ -9,66 +9,77 @@
 #include "../../include/server0/download.hpp"
 #include "../../include/server0/listFiles.hpp"
 #include "../../include/server0/Client.hpp"
+#include "../../include/server0/formatDirectoryPath.hpp"
+#include "../../include/server0/directoryExist.hpp"
 
 
 int clientLoop(Client* client){
 
     int client_command;
+    sf::Socket::Status client_status;
     do{
         client_command = 0;
         client->packet.clear();
-        client->socket.receive( client->packet );
+        client_status = client->socket.receive( client->packet );
+        client->packet >> client->path;
+
+        formatDirectoryPath(*client);
+
         client->packet >> client_command;
 
         switch( static_cast<char>(client_command) ){
 
             case Upload :
 
-                std::cout << "Client sent an upload request" << std::endl;
+                std::cout << client->name() << " sent an upload request" << std::endl;
                 if( !retrieveData( *client ) ){
-                    std::cout << "Failed to retrieve client data" << std::endl;
+                    std::cout << "Failed to retrieve " << client->name() << " data" << std::endl;
                 }
                 else{
-                    std::cout << "Client data retrieved successfully" << std::endl;
+                    std::cout << client->name() << " data retrieved successfully" << std::endl;
                 }
                 break;
 
             case Download :
 
-                std::cout << "Client sent a download request" << std::endl;
+                std::cout << client->name() << " sent a download request" << std::endl;
                 if( !sendData( *client ) ){
-                    std::cout << "Failed to send datas to client" << std::endl;
+                    std::cout << "Failed to send datas to " << client->name() << std::endl;
                 }
                 else{
-                    std::cout << "Datas sent to client successfully" << std::endl;
+                    std::cout << "Datas sent to " << client->name() << " successfully" << std::endl;
                 }
                 break;
 
             case Ls :
 
-                std::cout << "Listing files for client" << std::endl;
+                std::cout << "Listing files for " << client->name() << std::endl;
                 if( !listFiles( *client ) ){
-                    std::cout << "Failed to send ls result to client" << std::endl;
+                    std::cout << "Failed to send ls result to " << client->name() << std::endl;
                 }
                 else{
-                    std::cout << "Successfully listed files to client" << std::endl;
+                    std::cout << "Successfully listed files to " << client->name() << std::endl;
                 }
                 break;
 
             case Disconnect :
 
-                std::cout << "Client disconnected" << std::endl;
+                std::cout << client->name() << " disconnected" << std::endl;
+                break;
+
+            case Exist :
+
+                directoryExist(*client);
                 break;
 
             default:
-                std::cout << "Client sent an invalid command" << std::endl;
+                std::cout << client->name() << " sent an invalid command" << std::endl;
                 client->packet.clear();
                 client->packet << UnknownIssue ;
                 client->socket.send( client->packet );
-                return 2;
 
         }
-    }while( static_cast<char>(client_command) != Disconnect );
+    }while( static_cast<char>(client_command) != Disconnect && client_status != sf::Socket::Status::Disconnected );
     client->disconnect();
     return 0;
 }

@@ -2,27 +2,16 @@
 
 bool sendData(Client& client){									// Sends a file to the client
 
-	std::string filename;
-	
-	if( !(client.packet >> filename) ){
-		std::cout << "Could not read packet" << std::endl;
-		client.packet.clear();
-		client.packet << UnknownIssue << 0 << 0;
-		client.socket.send( client.packet );
-		return false;
-	}
-	client.packet.clear();
-
 	//here : authorized or forbidden
 	
-	if( !fileExist( filename ) ){
+	if( !fileExist( client.path ) ){
 		std::cout << "Requested file does not exist" << std::endl;
 		client.packet << VoidFileName << 0 << 0;
 		client.socket.send( client.packet );
 		return false;
 	}
 
-	unsigned int file_size(getFileLength( filename ));
+	unsigned int file_size(getFileLength( client.path ));
 
 	if( file_size == 0 ){
 		std::cout << "Could not read file size" << std::endl;
@@ -35,7 +24,7 @@ bool sendData(Client& client){									// Sends a file to the client
 	client.socket.send( client.packet );
 	client.packet.clear();
 
-	std::ifstream input_file( filename.c_str(), std::ios::binary | std::ios::in );
+	std::ifstream input_file( client.path.c_str(), std::ios::binary | std::ios::in );
 	
 	int client_state;
 	client.socket.receive( client.packet );
@@ -52,7 +41,7 @@ bool sendData(Client& client){									// Sends a file to the client
 	char input_data_array[NB_BYTE_PER_PACKET];
 	unsigned char percentage_count(0);
 
-	std::cout << "Uploading " << filename << " to client" << std::endl;
+	std::cout << "Uploading " << client.path << " to client" << std::endl;
 	for( unsigned int i(0) ; i<loop_number ; ++i ){					//Reading an sending the file
 
 		input_file.read( input_data_array, NB_BYTE_PER_PACKET);

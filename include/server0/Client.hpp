@@ -19,6 +19,7 @@ class Client {
     // dirty little code
     sf::Packet packet;
     sf::TcpSocket socket;
+    std::string path;
 
  private:
 

@@ -6,6 +6,7 @@ enum SCommand : signed char {
 	TooBig,
 	AlreadyExist,
 	VoidFileName,
+	VoidDirectory,
 	FileDoesNotExist,
 	ServerFailure,
 	UnknownIssue,
@@ -23,7 +24,8 @@ enum SCommand : signed char {
 	Ls,
 	Disconnect,
 	Pwd,
-	Cd
+	Cd,
+	Exist
 };
 
 #endif
