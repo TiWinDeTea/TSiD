@@ -2,12 +2,12 @@
 
 bool moveToDirectory( sf::TcpSocket& server, std::string& current_directory ){
 
-	std::string forward_directory, previous_directory(current_directory);
-	std::getline( std::cin, forward_directory );
+	std::string forward_directory(""), previous_directory(current_directory);
+	std::cin >> forward_directory;
 
 	if( forward_directory.compare(0,1,"/") )
-		current_directory += forward_directory;
-	else current_directory = forward_directory;
+		current_directory += forward_directory + "/";
+	else current_directory = forward_directory + "/";
 
 	sf::Packet spacket;
 	spacket << current_directory << Exist;

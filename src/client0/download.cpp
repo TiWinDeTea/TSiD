@@ -38,7 +38,6 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 		return false;
 	}
 
-
 	return interpretServerAns( static_cast<char>(server_state) );
 	
 }
