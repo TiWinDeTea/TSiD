@@ -42,7 +42,8 @@ int clientLoop(Client* client){
 
             case Download :
 
-                std::cout << client->name() << " sent a download request" << std::endl;
+                std::cout << client->name() << " sent a download request for "
+                        << client->path << std::endl;
                 if( !sendData( *client ) ){
                     std::cout << "Failed to send datas to " << client->name() << std::endl;
                 }

@@ -3,13 +3,15 @@
 bool sendData(Client& client){									// Sends a file to the client
 
 	//here : authorized or forbidden
-	
+	client.packet.clear();
+
 	if( !fileExist( client.path ) ){
 		std::cout << "Requested file does not exist" << std::endl;
 		client.packet << VoidFileName << 0 << 0;
 		client.socket.send( client.packet );
 		return false;
 	}
+	std::cout << "\t-The file exist" << std::endl;
 
 	unsigned int file_size(getFileLength( client.path ));
 
@@ -19,13 +21,12 @@ bool sendData(Client& client){									// Sends a file to the client
 		client.socket.send( client.packet );
 		return false;
 	}
-	
+	std::cout << "\t-File size: " << file_size << " o" << std::endl;
+
 	client.packet << ServerReady << file_size << NB_BYTE_PER_PACKET;
 	client.socket.send( client.packet );
 	client.packet.clear();
 
-	std::ifstream input_file( client.path.c_str(), std::ios::binary | std::ios::in );
-	
 	int client_state;
 	client.socket.receive( client.packet );
 	client.packet >> client_state;
@@ -36,6 +37,8 @@ bool sendData(Client& client){									// Sends a file to the client
 		return false;
 	}
 
+	std::ifstream input_file( client.path.c_str(), std::ios::binary | std::ios::in );
+	
 
 	unsigned int loop_number=file_size/NB_BYTE_PER_PACKET;
 	char input_data_array[NB_BYTE_PER_PACKET];
