@@ -40,6 +40,14 @@ bool interpretServerAns( signed char sanswer){								//Sends message to console
 		std::cout << "Server ready" << std::endl;
 		return true;
 	
+	case Exist:
+		std::cout << "This directory exist" << std::endl;
+		return true;
+	
+	case VoidDirectory:
+		std::cout << "Message from server : void directory" << std::endl;
+		return false;
+	
 	default:
 		std::cout << "Unexpected answer from server" << std::endl;
 		return false;

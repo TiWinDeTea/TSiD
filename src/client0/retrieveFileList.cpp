@@ -1,6 +1,5 @@
 #include "../../include/client0/retrieveFileList.hpp"
 
-
 bool retrieveFileList( sf::TcpSocket& server, std::string current_directory ){
 
 	sf::Packet spacket;
@@ -21,19 +20,31 @@ bool retrieveFileList( sf::TcpSocket& server, std::string current_directory ){
 		return false;
 	}
 
+
+	std::vector<std::wstring> directory_array;
+
 	do{
 		server.receive( spacket );
 		
+		directory_array.push_back( std::wstring(L"") );
 		spacket >> filename_length;
+
 		for( unsigned int i(0) ; i < filename_length ; ++i ){
 
 			spacket >> file;
-			std::wcout << static_cast<wchar_t>( file );
+			directory_array.back() += static_cast<wchar_t>( file );
 		}
-		std::cout << std::endl;
 		spacket.clear();
 
 	}while( filename_length != 0 );
+
+	std::sort( directory_array.begin(), directory_array.end() );
+	std::cout << std::endl;
+
+	for( unsigned int i(3) ; i < directory_array.size() ; ++i )
+		std::wcout << directory_array[i] << std::endl;
+
+	std::cout << std::endl;
 
 	return true;
 }

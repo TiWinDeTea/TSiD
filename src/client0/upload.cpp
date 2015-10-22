@@ -18,7 +18,7 @@ bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket&
 
 	sf::Packet packet;
 
-	packet << Upload << (directory+filename) << file_size << NB_BYTE_PER_PACKET;
+	packet << (directory+filename) << Upload << file_size << NB_BYTE_PER_PACKET;
 	server.send(packet);
 	packet.clear();
 

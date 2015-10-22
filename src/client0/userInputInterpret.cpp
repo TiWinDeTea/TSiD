@@ -33,6 +33,11 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 			if( !retrieveFileList( server, current_directory ) )
 				std::cout << "Failed to retrieve file list" << std::endl;
 		}
+		else if( user_input == "cd" ){
+
+			if( !moveToDirectory( server, current_directory ) )
+				std::cout << "Failed to move" << std::endl;
+		}
 		else if( user_input != "bye" && user_input != "exit" && user_input != "quit" ){
 
 			std::cout << "Unknown command. Type 'help' for a list of available commands" << std::endl << std::endl;

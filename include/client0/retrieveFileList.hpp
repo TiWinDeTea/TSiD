@@ -2,6 +2,9 @@
 #define RETRIEVEFILELIST_HPP_INCLUDED
 
 #include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
 #include <SFML/Network.hpp>
 #include "../common/SCommand.hpp"
 
