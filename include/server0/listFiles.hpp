@@ -10,6 +10,7 @@
 	#include <sys/types.h>
 #endif
 
-bool listFiles( sf::TcpSocket& client, sf::Packet& cpacket );
+#include "../../include/server0/Client.hpp"
+bool listFiles( Client& client );
 
 #endif

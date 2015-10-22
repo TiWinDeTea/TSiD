@@ -10,6 +10,7 @@
 
 #define NB_BYTE_PER_PACKET 8192
 
-bool sendData( sf::TcpSocket& client, sf::Packet cpacket);
+#include "../../include/server0/Client.hpp"
+bool sendData( Client& client );
 
 #endif

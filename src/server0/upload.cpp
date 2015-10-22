@@ -1,24 +1,24 @@
 #include "../../include/server0/upload.hpp"
 
-bool sendData( sf::TcpSocket& client, sf::Packet cpacket){									// Sends a file to the client
+bool sendData(Client& client){									// Sends a file to the client
 
 	std::string filename;
 	
-	if( !(cpacket >> filename) ){
+	if( !(client.packet >> filename) ){
 		std::cout << "Could not read packet" << std::endl;
-		cpacket.clear();
-		cpacket << UnknownIssue << 0 << 0;
-		client.send( cpacket );
+		client.packet.clear();
+		client.packet << UnknownIssue << 0 << 0;
+		client.socket.send( client.packet );
 		return false;
 	}
-	cpacket.clear();
+	client.packet.clear();
 
 	//here : authorized or forbidden
 	
 	if( !fileExist( filename ) ){
 		std::cout << "Requested file does not exist" << std::endl;
-		cpacket << VoidFileName << 0 << 0;
-		client.send( cpacket );
+		client.packet << VoidFileName << 0 << 0;
+		client.socket.send( client.packet );
 		return false;
 	}
 
@@ -26,21 +26,21 @@ bool sendData( sf::TcpSocket& client, sf::Packet cpacket){									// Sends a fi
 
 	if( file_size == 0 ){
 		std::cout << "Could not read file size" << std::endl;
-		cpacket << ServerFailure << 0 << 0;
-		client.send( cpacket );
+		client.packet << ServerFailure << 0 << 0;
+		client.socket.send( client.packet );
 		return false;
 	}
 	
-	cpacket << ServerReady << file_size << NB_BYTE_PER_PACKET;
-	client.send( cpacket );
-	cpacket.clear();
+	client.packet << ServerReady << file_size << NB_BYTE_PER_PACKET;
+	client.socket.send( client.packet );
+	client.packet.clear();
 
 	std::ifstream input_file( filename.c_str(), std::ios::binary | std::ios::in );
 	
 	int client_state;
-	client.receive( cpacket );
-	cpacket >> client_state;
-	cpacket.clear();
+	client.socket.receive( client.packet );
+	client.packet >> client_state;
+	client.packet.clear();
 
 	if( static_cast<char>( client_state ) != ClientReady ){
 		std::cout << "Aborted by client" << std::endl;
@@ -57,14 +57,14 @@ bool sendData( sf::TcpSocket& client, sf::Packet cpacket){									// Sends a fi
 
 		input_file.read( input_data_array, NB_BYTE_PER_PACKET);
 		for( unsigned int j(0) ; j<NB_BYTE_PER_PACKET ; ++j)
-			cpacket << static_cast<sf::Int8>(input_data_array[j]);
+			client.packet << static_cast<sf::Int8>(input_data_array[j]);
 
-		if( client.send(cpacket) == sf::Socket::Disconnected ){
+		if( client.socket.send(client.packet) == sf::Socket::Disconnected ){
 
 			std::cout << "Lost connection with client !" << std::endl;
 			return false;
 		}
-		cpacket.clear();
+		client.packet.clear();
 
 		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
 			percentage_count = static_cast<unsigned char>(100*i/loop_number);
@@ -79,9 +79,9 @@ bool sendData( sf::TcpSocket& client, sf::Packet cpacket){									// Sends a fi
 		char* file_tail = new char[file_size];
 		input_file.read( file_tail, file_size);
 		for( unsigned int j(0) ; j< file_size ; ++j)
-			cpacket << file_tail[j];
+			client.packet << file_tail[j];
 
-		if( client.send(cpacket) == sf::Socket::Disconnected ){
+		if( client.socket.send(client.packet) == sf::Socket::Disconnected ){
 			std::cout << "Disconnected" << std::endl;
 			delete file_tail;
 			return false;

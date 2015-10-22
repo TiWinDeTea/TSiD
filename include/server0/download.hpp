@@ -7,6 +7,7 @@
 #include "../common/SCommand.hpp"
 #include "../common/fileExist.hpp"
 
-bool retrieveData( sf::TcpSocket& client, sf::Packet& cpacket );
+#include "../../include/server0/Client.hpp"
+bool retrieveData( Client& client );
 
 #endif

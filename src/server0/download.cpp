@@ -1,25 +1,25 @@
 #include "../../include/server0/download.hpp"
 
-bool retrieveData( sf::TcpSocket& client, sf::Packet& cpacket ){
+bool retrieveData(Client& client){
 
 	std::string filename;
 	unsigned int filesize;
 	unsigned int bytes_per_packet;
 
-	if( !(cpacket >> filename >> filesize >> bytes_per_packet) ){
+	if( !(client.packet >> filename >> filesize >> bytes_per_packet) ){
 		std::cout << "There was an error reading file infos." << std::endl;
-		cpacket.clear();
-		cpacket << UnknownIssue;
-		client.send(cpacket);
+		client.packet.clear();
+		client.packet << UnknownIssue;
+		client.socket.send(client.packet);
 		return false;
 	}
 
-	cpacket.clear();
+	client.packet.clear();
 
 	if( fileExist( filename ) ){
 		std::cout << "This file already exists ! Aborting." << std::endl;
-		cpacket << AlreadyExist;
-		client.send(cpacket);
+		client.packet << AlreadyExist;
+		client.socket.send(client.packet);
 		return false;
 	}
 
@@ -27,8 +27,8 @@ bool retrieveData( sf::TcpSocket& client, sf::Packet& cpacket ){
 
 	if( output_file.fail() ){
 		std::cout << "Couldn't create file " << filename << "." << std::endl;
-		cpacket << ServerFailure;
-		client.send(cpacket);
+		client.packet << ServerFailure;
+		client.socket.send(client.packet);
 		return false;
 	}
 
@@ -37,22 +37,22 @@ bool retrieveData( sf::TcpSocket& client, sf::Packet& cpacket ){
 	sf::Int8 input_data;
 	unsigned char percentage_count(0);
 
-	cpacket << ServerReady;
-	client.send(cpacket);
-	cpacket.clear();
+	client.packet << ServerReady;
+	client.socket.send(client.packet);
+	client.packet.clear();
 
 	std::cout << "Download is starting (filename : " << filename << ")" << std::endl;
 	for( unsigned int i(0) ; i<loop_number ; ++i){
 
-		client.receive( cpacket );
+		client.socket.receive( client.packet );
 
 		for( unsigned int j(0) ; j<bytes_per_packet ; ++j ){
-			cpacket >> input_data;
+			client.packet >> input_data;
 			input_data_array[j]=static_cast<char>(input_data);
 		}
 
 		output_file.write( input_data_array, bytes_per_packet );
-		cpacket.clear();
+		client.packet.clear();
 
 		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
 			percentage_count = static_cast<unsigned char>(100*i/loop_number);
@@ -63,9 +63,9 @@ bool retrieveData( sf::TcpSocket& client, sf::Packet& cpacket ){
 	filesize -= loop_number * bytes_per_packet;
 	if( filesize > 0 ){
 
-		client.receive( cpacket );
-		for( unsigned int j(0) ; j < cpacket.getDataSize() ; ++j){
-			cpacket >> input_data;
+		client.socket.receive( client.packet );
+		for( unsigned int j(0) ; j < client.packet.getDataSize() ; ++j){
+			client.packet >> input_data;
 			if(j%4==3)
 				output_file << static_cast<char>(input_data);
 			//input_data_array[j] = static_cast<char>(input_data);
