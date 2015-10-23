@@ -39,7 +39,7 @@ What will go on when v0 will be finished ?
 + Client decides wether to download or upload files
 + Client has access to a small set of commands (ls, pwd, cd, bye/quit/exit)
 + Client has a restricted access to some of the downloadable files
-+ Server won't have multithread yet, wich means one client at the time
++ Server won't have multithread yet, wich means one client at the time (I lied)
 <br/>
 </ul>
 What's done yet ?
