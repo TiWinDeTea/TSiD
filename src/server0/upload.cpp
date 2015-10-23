@@ -6,9 +6,9 @@ bool sendData(Client& client){									// Sends a file to the client
 	client.packet.clear();
 
 	if( !fileExist( client.path ) ){
-		std::cout << "Requested file does not exist" << std::endl;
 		client.packet << VoidFileName << 0 << 0;
 		client.socket.send( client.packet );
+		std::cout << client.name() << " -> Requested file does not exist" << std::endl;
 		return false;
 	}
 	std::cout << "\t-The file exist" << std::endl;
@@ -16,15 +16,32 @@ bool sendData(Client& client){									// Sends a file to the client
 	unsigned int file_size(getFileLength( client.path ));
 
 	if( file_size == 0 ){
-		std::cout << "Could not read file size" << std::endl;
 		client.packet << ServerFailure << 0 << 0;
 		client.socket.send( client.packet );
+		std::cout << client.name() << " -> Could not read file size" << std::endl;
 		return false;
 	}
-	std::cout << "\t-File size: " << file_size << " o" << std::endl;
+
+	if(file_size < 1024 ){
+
+		std::cout << "\t-File size: " << file_size << " B" << std::endl;
+	}
+	else if(file_size < 1024 * 1024 ){
+
+		std::cout << "\t-File size: " << file_size/1024 << " KiB" << std::endl;
+	}
+	else if(file_size < 1024 * 1024 * 1024 ){
+
+		std::cout << "\t-File size: " << file_size/(1024 * 1024)<< " MiB" << std::endl;
+	}
+	else{
+
+		std::cout << "\t-File size: " << file_size/(1024 * 1024 * 1024)<< " GiB" << std::endl;
+	}
 
 	client.packet << ServerReady << file_size << NB_BYTE_PER_PACKET;
 	client.socket.send( client.packet );
+	std::cout << client.name() << " -> Server ready for upload" << std::endl;
 	client.packet.clear();
 
 	int client_state;
@@ -33,9 +50,10 @@ bool sendData(Client& client){									// Sends a file to the client
 	client.packet.clear();
 
 	if( static_cast<char>( client_state ) != ClientReady ){
-		std::cout << "Aborted by client" << std::endl;
+		std::cout << client.name() << " : Download aborted" << std::endl;
 		return false;
 	}
+	std::cout << client.name() << " : Client ready for download" << std::endl;
 
 	std::ifstream input_file( client.path.c_str(), std::ios::binary | std::ios::in );
 	
@@ -44,7 +62,7 @@ bool sendData(Client& client){									// Sends a file to the client
 	char input_data_array[NB_BYTE_PER_PACKET];
 	unsigned char percentage_count(0);
 
-	std::cout << "Uploading " << client.path << " to client" << std::endl;
+	std::cout << "* Start uploading " << client.path << " to " << client.name() << std::endl;
 	for( unsigned int i(0) ; i<loop_number ; ++i ){					//Reading an sending the file
 
 		input_file.read( input_data_array, NB_BYTE_PER_PACKET);
@@ -53,14 +71,14 @@ bool sendData(Client& client){									// Sends a file to the client
 
 		if( client.socket.send(client.packet) == sf::Socket::Disconnected ){
 
-			std::cout << "Lost connection with client !" << std::endl;
+			std::cout << client.name() << " : connection lost" << std::endl;
 			return false;
 		}
 		client.packet.clear();
 
 		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
-			percentage_count = static_cast<unsigned char>(100*i/loop_number);
-			std::cout << "[" << static_cast<short>(percentage_count) << "%] - File being transfered" << std::endl;	//Displaying upload percentage
+			std::cout << client.name() << " - [" << static_cast<short>(percentage_count) << "%] of upload" << std::endl;	//Displaying upload percentage
+			percentage_count += 25;
 		}
 
 	}
@@ -74,7 +92,7 @@ bool sendData(Client& client){									// Sends a file to the client
 			client.packet << file_tail[j];
 
 		if( client.socket.send(client.packet) == sf::Socket::Disconnected ){
-			std::cout << "Disconnected" << std::endl;
+			std::cout << client.name() << " - connection lost" << std::endl;
 			delete file_tail;
 			return false;
 		}
@@ -83,7 +101,7 @@ bool sendData(Client& client){									// Sends a file to the client
 
 	}
 
-	std::cout << "Transfer terminated successfully" << std::endl;
+	std::cout << client.name() << " - [100%] Transfer terminated successfully" << std::endl;	//Displaying upload percentage
 
 	return true;
 }

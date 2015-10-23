@@ -47,6 +47,12 @@
     \paragraph*{Application Programming Interface:\\}
     Une API ou ``interface de programmation'' est un ensemble de classes, méthodes et fonctions fournies par un logiciel pour la création d'autre logiciels.
 
+    \paragraph*{Thread:\\}
+    Un thread est une fonction qui s'execute en parallèle du reste du programme. 
+
+    \paragraph*{RaspBerry Pi:\\}
+    Le Raspberry Pi est un nano-ordinateur monocarte à processeur ARM, plus généralement c'est un ordinateur miniature qe la taille d'une carte de crédit principalement utilisé dans le milieu de l'apprentissage de la programmation informatique. Il permet l'exécution de différents systèmes d'exploitation, en particuler Raspbian, que nous utiliserons.
+
     \section{Ce que nous utiliseront}
 
     \paragraph*{Language de programmation\\}
@@ -97,14 +103,16 @@
             \item{} \lstinline$bool wait (Time timeout=Time::Zero)$\;: attend jusqu'a ce que un ou plusieurs socket soient pret
             \item{} \lstinline$bool isReady (Socket &socket)const$\;: teste un socket pour savoir si il est pret
         \end{itemize}
-        \item{} La Classe \lstinline$std::thread (#include <thread>)$
+        \item{} La Classe \lstinline$sf::Thread (#include <SFML/System.hpp>)$
         \begin{itemize}
-            \item{} multithreading standard
-            \item{} \lstinline$thread(public member function)$\;: créé un thread
-            \item{} \lstinline$void join()$\;: mets la fonction en pause jusqu'à ce que le thread se termi
-            \item{} \lstinline$void detach()$\;: délie le thread de la fonction l'ayant appelé. En particulier, permet de quitter la fonction appelante même si le thread n'est pas terminé. Après avoir appelé cette fonction, le thread ne peux plus joindre et la variable peut être détruite sans problème.
+            \item{} multithreading de SFML
+            \item{} \lstinline$Thread (void(C::*function)(), C *object)$\;: créé un thread qui execute une fonction avec des arguments
+            \item{} \lstinline$void launch ()$\;: Lance l'exécution de thread
         \end{itemize}
     \end{itemize}
+
+    \paragraph*{Github:\\}
+    GitHub est un service web d'hébergement et de gestion de développement de logiciels, utilisant le logiciel de gestion de versions Git. La page Github de notre projet se trouve ici:\\ \hyperref[]{https://github.com/Organic-Code/TSiD}.
 
     \section{Les fonctionalités}
 
