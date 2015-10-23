@@ -3,7 +3,7 @@
 
 #include "SFML/Network.hpp"
 #include "../common/SCommand.hpp"
-#include "../client0/serverAnsInterpret.hpp"
+#include "serverAnsInterpret.hpp"
 #include <iostream>
 #include <string>
 

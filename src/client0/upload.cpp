@@ -1,6 +1,5 @@
 #include "../../include/client0/upload.hpp"
 
-
 bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string directory ) {		//Starts an upload (opening file and telling the server its name and size)
 													//Also retrieves server's answer (upload accepted or denied)
 	std::cin.ignore();
@@ -8,7 +7,7 @@ bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket&
 	std::getline( std::cin , filename);
 
 	file_size = getFileLength( filename ) ;
-	infile.open( filename.c_str(), std::ios::binary | std::ios::in);
+	infile.open( formatPath(filename).c_str(), std::ios::binary | std::ios::in);
 
 	if( file_size == 0 || infile.fail() ) {
 
@@ -18,7 +17,7 @@ bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket&
 
 	sf::Packet packet;
 
-	packet << (directory+filename) << Upload << file_size << NB_BYTE_PER_PACKET;
+	packet << (directory+formatPath(filename)) << Upload << file_size << NB_BYTE_PER_PACKET;
 	server.send(packet);
 	packet.clear();
 

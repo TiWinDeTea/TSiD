@@ -5,7 +5,7 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 	std::cin.ignore();
 	std::string filename;
 	std::getline( std::cin, filename);
-	if( fileExist( filename ) ){
+	if( fileExist( formatPath(filename) ) ){
 		std::cout << "This file already exists ! Aborting." << std::endl;
 		return false;
 	}
@@ -30,7 +30,7 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 
 	spacket.clear();
 
-	output_file.open( filename.c_str(), std::ios::binary | std::ios::out );
+	output_file.open( formatPath(filename).c_str(), std::ios::binary | std::ios::out );
 	if( output_file.fail() ){
 		std::cout << "Couldn't read file " << filename << "." << std::endl;
 		spacket << ClientFailure;

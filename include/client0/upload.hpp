@@ -6,6 +6,7 @@
 #include <fstream>
 #include "percentageDisplay.hpp"
 #include "serverAnsInterpret.hpp"
+#include "formatPath.hpp"
 #include "../common/SCommand.hpp"
 #include "../common/getFileLength.hpp"
 

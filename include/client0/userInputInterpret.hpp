@@ -2,10 +2,10 @@
 #define USERINPUTINTERPRET_HPP_INCLUDED
 
 #include <iostream>
-#include "../client0/download.hpp"
-#include "../client0/retrieveFileList.hpp"
-#include "../client0/upload.hpp"
-#include "../client0/moveToDirectory.hpp"
+#include "download.hpp"
+#include "retrieveFileList.hpp"
+#include "upload.hpp"
+#include "moveToDirectory.hpp"
 
 void userInputInterpret( sf::TcpSocket& server, std::string user_id );
 
