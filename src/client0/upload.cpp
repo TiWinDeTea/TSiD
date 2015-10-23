@@ -52,6 +52,8 @@ bool sendData( sf::TcpSocket& server, std::string current_directory ){									/
 	spacket.clear();
 
 	std::cout << "Upload is starting" << std::endl;
+	percentageDisplay( 0, "", file_size, 0 );
+
 	for( unsigned int i(0) ; i<loop_number ; ++i ){					//Reading an sending the file
 
 		input_file.read( input_data_array, NB_BYTE_PER_PACKET);
@@ -89,7 +91,7 @@ bool sendData( sf::TcpSocket& server, std::string current_directory ){									/
 			return false;
 		}
 
-		percentageDisplay( 100, "", file_size, file_size );
+		percentageDisplay( 100, "", file_size + loop_number * NB_BYTE_PER_PACKET, file_size + loop_number * NB_BYTE_PER_PACKET );
 
 		delete file_tail;
 

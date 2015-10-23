@@ -5,13 +5,13 @@ void approxDisplay( unsigned int numb ){
 	std::setprecision( 2 );
 	std::cout << std::showpoint;
 
-	if( numb > 1024*1024 ){
+	if( numb >= (1024*1024) ){
 
-		std::cout << std::setw( 6 ) << static_cast<double>( (100*numb)/(1024*1024) )/100 << " MiB";
-	} else if( numb > 1024 ){
+		std::cout << std::setw( 4 ) << static_cast<double>(numb) / (1024*1024) << " MiB";
+	} else if( numb >= 1024 ){
 
-		std::cout << std::setw( 6 ) << static_cast<double>( (100*numb)/1024 )/100 << " KiB";
-	} else std::cout << std::setw( 6 ) << numb << " B";
+		std::cout << std::setw( 4 ) << static_cast<double>(numb) / 1024 << " KiB";
+	} else std::cout << std::setw( 4 ) << numb << " B";
 
 	std::setprecision( 6 );
 	std::cout << std::showpoint;

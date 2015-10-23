@@ -65,7 +65,8 @@ bool retrieveData( sf::TcpSocket& server, std::string current_directory ){
 	spacket.clear();
 
 	std::cout << "Download is starting" << std::endl;
-	std::cout << filesize << std::endl;
+	percentageDisplay( 100, filename, filesize, 0);
+
 	for( unsigned int i(0) ; i<loop_number ; ++i){
 
 		server.receive( spacket );
@@ -93,7 +94,7 @@ bool retrieveData( sf::TcpSocket& server, std::string current_directory ){
 			if(j%4==3)
 				output_file << static_cast<char>(input_data);
 		}
-		percentageDisplay( 100, filename, filesize, filesize );
+		percentageDisplay( 100, filename, filesize + loop_number * bytes_per_packet, filesize + loop_number * bytes_per_packet );
 	} 
 	std::cout << std::endl << "Transfer terminated successfully" << std::endl;
 	delete input_data_array;
