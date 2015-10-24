@@ -25,6 +25,7 @@ set(CLIENT_SRC
 	${CMAKE_CURRENT_SOURCE_DIR}/client0/userInputInterpret.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/client0/moveToDirectory.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/client0/formatPath.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/common/setColors.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/fileExist.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/getFileLength.cpp
 )

@@ -48,8 +48,6 @@ What is working right now ?
 <ul>
 + v0 works, so v1 already supports that
 </ul><br/>
-from now on, we will be using [Termcolor](http://termcolor.readthedocs.org/en/latest/)
-<br/>
 
 ##Contribute
 

@@ -39,19 +39,22 @@ bool retrieveFileList( sf::TcpSocket& server, std::string current_directory ){
 	}while( filename_length != 0 );
 
 	std::sort( directory_array.begin(), directory_array.end() );
-	std::cout << std::endl << termcolor::blue;
+	std::cout << std::endl;
+
+	setColors("blue"); //for folders
 
 	for( unsigned int i(3) ; i < directory_array.size() ; ++i )
 		if( directory_array[i][directory_array[i].size()-1] == '/' )
 			std::wcout << directory_array[i] << std::endl;
 
-	std::cout << termcolor::green;
+	setColors("green"); //for files
 
 	for( unsigned int i(3) ; i < directory_array.size() ; ++i )
 		if( directory_array[i][directory_array[i].size()-1] != '/' )
 			std::wcout << directory_array[i] << std::endl;
 
-	std::cout << termcolor::reset << std::endl;
+	std::cout << std::endl;
+	setColors("reset");
 
 	return true;
 }

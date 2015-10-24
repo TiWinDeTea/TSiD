@@ -3,7 +3,7 @@
 
 #include <string>
 
-std::string formatPath( const std::string& path );
+std::string formatPath( std::string const& path );
 void formatDir( std::string& dir_path );
 
 #endif

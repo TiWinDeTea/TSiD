@@ -1,6 +1,6 @@
 #include "../../include/client0/formatPath.hpp"
 
-std::string formatPath( const std::string& path){
+std::string formatPath( std::string const& path){
 
 	size_t pos( path.find_last_of('/') );
 

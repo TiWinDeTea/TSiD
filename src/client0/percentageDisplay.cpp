@@ -23,7 +23,8 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 	approxDisplay( filesize );
 	std::cout << "\t\t";
 	approxDisplay (alreadygot );
-	std::cout << termcolor::cyan << " ["; 
+	setColors("cyan");
+	std::cout << " ["; 
 
 	bool was_displayed(false);
 
@@ -34,9 +35,10 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 			if( !was_displayed ){
 				
 				was_displayed = true;
+				setColors("yellow");
 				if( i%2 == 0 )
-					std::cout << termcolor::yellow << 'c';
-				else std::cout << termcolor::yellow << 'C';
+					std::cout << 'c';
+				else std::cout << 'C';
 			}
 
 			switch( i%4 ){
@@ -46,7 +48,8 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 				break;
 
 			case 1:
-				std::cout << termcolor::cyan << 'o';
+				setColors("cyan");
+				std::cout << 'o';
 				break;
 
 			case 2:
@@ -54,16 +57,23 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 				break;
 
 			case 3:
-				std::cout << termcolor::cyan << 'O';
+				setColors("Cyan");
+				std::cout << 'O';
 				break;
 
 			default:;
 
 			}
 
-		} else std::cout << termcolor::cyan << '-';
+		} else {
+			
+			setColors("cyan");
+			std::cout << '-';
+		}
 
 	}
 
-	std::cout << termcolor::cyan << "]  \r" << termcolor::reset;
+	setColors("cyan");
+	std::cout << "]  \r";
+	setColors("reset");
 }

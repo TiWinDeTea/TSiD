@@ -4,6 +4,7 @@
 #include "../../include/client0/userInputInterpret.hpp"
 #include "../../include/client0/setStdcinEcho.hpp"
 #include "../../include/client0/serverAnsInterpret.hpp"
+#include "../../include/common/setColors.hpp"
 
 bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {								//Connect the client to the server
 
@@ -46,6 +47,8 @@ bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {								//Connect 
 }
 
 int main() {
+
+	setColors("reset");
 
 	sf::TcpSocket socket;
 	std::string user_id;
