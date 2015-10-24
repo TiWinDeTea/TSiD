@@ -3,19 +3,24 @@
 bool Client::getNewClient(unsigned short port){
 
     sf::TcpListener listener;
+    sf::SocketSelector selector;
 
     if( listener.listen( port ) != sf::Socket::Done ){
         return false;
     }
+    selector.add(listener);
 
-    std::cout << "Listening." << std::endl;
+    //std::cout << "* Listening for new clients" << std::endl;
 
-    if( listener.accept( socket ) != sf::Socket::Done ){
-
+    if( !selector.wait(sf::seconds(60)) ){
         return false;
     }
 
-    std::cout << "Client accepted" << std::endl;
+    if( listener.accept( socket ) != sf::Socket::Done ){
+        return false;
+    }
+
+    std::cout << "* Client found" << std::endl;
 
     packet.clear();
 
@@ -46,6 +51,8 @@ bool Client::connectUser() {
         packet << GoodID;
         socket.send( packet );
         packet.clear();
+        state = true;
+        std::cout << user_name << " - connected" << std::endl;
         return true;
     }//else
 
@@ -63,4 +70,9 @@ std::string Client::name() const{
 void Client::disconnect(){
 
     socket.disconnect();
+    state = false;
+}
+
+bool Client::isConnected(){
+    return state;
 }

@@ -10,15 +10,16 @@ bool listFiles(Client& client){
 
 	if( directory == NULL ){
 
-		std::cout << "Could not open current directory" << std::endl;
 		client.packet << VoidDirectory;
 		client.socket.send( client.packet );
+		std::cout << client.name() << " -> Could not open the directory" << std::endl;
 		return false;
 	}//else
 	
 	client.packet << ServerReady;
 	client.socket.send( client.packet );
 	client.packet.clear();
+	std::cout << client.name() << " -> Server ready to list" << std::endl;
 
 	while( (redfile = readdir( directory )) != NULL ){
 
@@ -38,6 +39,7 @@ bool listFiles(Client& client){
 	client.packet << 0 << EndOfStream;
 	client.socket.send( client.packet );
 	client.packet.clear(); 
+	std::cout << client.name() << " -> file listed" << std::endl;
 
 	return true;
 }

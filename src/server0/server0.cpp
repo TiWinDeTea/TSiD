@@ -13,7 +13,7 @@
 #include "../../include/server0/directoryExist.hpp"
 
 
-int clientLoop(Client* client){
+void clientLoop(Client* client){
 
     int client_command;
     sf::Socket::Status client_status;
@@ -31,58 +31,60 @@ int clientLoop(Client* client){
 
             case Upload :
 
-                std::cout << client->name() << " sent an upload request" << std::endl;
+                std::cout << client->name() << " : upload request" << std::endl;
                 if( !retrieveData( *client ) ){
-                    std::cout << "Failed to retrieve " << client->name() << " data" << std::endl;
+                    std::cout << client->name() << " - file download failed" << std::endl;
                 }
                 else{
-                    std::cout << client->name() << " data retrieved successfully" << std::endl;
+                    std::cout << client->name() << " - file downloaded successfully" << std::endl;
                 }
                 break;
 
             case Download :
 
-                std::cout << client->name() << " sent a download request for "
-                        << client->path << std::endl;
+                std::cout << client->name() << " : download request" << std::endl;
                 if( !sendData( *client ) ){
-                    std::cout << "Failed to send datas to " << client->name() << std::endl;
+                    std::cout << client->name() << " - file upload failed" << std::endl;
                 }
                 else{
-                    std::cout << "Datas sent to " << client->name() << " successfully" << std::endl;
+                    std::cout << client->name() << " - file uploaded successfully" << std::endl;
                 }
                 break;
 
             case Ls :
 
-                std::cout << "Listing files for " << client->name() << std::endl;
+                std::cout << client->name() << " : listing request" << std::endl;
                 if( !listFiles( *client ) ){
-                    std::cout << "Failed to send ls result to " << client->name() << std::endl;
+                    std::cout << client->name() << " - file listing failed" << std::endl;
                 }
                 else{
-                    std::cout << "Successfully listed files to " << client->name() << std::endl;
+                    std::cout << client->name() << " - file listed successfully" << std::endl;
                 }
                 break;
 
             case Disconnect :
 
-                std::cout << client->name() << " disconnected" << std::endl;
+                std::cout << client->name() << " : disconnection" << std::endl;
+                client_status = sf::Socket::Disconnected;
                 break;
 
             case Exist :
 
+                std::cout << client->name() << " : existing request" << std::endl;
                 directoryExist(*client);
                 break;
 
             default:
-                std::cout << client->name() << " sent an invalid command" << std::endl;
+                std::cout << client->name() << " : invalid command" << std::endl;
                 client->packet.clear();
                 client->packet << UnknownIssue ;
                 client->socket.send( client->packet );
+                std::cout << client->name() << " -> invalid command" << std::endl;
 
         }
-    }while( static_cast<char>(client_command) != Disconnect && client_status != sf::Socket::Status::Disconnected );
+    }while(client_status != sf::Socket::Status::Disconnected );
     client->disconnect();
-    return 0;
+    std::cout << client->name() << " - disconnected" << std::endl;
 }
 
 int main(){
@@ -107,5 +109,13 @@ int main(){
             delete client_array.back();
             client_array.pop_back();
         }
+        for(unsigned int i(0); i < client_array.size(); ++i) {
+            if (!client_array[i]->isConnected()){
+                std::cout << "* memory used by " << client_array[i]->name() << " freed" << std::endl;
+                thread_array.erase(thread_array.begin() + i);
+                client_array.erase(client_array.begin() + i);
+            }
+         }
+
     }
 }
