@@ -38,8 +38,12 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 		return false;
 	}
 
-	return interpretServerAns( static_cast<char>(server_state) );
-	
+	bool state_ok ( interpretServerAns( static_cast<char>(server_state) ) );
+
+	if( !state_ok )
+		remove( formatPath(filename).c_str() );
+
+	return state_ok;
 }
 
 

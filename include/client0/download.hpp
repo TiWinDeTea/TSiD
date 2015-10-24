@@ -4,6 +4,7 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
 #include "percentageDisplay.hpp"
 #include "../common/SCommand.hpp"
 #include "../common/fileExist.hpp"
