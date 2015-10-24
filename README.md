@@ -3,7 +3,11 @@ TSiD Project
 
 ##Introduction
 <br/>
-In this branch lies the v0 of TSiD Project
+TSiD Project is a community server meant to have its users as 'administrators'
+
+Current stable version : 0
+
+Version 1 under development
 <br/>
 
 ##Authors
