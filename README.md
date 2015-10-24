@@ -1,38 +1,45 @@
 TSiD Project
-==========
-<br/><br/>
+===========
+
 ##Introduction
 <br/>
-TSiD Project is a community server meant to have its users as 'administrators'
+In this branch lies the v0 of TSiD Project
 <br/>
 
-## Authors
+##Authors
 <br/>
-+ Maxime PINARD - main developer (server) – (maxime.pin@live.fr)
-+ Lucas LAZARE - main developer (client) – (lazarelucas@yahoo.fr)
++ Maxime PINARD - main developer (server) (maxime.pin@live.fr)
++ Lucas LAZARE - main developer (client) (lazarelucas@yahoo.fr)
+
+##Download
+<br/>
+You can get either the server or the client from the [git hub repo](https://github.com/Organic-Code/TSiD).
 <br/>
 
-## Download
+##Requirements
 <br/>
-You can get either the server or the client from the [git hub repo](https://github.com/Organic-Code/TSiD)
-Although there is no real concrete work done yet
-<br/>
-
-## Requirements
-<br/>
-+ Platform : Linux, Windows, or Mac OSX (Mac OSX support is theoretical)
+Server and Client :
++ Platform : Linux, Windows, Mac OSX (MAC OSX support is theorical)
 + SFML ≥ 2.2
 + A compiler that supports c++11
 <br/>
 
-## Copyright
+##Copyright
 <br/>
 License : MIT License
 
-[Read license](LICENSE) file
+[Read the license file](LICENSE)
 <br/>
 
-## Contribute
+##About v0
 <br/>
-Although it is likely that we would enjoy any help in the future, it is yet a school project, and, as such, contribution will not be of any help ATM.
+What works well on v0 ?
+
++ Client decides wether to download or upload files
++ Client has access to a small set of commands (ls, cd, bye/quit/exit, get, put)
++ Client has a restricted access to some of the downloadable files
 <br/>
+
+##Contribute
+
+No contributions are wanted on this version as this is a school project
