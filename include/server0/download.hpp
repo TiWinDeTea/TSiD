@@ -4,6 +4,7 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
 #include "../common/SCommand.hpp"
 #include "../common/fileExist.hpp"
 #include "Client.hpp"

@@ -89,7 +89,7 @@ bool sendData(Client& client){									// Sends a file to the client
 		char* file_tail = new char[file_size];
 		input_file.read( file_tail, file_size);
 		for( unsigned int j(0) ; j< file_size ; ++j)
-			client.packet << file_tail[j];
+			client.packet << static_cast<sf::Int8>(file_tail[j]);
 
 		if( client.socket.send(client.packet) == sf::Socket::Disconnected ){
 			std::cout << client.name() << " - connection lost" << std::endl;
