@@ -5,7 +5,7 @@ set(SERVER_SRC
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/listFiles.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/server0.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/upload.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/server0/Client.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/server0/client.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/formatDirectoryPath.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/directoryExist.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/fileExist.cpp

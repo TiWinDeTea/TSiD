@@ -81,7 +81,7 @@ bool sendData( sf::TcpSocket& server, std::string current_directory ){									/
 		char* file_tail = new char[file_size];
 		input_file.read( file_tail, file_size);
 		for( unsigned int j(0) ; j< file_size ; ++j)
-			spacket << file_tail[j];
+			spacket << static_cast<sf::Int8>(file_tail[j]);
 
 		if( server.send(spacket) == sf::Socket::Disconnected ){
 

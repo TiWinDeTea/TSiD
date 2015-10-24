@@ -91,8 +91,7 @@ bool retrieveData( sf::TcpSocket& server, std::string current_directory ){
 		server.receive( spacket );
 		for( unsigned int j(0) ; j < spacket.getDataSize() ; ++j){
 			spacket >> input_data;
-			if(j%4==3)
-				output_file << static_cast<char>(input_data);
+			output_file << static_cast<char>(input_data);
 		}
 		percentageDisplay( 100, filename, filesize + loop_number * bytes_per_packet, filesize + loop_number * bytes_per_packet );
 	} 

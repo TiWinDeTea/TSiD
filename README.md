@@ -3,11 +3,7 @@ TSiD Project
 
 ##Introduction
 <br/>
-TSiD Project is a community server meant to have its users as 'administrators'
-
-Current stable version : 0
-
-Version 1 under development
+In this branch lies the v1 of TSiD Project
 <br/>
 
 ##Authors
@@ -35,15 +31,25 @@ License : MIT License
 [Read the license file](LICENSE)
 <br/>
 
-##About v0
+##About v1
 <br/>
-What works well on v0 ?
-
-+ Client decides wether to download or upload files
-+ Client has access to a small set of commands (ls, cd, bye/quit/exit, get, put)
-+ Client has a restricted access to some of the downloadable files
+What will go on when v1 will be finished ?
++ All what [v0](https://github.com/Organic-Code/TSiD/tree/v0) already does
++ Smoother display
++ File description
++ Removing partially retrieved files on server
++ Client can dowload a whole folder
++ A client can create a new account ( ie, for friends )
++ More commands for client : invite <mail>, msg <text>, mkdir, alias, version, passwd
++ Better help for client
 <br/>
-
+</ul>
+What is working right now ?
+<ul>
++ v0 works, so v1 already supports that
+</ul><br/>
+from now on, we will be using [Termcolor](http://termcolor.readthedocs.org/en/latest/)
+<br/>
 ##Contribute
 
 No contributions are wanted on this version as this is a school project
