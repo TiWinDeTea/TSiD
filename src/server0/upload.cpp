@@ -78,7 +78,7 @@ bool sendData(Client& client){									// Sends a file to the client
 
 		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
 			std::cout << client.name() << " - [" << static_cast<short>(percentage_count) << "%] of upload" << std::endl;	//Displaying upload percentage
-			percentage_count += 25;
+			percentage_count = static_cast<unsigned char>(percentage_count + 25);
 		}
 
 	}

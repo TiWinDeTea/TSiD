@@ -10,10 +10,11 @@ class Client {
 
  public:
 
-    Client(){ user_name=""; };
+    Client(){ user_name=""; state=false; };
     ~Client(){};
     bool getNewClient(unsigned short port);
     void disconnect();
+    bool isConnected();
     std::string name() const;
 
     // dirty little code
@@ -24,6 +25,7 @@ class Client {
  private:
 
     std::string user_name;
+    bool state;
     bool connectUser();
 };
 

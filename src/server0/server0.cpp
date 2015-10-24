@@ -13,7 +13,7 @@
 #include "../../include/server0/directoryExist.hpp"
 
 
-int clientLoop(Client* client){
+void clientLoop(Client* client){
 
     int client_command;
     sf::Socket::Status client_status;
@@ -65,6 +65,7 @@ int clientLoop(Client* client){
             case Disconnect :
 
                 std::cout << client->name() << " : disconnection" << std::endl;
+                client_status = sf::Socket::Disconnected;
                 break;
 
             case Exist :
@@ -81,9 +82,9 @@ int clientLoop(Client* client){
                 std::cout << client->name() << " -> invalid command" << std::endl;
 
         }
-    }while( static_cast<char>(client_command) != Disconnect && client_status != sf::Socket::Status::Disconnected );
+    }while(client_status != sf::Socket::Status::Disconnected );
     client->disconnect();
-    return 0;
+    std::cout << client->name() << " - disconnected" << std::endl;
 }
 
 int main(){
@@ -108,5 +109,13 @@ int main(){
             delete client_array.back();
             client_array.pop_back();
         }
+        for(unsigned int i(0); i < client_array.size(); ++i) {
+            if (!client_array[i]->isConnected()){
+                std::cout << "* memory used by " << client_array[i]->name() << " freed" << std::endl;
+                thread_array.erase(thread_array.begin() + i);
+                client_array.erase(client_array.begin() + i);
+            }
+         }
+
     }
 }
