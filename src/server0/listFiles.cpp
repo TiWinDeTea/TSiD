@@ -21,6 +21,20 @@ bool listFiles(Client& client){
 	client.packet.clear();
 	std::cout << client.name() << " -> Server ready to list" << std::endl;
 
+	if(client.path == "./Public/"){
+
+		client.packet << 7 
+		<< static_cast<sf::Int32>('P')
+		<< static_cast<sf::Int32>('r')
+		<< static_cast<sf::Int32>('i')
+		<< static_cast<sf::Int32>('v')
+		<< static_cast<sf::Int32>('a')
+		<< static_cast<sf::Int32>('t')
+		<< static_cast<sf::Int32>('e');
+		client.socket.send( client.packet );
+		client.packet.clear();
+	}
+
 	while( (redfile = readdir( directory )) != NULL ){
 
 		std::string tmp( redfile->d_name );
