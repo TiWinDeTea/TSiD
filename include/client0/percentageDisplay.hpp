@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include "../common/termcolor.hpp"
 
 void approxDisplay( unsigned int numb );
 void percentageDisplay( unsigned char percentage, std::string filename, unsigned int filesize, unsigned int alreadygot );

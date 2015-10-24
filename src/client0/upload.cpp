@@ -47,7 +47,6 @@ bool sendData( sf::TcpSocket& server, std::string current_directory ){									/
 	unsigned int loop_number=file_size/NB_BYTE_PER_PACKET;
 	char input_data_array[NB_BYTE_PER_PACKET];
 	sf::Packet spacket;
-	unsigned char percentage_count(0);
 	spacket.clear();
 
 	std::cout << "Upload is starting" << std::endl;
@@ -68,10 +67,8 @@ bool sendData( sf::TcpSocket& server, std::string current_directory ){									/
 		spacket.clear();
 
 
-		if( percentage_count < static_cast<unsigned char>(100*i/loop_number) ){
-
-			percentage_count = static_cast<unsigned char>(100*i/loop_number);
-			percentageDisplay( percentage_count, "", file_size, i*NB_BYTE_PER_PACKET );
+		if( i%10 == 0 ){
+			percentageDisplay( static_cast<unsigned char>(100*i/loop_number), "", file_size, i*NB_BYTE_PER_PACKET );
 		}
 	}
 

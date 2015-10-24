@@ -62,7 +62,6 @@ bool retrieveData( sf::TcpSocket& server, std::string current_directory ){
 	unsigned int loop_number(filesize/bytes_per_packet);
 	char* input_data_array = new char[bytes_per_packet];
 	sf::Int8 input_data;
-	unsigned char percentage_count(0);
 
 	spacket << ClientReady;
 	server.send(spacket);
@@ -83,9 +82,8 @@ bool retrieveData( sf::TcpSocket& server, std::string current_directory ){
 		output_file.write( input_data_array, bytes_per_packet );
 		spacket.clear();
 
-		if( percentage_count < static_cast<unsigned char>(100*i/loop_number) ){
-			percentage_count = static_cast<unsigned char>(100*i/loop_number);
-			percentageDisplay( percentage_count, filename, filesize, i*bytes_per_packet);
+		if( i%10 == 0 ){
+			percentageDisplay( static_cast<unsigned char>(100*i/loop_number), filename, filesize, i*bytes_per_packet);
 		}
 	}
 	

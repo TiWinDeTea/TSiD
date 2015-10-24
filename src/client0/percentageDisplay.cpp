@@ -23,7 +23,7 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 	approxDisplay( filesize );
 	std::cout << "\t\t";
 	approxDisplay (alreadygot );
-	std::cout << " [";
+	std::cout << termcolor::cyan << " ["; 
 
 	bool was_displayed(false);
 
@@ -35,8 +35,8 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 				
 				was_displayed = true;
 				if( i%2 == 0 )
-					std::cout << 'c';
-				else std::cout << 'C';
+					std::cout << termcolor::yellow << 'c';
+				else std::cout << termcolor::yellow << 'C';
 			}
 
 			switch( i%4 ){
@@ -46,7 +46,7 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 				break;
 
 			case 1:
-				std::cout << 'o';
+				std::cout << termcolor::cyan << 'o';
 				break;
 
 			case 2:
@@ -54,16 +54,16 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 				break;
 
 			case 3:
-				std::cout << 'O';
+				std::cout << termcolor::cyan << 'O';
 				break;
 
 			default:;
 
 			}
 
-		} else std::cout << '-';
+		} else std::cout << termcolor::cyan << '-';
 
 	}
 
-	std::cout << "]  \r";
+	std::cout << termcolor::cyan << "]  \r" << termcolor::reset;
 }
