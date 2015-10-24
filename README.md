@@ -50,6 +50,7 @@ What is working right now ?
 </ul><br/>
 from now on, we will be using [Termcolor](http://termcolor.readthedocs.org/en/latest/)
 <br/>
+
 ##Contribute
 
 No contributions are wanted on this version as this is a school project
