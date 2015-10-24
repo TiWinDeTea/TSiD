@@ -30,7 +30,7 @@ bool listFiles(Client& client){
 		<< static_cast<sf::Int32>('v')
 		<< static_cast<sf::Int32>('a')
 		<< static_cast<sf::Int32>('t')
-		<< static_cast<sf::Int32>('t')
+		<< static_cast<sf::Int32>('e')
 		<< static_cast<sf::Int32>('/');
 		client.socket.send( client.packet );
 		client.packet.clear();
