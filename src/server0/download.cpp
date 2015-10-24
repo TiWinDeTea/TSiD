@@ -47,7 +47,15 @@ bool retrieveData(Client& client){
 	std::cout << "* Start downloading " << client.path << " from " << client.name() << std::endl;
 	for( unsigned int i(0) ; i<loop_number ; ++i){
 
-		client.socket.receive( client.packet );
+		if(client.socket.receive( client.packet ) == sf::Socket::Disconnected){
+			std::cout << client.name() << " - connection lost" << std::endl;
+			output_file.close();
+			if( remove(client.path.c_str()) != 0 )
+		    	std::cout << "* failed to delete part file " << client.path << std::endl;
+			else
+		    	std::cout << "* part file " << client.path << " deleted" << std::endl;
+			return false;
+		}
 
 		for( unsigned int j(0) ; j<bytes_per_packet ; ++j ){
 			client.packet >> input_data;
@@ -68,15 +76,18 @@ bool retrieveData(Client& client){
 
 		if(client.socket.receive( client.packet ) == sf::Socket::Disconnected){
 			std::cout << client.name() << " - connection lost" << std::endl;
+			output_file.close();
+			if( remove(client.path.c_str()) != 0 )
+		    	std::cout << "* failed to delete part file " << client.path << std::endl;
+			else
+		    	std::cout << "* part file " << client.path << " deleted" << std::endl;
 			return false;
 		}
+
 		for( unsigned int j(0) ; j < client.packet.getDataSize() ; ++j){
 			client.packet >> input_data;
-			if(j%4==3)
-				output_file << static_cast<char>(input_data);
-			//input_data_array[j] = static_cast<char>(input_data);
+			output_file << static_cast<char>(input_data);
 		}
-		//output_file.write( input_data_array, filesize );
 	}
 
 	std::cout << client.name() << " - [100%] Transfer terminated successfully" << std::endl;
