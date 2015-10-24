@@ -4,6 +4,7 @@
 #include "SFML/Network.hpp"
 #include "../common/SCommand.hpp"
 #include "serverAnsInterpret.hpp"
+#include "formatPath.hpp"
 #include <iostream>
 #include <string>
 

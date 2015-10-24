@@ -4,5 +4,6 @@
 #include <string>
 
 std::string formatPath( const std::string& path );
+void formatDir( std::string& dir_path );
 
 #endif

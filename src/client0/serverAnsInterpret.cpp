@@ -41,7 +41,6 @@ bool interpretServerAns( signed char sanswer){								//Sends message to console
 		return true;
 	
 	case Exist:
-		std::cout << "This directory exist" << std::endl;
 		return true;
 	
 	case VoidDirectory:
