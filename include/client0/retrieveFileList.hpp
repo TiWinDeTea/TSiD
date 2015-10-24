@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <SFML/Network.hpp>
 #include "../common/SCommand.hpp"
+#include "../common/termcolor.hpp"
 
 
 bool retrieveFileList( sf::TcpSocket& server, std::string current_directory );
