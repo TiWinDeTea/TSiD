@@ -56,7 +56,7 @@ int main() {
 	userInputInterpret( socket, user_id );
 
 	sf::Packet bye;
-	bye << Disconnect;
+	bye << "" << Disconnect;
 	socket.send( bye );
 
 	socket.disconnect();
