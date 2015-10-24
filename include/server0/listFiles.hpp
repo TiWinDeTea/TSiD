@@ -5,6 +5,7 @@
 #include <dirent.h>
 #include <iostream>
 #include "../common/SCommand.hpp"
+#include "../common/fileExist.hpp"
 #include "Client.hpp"
 
 #ifndef WIN32
