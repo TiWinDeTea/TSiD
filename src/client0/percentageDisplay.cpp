@@ -57,7 +57,7 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 				break;
 
 			case 3:
-				setColors("Cyan");
+				setColors("cyan");
 				std::cout << 'O';
 				break;
 
