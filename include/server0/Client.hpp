@@ -12,7 +12,7 @@ class Client {
 
     Client(){ user_name=""; state=false; };
     ~Client(){};
-    bool getNewClient(unsigned short port);
+    bool getNewClient(sf::TcpListener *listener);
     void disconnect();
     bool isConnected();
     std::string name() const;

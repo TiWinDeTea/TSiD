@@ -96,11 +96,16 @@ int main(){
 
     std::vector<sf::Thread*> thread_array;
     std::vector<Client*> client_array;
+    sf::TcpListener *listener = new sf::TcpListener;
+    if( listener->listen( port ) != sf::Socket::Done ){
+        std::cout << "* failed to listen" << std::endl;
+        return false;
+    }
     while (true){
 
         client_array.push_back(new Client);
         thread_array.push_back(new sf::Thread(&clientLoop, client_array.back()));
-        if(client_array.back()->getNewClient(port)){
+        if(client_array.back()->getNewClient(listener)){
             thread_array.back()->launch();
         }
         else{

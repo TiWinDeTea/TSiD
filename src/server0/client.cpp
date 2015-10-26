@@ -1,14 +1,9 @@
 #include "../../include/server0/Client.hpp"
 
-bool Client::getNewClient(unsigned short port){
+bool Client::getNewClient(sf::TcpListener* listener){
 
-    sf::TcpListener listener;
     sf::SocketSelector selector;
-
-    if( listener.listen( port ) != sf::Socket::Done ){
-        return false;
-    }
-    selector.add(listener);
+    selector.add(*listener);
 
     //std::cout << "* Listening for new clients" << std::endl;
 
@@ -16,7 +11,7 @@ bool Client::getNewClient(unsigned short port){
         return false;
     }
 
-    if( listener.accept( socket ) != sf::Socket::Done ){
+    if( listener->accept( socket ) != sf::Socket::Done ){
         return false;
     }
 
