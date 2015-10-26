@@ -1,5 +1,5 @@
-#ifndef SET_COLORS_HPP_INCLUDED
-#define SET_COLORS_HPP_INCLUDED
+#ifndef IS_FOLDER_HPP_INCLUDED
+#define IS_FOLDER_HPP_INCLUDED
 
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
 #	define OS_WINDOWS
@@ -7,10 +7,12 @@
 #else
 #	include <unistd.h>
 #	include <iostream>
+#	include <sys/stat.h> 
 #endif
 
 #include <string>
+#include "../../include/common/fileExist.hpp"
 
-void setColors( std::string const& text_color );
+bool isFolder(std::string const& path);
 
 #endif

@@ -4,7 +4,7 @@ void setColors( std::string const& text_color)
 {
 
 #ifdef OS_WINDOWS
-	unsigned char output_color(8);				/**grey**/
+	unsigned char output_color(15);				/**grey**/
 
 	if( text_color == "reset" );				/**don't go through that**/
 	else if( text_color == "black" )			output_color = 0;/**break**/
@@ -27,7 +27,7 @@ void setColors( std::string const& text_color)
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), output_color);
 #else
 	
-	if( text_color == "reset" )				std::cout << "\033[97;1m" ;/**break**/
+	if( text_color == "reset" )					std::cout << "\033[97;1m" ;/**break**/
 	else if( text_color == "black" )			std::cout << "\033[8m" ;/**break**/
 	else if( text_color == "grey" )				std::cout << "\033[30m";/**break**/
 	else if( text_color == "red" )				std::cout << "\033[31m";/**break**/

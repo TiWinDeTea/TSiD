@@ -40,7 +40,7 @@ bool listFiles(Client& client){
 
 		std::string tmp( redfile->d_name );
 
-		if( !fileExist(client.path + tmp) ){
+		if( isFolder(client.path + tmp) ){
 			tmp += "/";
 		}
 		
