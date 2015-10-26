@@ -8,9 +8,11 @@ set(SERVER_SRC
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/client.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/formatDirectoryPath.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/directoryExist.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/server0/tcout.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/fileExist.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/getFileLength.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/isFolder.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/common/setColors.cpp
 )
 
 message("	-> Prepared : Server sources")

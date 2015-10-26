@@ -5,6 +5,7 @@
 #include <dirent.h>
 #include <iostream>
 #include "../common/SCommand.hpp"
+#include "tcout.hpp"
 #include "../common/isFolder.hpp"
 #include "Client.hpp"
 

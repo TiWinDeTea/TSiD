@@ -5,6 +5,7 @@
 #include <dirent.h>
 #include "../common/SCommand.hpp"
 #include "Client.hpp"
+#include "tcout.hpp"
 
 #ifndef WIN32
 	#include <sys/types.h>

@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include "../common/SCommand.hpp"
 #include "../common/fileExist.hpp"
+#include "tcout.hpp"
 #include "Client.hpp"
 
 bool retrieveData( Client& client );

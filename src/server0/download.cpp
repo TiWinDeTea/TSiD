@@ -9,7 +9,7 @@ bool retrieveData(Client& client){
 		client.packet.clear();
 		client.packet << UnknownIssue;
 		client.socket.send(client.packet);
-		std::cout << client.name() << " -> There was an error reading file infos" << std::endl;
+		tcout() << client.name() << " -> There was an error reading file infos" << std::endl;
 		return false;
 	}
 	std::cout << "\t-File informations are ok" << std::endl;
@@ -20,7 +20,7 @@ bool retrieveData(Client& client){
 	if( fileExist( client.path ) ){
 		client.packet << AlreadyExist;
 		client.socket.send(client.packet);
-		std::cout << client.name() << " -> File already exists" << std::endl;
+		tcout() << client.name() << " -> File already exists" << std::endl;
 		return false;
 	}
 	std::cout << "\t-The filename is free" << std::endl;
@@ -30,7 +30,7 @@ bool retrieveData(Client& client){
 	if( output_file.fail() ){
 		client.packet << ServerFailure;
 		client.socket.send(client.packet);
-		std::cout << client.name() << " -> Couldn't create file" << std::endl;
+		tcout() << client.name() << " -> Couldn't create file" << std::endl;
 		return false;
 	}
 	std::cout << "\t-File created" << std::endl;
@@ -44,16 +44,16 @@ bool retrieveData(Client& client){
 	client.socket.send(client.packet);
 	client.packet.clear();
 
-	std::cout << "* Start downloading " << client.path << " from " << client.name() << std::endl;
+	tcout() << "* Start downloading " << client.path << " from " << client.name() << std::endl;
 	for( unsigned int i(0) ; i<loop_number ; ++i){
 
 		if(client.socket.receive( client.packet ) == sf::Socket::Disconnected){
-			std::cout << client.name() << " - connection lost" << std::endl;
+			tcout() << client.name() << " - connection lost" << std::endl;
 			output_file.close();
 			if( remove(client.path.c_str()) != 0 )
-		    	std::cout << "* failed to delete part file " << client.path << std::endl;
+		    	tcout() << "* failed to delete part file " << client.path << std::endl;
 			else
-		    	std::cout << "* part file " << client.path << " deleted" << std::endl;
+		    	tcout() << "* part file " << client.path << " deleted" << std::endl;
 			return false;
 		}
 
@@ -66,7 +66,7 @@ bool retrieveData(Client& client){
 		client.packet.clear();
 
 		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
-			std::cout << client.name() << " - [" << static_cast<short>(percentage_count) << "%] of download" << std::endl;	//Displaying upload percentage
+			tcout() << client.name() << " - [" << static_cast<short>(percentage_count) << "%] of download" << std::endl;	//Displaying upload percentage
 			percentage_count = static_cast<unsigned char>(percentage_count + 25);
 		}
 	}
@@ -75,12 +75,12 @@ bool retrieveData(Client& client){
 	if( filesize > 0 ){
 
 		if(client.socket.receive( client.packet ) == sf::Socket::Disconnected){
-			std::cout << client.name() << " - connection lost" << std::endl;
+			tcout() << client.name() << " - connection lost" << std::endl;
 			output_file.close();
 			if( remove(client.path.c_str()) != 0 )
-		    	std::cout << "* failed to delete part file " << client.path << std::endl;
+		    	tcout() << "* failed to delete part file " << client.path << std::endl;
 			else
-		    	std::cout << "* part file " << client.path << " deleted" << std::endl;
+		    	tcout() << "* part file " << client.path << " deleted" << std::endl;
 			return false;
 		}
 
@@ -90,7 +90,7 @@ bool retrieveData(Client& client){
 		}
 	}
 
-	std::cout << client.name() << " - [100%] Transfer terminated successfully" << std::endl;
+	tcout() << client.name() << " - [100%] Transfer terminated successfully" << std::endl;
 	delete input_data_array;
 	return true;
 }

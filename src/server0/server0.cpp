@@ -11,6 +11,7 @@
 #include "../../include/server0/Client.hpp"
 #include "../../include/server0/formatDirectoryPath.hpp"
 #include "../../include/server0/directoryExist.hpp"
+#include "../../include/server0/tcout.hpp"
 
 
 void clientLoop(Client* client){
@@ -31,60 +32,60 @@ void clientLoop(Client* client){
 
             case Upload :
 
-                std::cout << client->name() << " : upload request" << std::endl;
+                tcout() << client->name() << " : upload request" << std::endl;
                 if( !retrieveData( *client ) ){
-                    std::cout << client->name() << " - file download failed" << std::endl;
+                    tcout() << client->name() << " - file download failed" << std::endl;
                 }
                 else{
-                    std::cout << client->name() << " - file downloaded successfully" << std::endl;
+                    tcout() << client->name() << " - file downloaded successfully" << std::endl;
                 }
                 break;
 
             case Download :
 
-                std::cout << client->name() << " : download request" << std::endl;
+                tcout() << client->name() << " : download request" << std::endl;
                 if( !sendData( *client ) ){
-                    std::cout << client->name() << " - file upload failed" << std::endl;
+                    tcout() << client->name() << " - file upload failed" << std::endl;
                 }
                 else{
-                    std::cout << client->name() << " - file uploaded successfully" << std::endl;
+                    tcout() << client->name() << " - file uploaded successfully" << std::endl;
                 }
                 break;
 
             case Ls :
 
-                std::cout << client->name() << " : listing request" << std::endl;
+                tcout() << client->name() << " : listing request" << std::endl;
                 if( !listFiles( *client ) ){
-                    std::cout << client->name() << " - file listing failed" << std::endl;
+                    tcout() << client->name() << " - file listing failed" << std::endl;
                 }
                 else{
-                    std::cout << client->name() << " - file listed successfully" << std::endl;
+                    tcout() << client->name() << " - file listed successfully" << std::endl;
                 }
                 break;
 
             case Disconnect :
 
-                std::cout << client->name() << " : disconnection" << std::endl;
+                tcout() << client->name() << " : disconnection" << std::endl;
                 client_status = sf::Socket::Disconnected;
                 break;
 
             case Exist :
 
-                std::cout << client->name() << " : existing request" << std::endl;
+                tcout() << client->name() << " : existing request" << std::endl;
                 directoryExist(*client);
                 break;
 
             default:
-                std::cout << client->name() << " : invalid command" << std::endl;
+                tcout() << client->name() << " : invalid command" << std::endl;
                 client->packet.clear();
                 client->packet << UnknownIssue ;
                 client->socket.send( client->packet );
-                std::cout << client->name() << " -> invalid command" << std::endl;
+                tcout() << client->name() << " -> invalid command" << std::endl;
 
         }
     }while(client_status != sf::Socket::Status::Disconnected );
     client->disconnect();
-    std::cout << client->name() << " - disconnected" << std::endl;
+    tcout() << client->name() << " - disconnected" << std::endl;
 }
 
 int main(){
@@ -98,7 +99,7 @@ int main(){
     std::vector<Client*> client_array;
     sf::TcpListener *listener = new sf::TcpListener;
     if( listener->listen( port ) != sf::Socket::Done ){
-        std::cout << "* failed to listen" << std::endl;
+        tcout() << "* failed to listen" << std::endl;
         return false;
     }
     while (true){
@@ -116,7 +117,7 @@ int main(){
         }
         for(unsigned int i(0); i < client_array.size(); ++i) {
             if (!client_array[i]->isConnected()){
-                std::cout << "* memory used by " << client_array[i]->name() << " freed" << std::endl;
+                tcout() << "* memory used by " << client_array[i]->name() << " freed" << std::endl;
                 thread_array.erase(thread_array.begin() + i);
                 client_array.erase(client_array.begin() + i);
             }
