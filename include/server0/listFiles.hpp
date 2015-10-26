@@ -9,7 +9,8 @@
 #include "../common/isFolder.hpp"
 #include "Client.hpp"
 
-#ifndef WIN32
+#if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
+#else
 	#include <sys/types.h>
 #endif
 

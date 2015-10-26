@@ -11,6 +11,7 @@
 #include "../../include/server0/Client.hpp"
 #include "../../include/server0/formatDirectoryPath.hpp"
 #include "../../include/server0/directoryExist.hpp"
+#include "../../include/server0/createDirectory.hpp"
 #include "../../include/server0/tcout.hpp"
 
 
@@ -73,6 +74,12 @@ void clientLoop(Client* client){
 
                 tcout() << client->name() << " : existing request" << std::endl;
                 directoryExist(*client);
+                break;
+
+            case Mkdir :
+
+                tcout() << client->name() << " : directory creation request" << std::endl;
+                createDirectory(*client);
                 break;
 
             default:

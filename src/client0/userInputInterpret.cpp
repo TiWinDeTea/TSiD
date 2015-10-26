@@ -16,8 +16,8 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 				<< "			put" << std::endl
 				<< "			get" << std::endl
 				<< "			bye / quit / exit" << std::endl
-				<< "			cd" << std::endl;
-				<< "			!" << std::endl;
+				<< "			cd" << std::endl
+				<< "			!" << std::endl
 				<< std::endl;
 		}
 		else if( user_input == "put" ){
