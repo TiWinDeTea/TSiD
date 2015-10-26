@@ -7,7 +7,7 @@ bool isFolder(std::string const& path)
     return (!fileExist(path));
 #else
 	struct stat s;
-	if( stat(path,&s) == 0 )
+	if( stat( path.c_str() ,&s ) == 0 )
 		return (s.st_mode & S_IFDIR);
 	else
 		return false;
