@@ -16,6 +16,8 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 				<< "			put" << std::endl
 				<< "			get" << std::endl
 				<< "			bye / quit / exit" << std::endl
+				<< "			cd" << std::endl;
+				<< "			!" << std::endl;
 				<< std::endl;
 		}
 		else if( user_input == "put" ){
@@ -38,9 +40,20 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 			if( !moveToDirectory( server, current_directory ) )
 				std::cout << "Failed to move" << std::endl;
 		}
+		else if( user_input[0] == '!' ){
+
+			std::string tmp;
+			std::getline( std::cin, tmp );
+			user_input.erase(0,1);
+			user_input+=tmp;
+			std::cout << std::endl;
+			system( user_input.c_str() );
+			std::cout << std::endl;
+		}
 		else if( user_input != "bye" && user_input != "exit" && user_input != "quit" ){
 
-			std::cout << "Unknown command. Type 'help' for a list of available commands" << std::endl << std::endl;
+			std::cout << "TSiD : " << user_input << " : command not found."
+			       << std::endl << " Type 'help' for a list of available commands" << std::endl << std::endl;
 		}
 
 	}while( user_input != "bye" && user_input != "exit" && user_input != "quit" );
