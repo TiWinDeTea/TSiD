@@ -1,5 +1,5 @@
-#ifndef TCOUT_HPP_INCLUDED
-#define TCOUT_HPP_INCLUDED
+#ifndef TPRINT_HPP_INCLUDED
+#define TPRINT_HPP_INCLUDED
 
 #include <iostream>
 #include <fstream>
@@ -7,6 +7,6 @@
 #include <time.h>
 #include "../common/setColors.hpp"
 
-std::ostream& tcout();
+void tprint();
 
 #endif

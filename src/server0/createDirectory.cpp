@@ -11,29 +11,43 @@ void createDirectory(Client& client){
 			    client.packet << Exist;
 				client.socket.send( client.packet );
 				client.packet.clear();
-				tcout() << "* directory " << client.path << " created" << std::endl;
-			    tcout() << client.name() << " -> directory created" << std::endl;
+				tprint();
+				std::cout << "* directory " << client.path << " created" << std::endl;
+			    tprint();
+			    std::cout << client.name() << " -> directory created" << std::endl;
 			}
 			else
 			{
 			    client.packet << UnknownIssue;
 				client.socket.send( client.packet );
 				client.packet.clear();
-			    tcout() << client.name() << " -> error creating directory" << std::endl;
+			    tprint();
+			    std::cout << client.name() << " -> error creating directory" << std::endl;
 			}
 		#else
-			mkdir(client.path);
-			client.packet << Exist;
-			client.socket.send( client.packet );
-			client.packet.clear();
-				tcout() << "* directory " << client.path << " created" << std::endl;
-		    tcout() << client.name() << " -> directory created" << std::endl;
+			if(!mkdir(client.path)){
+				client.packet << Exist;
+				client.socket.send( client.packet );
+				client.packet.clear();
+				tprint();
+				std::cout << "* directory " << client.path << " created" << std::endl;
+			    tprint();
+			    std::cout << client.name() << " -> directory created" << std::endl;
+			}
+			else{
+				client.packet << UnknownIssue;
+				client.socket.send( client.packet );
+				client.packet.clear();
+			    tprint();
+			    std::cout << client.name() << " -> error creating directory" << std::endl;
+			}
 		#endif
 	}
 	else{
 		client.packet << AlreadyExist;
 		client.socket.send( client.packet );
 		client.packet.clear();
-    	tcout() << client.name() << " -> directory already exist" << std::endl;
+    	tprint();
+    	std::cout << client.name() << " -> directory already exist" << std::endl;
 	}
 }

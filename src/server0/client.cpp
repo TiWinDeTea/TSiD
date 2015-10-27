@@ -15,7 +15,8 @@ bool Client::getNewClient(sf::TcpListener* listener){
         return false;
     }
 
-    tcout() << "* Client found" << std::endl;
+    tprint();
+    std::cout << "* Client found" << std::endl;
 
     packet.clear();
 
@@ -47,7 +48,8 @@ bool Client::connectUser() {
         socket.send( packet );
         packet.clear();
         state = true;
-        tcout() << user_name << " - connected" << std::endl;
+        tprint();
+        std::cout << user_name << " - connected" << std::endl;
         return true;
     }//else
 

@@ -1,6 +1,6 @@
-#include "../../include/server0/tcout.hpp"
+#include "../../include/server0/tprint.hpp"
 
-std::ostream& tcout() {
+void tprint() {
   
   time_t now;
   time(&now);
@@ -11,5 +11,4 @@ std::ostream& tcout() {
   setColors("light cyan");
   std::cout << buffer;
   setColors("reset");
-  return std::cout;
 }

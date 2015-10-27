@@ -10,12 +10,14 @@ void directoryExist(Client& client){
 		client.packet << VoidDirectory;
 		client.socket.send( client.packet );
 		client.packet.clear();
-		tcout() << client.name() << " -> file doesn't exist" << std::endl;
+		tprint();
+		std::cout << client.name() << " -> file doesn't exist" << std::endl;
 	}
 	else{
 		client.packet << Exist;
 		client.socket.send( client.packet );
 		client.packet.clear();
-		tcout() << client.name() << " -> file exist" << std::endl;
+		tprint();
+		std::cout << client.name() << " -> file exist" << std::endl;
 	}
 }

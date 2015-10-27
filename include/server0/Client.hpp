@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "../common/SCommand.hpp"
-#include "tcout.hpp"
+#include "tprint.hpp"
 
 class Client {
 

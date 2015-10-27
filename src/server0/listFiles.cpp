@@ -12,14 +12,16 @@ bool listFiles(Client& client){
 
 		client.packet << VoidDirectory;
 		client.socket.send( client.packet );
-		tcout() << client.name() << " -> Could not open the directory" << std::endl;
+		tprint();
+		std::cout << client.name() << " -> Could not open the directory" << std::endl;
 		return false;
 	}//else
 	
 	client.packet << ServerReady;
 	client.socket.send( client.packet );
 	client.packet.clear();
-	tcout() << client.name() << " -> Server ready to list" << std::endl;
+	tprint();
+	std::cout << client.name() << " -> Server ready to list" << std::endl;
 
 	if(client.path == "./Public/"){
 
@@ -58,7 +60,8 @@ bool listFiles(Client& client){
 	client.packet << 0 << EndOfStream;
 	client.socket.send( client.packet );
 	client.packet.clear(); 
-	tcout() << client.name() << " -> file listed" << std::endl;
+	tprint();
+	std::cout << client.name() << " -> file listed" << std::endl;
 
 	return true;
 }

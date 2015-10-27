@@ -9,7 +9,7 @@ set(SERVER_SRC
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/formatDirectoryPath.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/directoryExist.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/server0/createDirectory.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/server0/tcout.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/server0/tprint.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/fileExist.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/getFileLength.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/isFolder.cpp
@@ -32,6 +32,7 @@ set(CLIENT_SRC
 	${CMAKE_CURRENT_SOURCE_DIR}/common/setColors.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/fileExist.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/common/getFileLength.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/common/isFolder.cpp
 )
 
 message("	-> Prepared : Client sources")

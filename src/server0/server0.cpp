@@ -12,7 +12,7 @@
 #include "../../include/server0/formatDirectoryPath.hpp"
 #include "../../include/server0/directoryExist.hpp"
 #include "../../include/server0/createDirectory.hpp"
-#include "../../include/server0/tcout.hpp"
+#include "../../include/server0/tprint.hpp"
 
 
 void clientLoop(Client* client){
@@ -33,66 +33,81 @@ void clientLoop(Client* client){
 
             case Upload :
 
-                tcout() << client->name() << " : upload request" << std::endl;
+                tprint();
+                std::cout << client->name() << " : upload request" << std::endl;
                 if( !retrieveData( *client ) ){
-                    tcout() << client->name() << " - file download failed" << std::endl;
+                    tprint();
+                    std::cout << client->name() << " - file download failed" << std::endl;
                 }
                 else{
-                    tcout() << client->name() << " - file downloaded successfully" << std::endl;
+                    tprint();
+                    std::cout << client->name() << " - file downloaded successfully" << std::endl;
                 }
                 break;
 
             case Download :
 
-                tcout() << client->name() << " : download request" << std::endl;
+                tprint();
+                std::cout << client->name() << " : download request" << std::endl;
                 if( !sendData( *client ) ){
-                    tcout() << client->name() << " - file upload failed" << std::endl;
+                    tprint();
+                    std::cout << client->name() << " - file upload failed" << std::endl;
                 }
                 else{
-                    tcout() << client->name() << " - file uploaded successfully" << std::endl;
+                    tprint();
+                    std::cout << client->name() << " - file uploaded successfully" << std::endl;
                 }
                 break;
 
             case Ls :
 
-                tcout() << client->name() << " : listing request" << std::endl;
+                tprint();
+                std::cout << client->name() << " : listing request" << std::endl;
                 if( !listFiles( *client ) ){
-                    tcout() << client->name() << " - file listing failed" << std::endl;
+                    tprint();
+                    std::cout << client->name() << " - file listing failed" << std::endl;
                 }
                 else{
-                    tcout() << client->name() << " - file listed successfully" << std::endl;
+                    tprint();
+                    std::cout << client->name() << " - file listed successfully" << std::endl;
                 }
                 break;
 
             case Disconnect :
 
-                tcout() << client->name() << " : disconnection" << std::endl;
+                tprint();
+                std::cout << client->name() << " : disconnection" << std::endl;
                 client_status = sf::Socket::Disconnected;
                 break;
 
             case Exist :
 
-                tcout() << client->name() << " : existing request" << std::endl;
+                tprint();
+                std::cout << client->name() << " : existing request" << std::endl;
                 directoryExist(*client);
                 break;
 
             case Mkdir :
 
-                tcout() << client->name() << " : directory creation request" << std::endl;
+                tprint();
+                std::cout << client->name() << " : directory creation request" << std::endl;
                 createDirectory(*client);
                 break;
 
             default:
-                tcout() << client->name() << " : invalid command" << std::endl;
+                tprint();
+                std::cout << client->name() << " : invalid command" << std::endl;
                 client->packet.clear();
                 client->packet << UnknownIssue ;
                 client->socket.send( client->packet );
-                tcout() << client->name() << " -> invalid command" << std::endl;
+                tprint();
+                std::cout << client->name() << " -> invalid command" << std::endl;
 
         }
     }while(client_status != sf::Socket::Status::Disconnected );
     client->disconnect();
-    tcout() << client->name() << " - disconnected" << std::endl;
+    tprint();
+    std::cout << client->name() << " - disconnected" << std::endl;
 }
 
 int main(){
@@ -106,7 +121,8 @@ int main(){
     std::vector<Client*> client_array;
     sf::TcpListener *listener = new sf::TcpListener;
     if( listener->listen( port ) != sf::Socket::Done ){
-        tcout() << "* failed to listen" << std::endl;
+        tprint();
+        std::cout << "* failed to listen" << std::endl;
         return false;
     }
     while (true){
@@ -124,7 +140,8 @@ int main(){
         }
         for(unsigned int i(0); i < client_array.size(); ++i) {
             if (!client_array[i]->isConnected()){
-                tcout() << "* memory used by " << client_array[i]->name() << " freed" << std::endl;
+                tprint();
+                std::cout << "* memory used by " << client_array[i]->name() << " freed" << std::endl;
                 thread_array.erase(thread_array.begin() + i);
                 client_array.erase(client_array.begin() + i);
             }
