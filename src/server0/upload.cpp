@@ -68,7 +68,9 @@ bool sendData(Client& client){									// Sends a file to the client
 	unsigned char percentage_count(0);
 
 	tprint();
+    setColors("light blue");
 	std::cout << "* Start uploading " << client.path << " to " << client.name() << std::endl;
+    setColors("reset");
 	for( unsigned int i(0) ; i<loop_number ; ++i ){					//Reading an sending the file
 
 		input_file.read( input_data_array, NB_BYTE_PER_PACKET);
@@ -78,14 +80,21 @@ bool sendData(Client& client){									// Sends a file to the client
 		if( client.socket.send(client.packet) == sf::Socket::Disconnected ){
 
 			tprint();
-			std::cout << client.name() << " : connection lost" << std::endl;
+			std::cout << client.name() << " - ";
+            setColors("light red");
+            std::cout << "connection lost" << std::endl;
+            setColors("reset");
 			return false;
 		}
 		client.packet.clear();
 
 		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
 			tprint();
-			std::cout << client.name() << " - [" << static_cast<short>(percentage_count) << "%] of upload" << std::endl;	//Displaying upload percentage
+			std::cout << client.name() << " - ";
+			setColors("light blue");
+			std::cout << "[" << static_cast<short>(percentage_count) << "%]";
+			setColors("reset");
+			std::cout << " of upload" << std::endl;
 			percentage_count = static_cast<unsigned char>(percentage_count + 25);
 		}
 
@@ -101,7 +110,10 @@ bool sendData(Client& client){									// Sends a file to the client
 
 		if( client.socket.send(client.packet) == sf::Socket::Disconnected ){
 			tprint();
-			std::cout << client.name() << " - connection lost" << std::endl;
+			std::cout << client.name() << " - ";
+            setColors("light red");
+            std::cout << "connection lost" << std::endl;
+            setColors("reset");
 			delete file_tail;
 			return false;
 		}
@@ -111,7 +123,10 @@ bool sendData(Client& client){									// Sends a file to the client
 	}
 
 	tprint();
-	std::cout << client.name() << " - [100%] Transfer terminated successfully" << std::endl;	//Displaying upload percentage
-
+	std::cout << client.name() << " - ";
+	setColors("light blue");
+	std::cout << "[100%]";
+	setColors("reset");
+	std::cout << " Transfer terminated successfully" << std::endl;
 	return true;
 }

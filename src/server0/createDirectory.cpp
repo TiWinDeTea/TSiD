@@ -12,7 +12,9 @@ void createDirectory(Client& client){
 				client.socket.send( client.packet );
 				client.packet.clear();
 				tprint();
+    			setColors("light blue");
 				std::cout << "* directory " << client.path << " created" << std::endl;
+    			setColors("reset");
 			    tprint();
 			    std::cout << client.name() << " -> directory created" << std::endl;
 			}
@@ -30,7 +32,9 @@ void createDirectory(Client& client){
 				client.socket.send( client.packet );
 				client.packet.clear();
 				tprint();
+    			setColors("light blue");
 				std::cout << "* directory " << client.path << " created" << std::endl;
+    			setColors("reset");
 			    tprint();
 			    std::cout << client.name() << " -> directory created" << std::endl;
 			}

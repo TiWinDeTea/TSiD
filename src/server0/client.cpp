@@ -16,7 +16,9 @@ bool Client::getNewClient(sf::TcpListener* listener){
     }
 
     tprint();
+    setColors("light blue");
     std::cout << "* Client found" << std::endl;
+    setColors("reset");
 
     packet.clear();
 
@@ -49,7 +51,10 @@ bool Client::connectUser() {
         packet.clear();
         state = true;
         tprint();
-        std::cout << user_name << " - connected" << std::endl;
+        std::cout << user_name << " - ";
+        setColors("light green");
+        std::cout << "connected" << std::endl;
+        setColors("reset");
         return true;
     }//else
 

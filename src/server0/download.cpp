@@ -48,20 +48,29 @@ bool retrieveData(Client& client){
 	client.packet.clear();
 
 	tprint();
+    setColors("light blue");
 	std::cout << "* Start downloading " << client.path << " from " << client.name() << std::endl;
+    setColors("reset");
 	for( unsigned int i(0) ; i<loop_number ; ++i){
 
 		if(client.socket.receive( client.packet ) == sf::Socket::Disconnected){
 			tprint();
-			std::cout << client.name() << " - connection lost" << std::endl;
+			std::cout << client.name() << " - ";
+        	setColors("light red");
+			std::cout << "connection lost" << std::endl;
+        	setColors("reset");
 			output_file.close();
 			if( remove(client.path.c_str()) != 0 ){
 				tprint();
+    			setColors("light blue");
 		    	std::cout << "* failed to delete part file " << client.path << std::endl;
+    			setColors("reset");
 			}
 			else{
 				tprint();
+    			setColors("light blue");
 		    	std::cout << "* part file " << client.path << " deleted" << std::endl;
+    			setColors("reset");
 			}
 			return false;
 		}
@@ -76,7 +85,11 @@ bool retrieveData(Client& client){
 
 		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
 			tprint();
-			std::cout << client.name() << " - [" << static_cast<short>(percentage_count) << "%] of download" << std::endl;	//Displaying upload percentage
+			std::cout << client.name() << " - ";
+			setColors("light blue");
+			std::cout << "[" << static_cast<short>(percentage_count) << "%]";
+			setColors("reset");
+			std::cout << " of download" << std::endl;
 			percentage_count = static_cast<unsigned char>(percentage_count + 25);
 		}
 	}
@@ -86,15 +99,22 @@ bool retrieveData(Client& client){
 
 		if(client.socket.receive( client.packet ) == sf::Socket::Disconnected){
 			tprint();
-			std::cout << client.name() << " - connection lost" << std::endl;
+			std::cout << client.name() << " - ";
+        	setColors("light red");
+			std::cout << "connection lost" << std::endl;
+        	setColors("reset");
 			output_file.close();
 			if( remove(client.path.c_str()) != 0 ){
 				tprint();
+    			setColors("light blue");
 		    	std::cout << "* failed to delete part file " << client.path << std::endl;
+    			setColors("reset");
 			}
 			else{
 				tprint();
+    			setColors("light blue");
 		    	std::cout << "* part file " << client.path << " deleted" << std::endl;
+    			setColors("reset");
 			}
 			return false;
 		}
@@ -106,7 +126,11 @@ bool retrieveData(Client& client){
 	}
 
 	tprint();
-	std::cout << client.name() << " - [100%] Transfer terminated successfully" << std::endl;
+	std::cout << client.name() << " - ";
+	setColors("light blue");
+	std::cout << "[100%]";
+	setColors("reset");
+	std::cout << " Transfer terminated successfully" << std::endl;
 	delete input_data_array;
 	return true;
 }

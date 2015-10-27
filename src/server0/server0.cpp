@@ -37,11 +37,17 @@ void clientLoop(Client* client){
                 std::cout << client->name() << " : upload request" << std::endl;
                 if( !retrieveData( *client ) ){
                     tprint();
-                    std::cout << client->name() << " - file download failed" << std::endl;
+                    std::cout << client->name() << " - ";
+                    setColors("light red");
+                    std::cout << "file download failed" << std::endl;
+                    setColors("reset");
                 }
                 else{
                     tprint();
-                    std::cout << client->name() << " - file downloaded successfully" << std::endl;
+                    std::cout << client->name() << " - ";
+                    setColors("light green");
+                    std::cout << "file downloaded successfully" << std::endl;
+                    setColors("reset");
                 }
                 break;
 
@@ -51,11 +57,17 @@ void clientLoop(Client* client){
                 std::cout << client->name() << " : download request" << std::endl;
                 if( !sendData( *client ) ){
                     tprint();
-                    std::cout << client->name() << " - file upload failed" << std::endl;
+                    std::cout << client->name() << " - ";
+                    setColors("light red");
+                    std::cout << "file upload failed" << std::endl;
+                    setColors("reset");
                 }
                 else{
                     tprint();
-                    std::cout << client->name() << " - file uploaded successfully" << std::endl;
+                    std::cout << client->name() << " - ";
+                    setColors("light green");
+                    std::cout << "file uploaded successfully" << std::endl;
+                    setColors("reset");
                 }
                 break;
 
@@ -65,11 +77,17 @@ void clientLoop(Client* client){
                 std::cout << client->name() << " : listing request" << std::endl;
                 if( !listFiles( *client ) ){
                     tprint();
-                    std::cout << client->name() << " - file listing failed" << std::endl;
+                    std::cout << client->name() << " - ";
+                    setColors("light red");
+                    std::cout << "file listing failed" << std::endl;
+                    setColors("reset");
                 }
                 else{
                     tprint();
-                    std::cout << client->name() << " - file listed successfully" << std::endl;
+                    std::cout << client->name() << " - ";
+                    setColors("light green");
+                    std::cout << "file listed successfully" << std::endl;
+                    setColors("reset");
                 }
                 break;
 
@@ -107,7 +125,10 @@ void clientLoop(Client* client){
     }while(client_status != sf::Socket::Status::Disconnected );
     client->disconnect();
     tprint();
-    std::cout << client->name() << " - disconnected" << std::endl;
+    std::cout << client->name() << " - ";
+    setColors("light green");
+    std::cout << "disconnected" << std::endl;
+    setColors("reset");
 }
 
 int main(){
@@ -122,7 +143,9 @@ int main(){
     sf::TcpListener *listener = new sf::TcpListener;
     if( listener->listen( port ) != sf::Socket::Done ){
         tprint();
+        setColors("light blue");
         std::cout << "* failed to listen" << std::endl;
+        setColors("reset");
         return false;
     }
     while (true){
@@ -141,7 +164,9 @@ int main(){
         for(unsigned int i(0); i < client_array.size(); ++i) {
             if (!client_array[i]->isConnected()){
                 tprint();
+                setColors("light blue");
                 std::cout << "* memory used by " << client_array[i]->name() << " freed" << std::endl;
+                setColors("reset");
                 thread_array.erase(thread_array.begin() + i);
                 client_array.erase(client_array.begin() + i);
             }
