@@ -12,7 +12,7 @@
 #	define OS_WINDOWS
 #	include <windows.h>
 #else
-#	include <direct.h>
+#	include <sys/stat.h>
 #endif
 
 void createDirectory(Client& client);

@@ -21,7 +21,7 @@
 
 bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string const& directory, std::string filename );
 bool sendData( sf::TcpSocket& server, std::string const& current_directory );
-bool uploadFile( sf::TcpSocket& server, std::ifstream& input_file, unsigned int file_size );
+bool uploadFile( sf::TcpSocket& server, std::ifstream& input_file, unsigned int file_size, std::string const& filename );
 bool recursiveUpload( sf::TcpSocket& server, std::string remote_directory, std::string current_directory, std::string folder_name );
 
 #endif

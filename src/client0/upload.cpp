@@ -2,18 +2,25 @@
 
 bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string const& directory, std::string filename ) {		//Starts an upload (opening file and telling the server its name and size)
 													//Also retrieves server's answer (upload accepted or denied)
-	file_size = getFileLength( filename ) ;
-	infile.open( formatPath(filename).c_str(), std::ios::binary | std::ios::in);
+	if( isFolder( filename ) ){
+		
+		std::cout << "You are trying to upload a folder... (maybe you forgot to add * ?)"
+			<< std::endl;
+		return false;
+	}
 
+	file_size = getFileLength( "./" + filename ) ;
+	infile.open( formatPath(filename).c_str(), std::ios::binary | std::ios::in);
+	
 	if( file_size == 0 || infile.fail() ) {
 
-		std::cout << "There was a problem reading the file" << std::endl;
+		std::cout << "There was a problem reading the file : " << filename << std::endl;
 		return false;
 	}
 
 	sf::Packet packet;
 
-	packet << (directory+formatPath(filename)) << Upload << file_size << NB_BYTE_PER_PACKET;
+	packet << (directory+'/'+formatPath(filename)) << Upload << file_size << NB_BYTE_PER_PACKET;
 	server.send(packet);
 	packet.clear();
 
@@ -39,18 +46,19 @@ bool sendData( sf::TcpSocket& server, std::string const& current_directory ){
 
 	if( filename.back() == '*' ){
 		filename.pop_back();
-		return recursiveUpload( server, current_directory, "", formatPath( filename ) );
-	}
+		filename.pop_back();
+		return recursiveUpload( server, current_directory, ".", filename );
+	}//else
 
 	if( !startUpload( input_file, file_size, server, current_directory, filename ) ){				//Preparing to upload
 
 		std::cout << "Could not send the file" << std::endl;
 		return false;
 	}
-	return uploadFile( server, input_file, file_size );
+	return uploadFile( server, input_file, file_size, filename );
 }
 
-bool uploadFile( sf::TcpSocket& server, std::ifstream& input_file, unsigned int file_size ) {									// Sends a file to the server
+bool uploadFile( sf::TcpSocket& server, std::ifstream& input_file, unsigned int file_size, std::string const& filename ) {									// Sends a file to the server
 
 	unsigned int loop_number=file_size/NB_BYTE_PER_PACKET;
 	char input_data_array[NB_BYTE_PER_PACKET];
@@ -76,7 +84,7 @@ bool uploadFile( sf::TcpSocket& server, std::ifstream& input_file, unsigned int 
 
 
 		if( i%10 == 0 ){
-			percentageDisplay( static_cast<unsigned char>(100*i/loop_number), "", file_size, i*NB_BYTE_PER_PACKET );
+			percentageDisplay( static_cast<unsigned char>(100*i/loop_number), filename, file_size, i*NB_BYTE_PER_PACKET );
 		}
 	}
 
@@ -95,7 +103,7 @@ bool uploadFile( sf::TcpSocket& server, std::ifstream& input_file, unsigned int 
 			return false;
 		}
 
-		percentageDisplay( 100, "", file_size + loop_number * NB_BYTE_PER_PACKET, file_size + loop_number * NB_BYTE_PER_PACKET );
+		percentageDisplay( 100, filename, file_size + loop_number * NB_BYTE_PER_PACKET, file_size + loop_number * NB_BYTE_PER_PACKET );
 
 		delete file_tail;
 
@@ -103,50 +111,70 @@ bool uploadFile( sf::TcpSocket& server, std::ifstream& input_file, unsigned int 
 
 	std::cout << std::endl << "Transfer terminated successfully" << std::endl;
 
+	input_file.close();
+
 	return true;
 }
 
-bool recusiveUpload( sf::TcpSocket& server, std::string remote_directory, std::string current_directory, std::string folder_name ){
+bool recursiveUpload( sf::TcpSocket& server, std::string remote_directory, std::string local_directory, std::string folder_name ){
 
-	DIR* directory = opendir( folder_name.c_str() );
+	DIR* directory = opendir( (local_directory+'/'+folder_name).c_str() );
+
 	struct dirent* pointed_elem = NULL;
 
 	if( directory == NULL ){
 		
-		std::cout << "Could not open the directory : " << folder_name << std::endl;
+		std::cout << "Could not open the directory : " << local_directory+'/'+folder_name << std::endl;
 		return false;
 	}
 
 	sf::Packet spacket;
 	spacket.clear();
 
-	spacket << remote_directory + current_directory + folder_name << Mkdir;
+	std::string tmpstr("");
+	if( local_directory.size() > 2 )
+		tmpstr = local_directory.substr( 2 );
+
+	spacket << remote_directory + tmpstr + '/' + folder_name << Mkdir;
 	server.send( spacket );
 	spacket.clear();
 
 	server.receive( spacket );
-	int s_ans;
+	int s_ans(0);
 	spacket >> s_ans;
-
-	if(!interpretServerAns(static_cast<char>(s_ans)))
-		return false;
-
+/*
+	switch( static_cast<char>(s_ans) ){
+	
+	case Exist: break;
+	case AlreadyExist: break;
+	default: return false;
+	}
+*/
+	std::cout << "s_ans : " << s_ans << std::endl;
 	bool returned(true);
 
 	while( (pointed_elem = readdir( directory )) != NULL){
 
-		if( isFolder( current_directory+pointed_elem->d_name )){
+		if( pointed_elem->d_name[0] != '.' ){
+			if( isFolder( local_directory + '/' + folder_name + '/' + pointed_elem->d_name)){
 
-			returned = recursiveUpload( server, remote_directory + '/' + folder_name, current_directory + '/' + folder_name, pointed_elem->d_name ) && returned;
-		}else{
+				returned = recursiveUpload( server, remote_directory, local_directory + '/' + folder_name, pointed_elem->d_name ) && returned;
+			}else{
 
-			std::ifstream input_file;
-			unsigned int file_size;
-			returned = startUpload( input_file, file_size, server, remote_directory + folder_name, pointed_elem->d_name )
-				&& uploadFile( server, input_file, file_size )
-				&& returned;
+				std::ifstream input_file;
+				unsigned int file_size;
+				std::string file_name( local_directory + '/' + folder_name + '/' + pointed_elem->d_name );
+
+				if( file_name.substr( 0, 2 ) == "./" )
+					file_name.erase( 0, 2 );
+
+				returned = startUpload( input_file, file_size, server, remote_directory + '/' + local_directory + '/' + folder_name, file_name )
+					&& uploadFile( server, input_file, file_size, file_name )
+					&& returned;
+			}
 		}
 
 	}
+
 	return returned;
 }

@@ -23,7 +23,6 @@ enum SCommand : signed char {
 	Download,
 	Ls,
 	Disconnect,
-	Pwd,
 	Cd,
 	Exist,
 	Mkdir
