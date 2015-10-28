@@ -1,6 +1,6 @@
-#include "../../include/server0/listFiles.hpp"
+#include "../../include/server0/a_listFiles.hpp"
 
-bool listFiles(Client& client){
+bool a_listFiles(Client& client){
 	
 	//checking allowance and sending what's up about this
 	
@@ -9,7 +9,6 @@ bool listFiles(Client& client){
 	client.packet.clear();
 
 	if( directory == NULL ){
-
 		client.packet << VoidDirectory;
 		client.socket.send( client.packet );
 		tprint();
@@ -24,7 +23,6 @@ bool listFiles(Client& client){
 	std::cout << client.name() << " -> Server ready to list" << std::endl;
 
 	if(client.path == "./Public/"){
-
 		client.packet << 8 
 		<< static_cast<sf::Int32>('P')
 		<< static_cast<sf::Int32>('r')

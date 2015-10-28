@@ -1,10 +1,7 @@
 #ifndef CREATEDIRECTORY_HPP_INCLUDED
 #define CREATEDIRECTORY_HPP_INCLUDED
 
-#include <SFML/Network.hpp>
-#include "../common/SCommand.hpp"
-#include "directoryExist.hpp"
-
+#include <dirent.h>
 #include "Client.hpp"
 #include "tprint.hpp"
 
@@ -15,6 +12,6 @@
 #	include <sys/stat.h>
 #endif
 
-void createDirectory(Client& client);
+bool createDirectory(Client& client);
 
 #endif

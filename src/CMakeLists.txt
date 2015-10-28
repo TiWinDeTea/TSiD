@@ -1,38 +1,15 @@
 message(STATUS "Sources preparation")
 
-set(SERVER_SRC
-	${CMAKE_CURRENT_SOURCE_DIR}/server0/download.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/server0/listFiles.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/server0/server0.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/server0/upload.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/server0/client.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/server0/formatDirectoryPath.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/server0/directoryExist.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/server0/createDirectory.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/server0/tprint.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/common/fileExist.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/common/getFileLength.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/common/isFolder.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/common/setColors.cpp
+file(GLOB SERVER_SRC
+	"${CMAKE_CURRENT_SOURCE_DIR}/server0/*"
+	"${CMAKE_CURRENT_SOURCE_DIR}/common/*"
 )
 
 message("	-> Prepared : Server sources")
 
-set(CLIENT_SRC
-	${CMAKE_CURRENT_SOURCE_DIR}/client0/client0.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/client0/download.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/client0/percentageDisplay.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/client0/retrieveFileList.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/client0/serverAnsInterpret.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/client0/setStdcinEcho.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/client0/upload.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/client0/userInputInterpret.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/client0/moveToDirectory.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/client0/formatPath.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/common/setColors.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/common/fileExist.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/common/getFileLength.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/common/isFolder.cpp
+file(GLOB CLIENT_SRC
+	"${CMAKE_CURRENT_SOURCE_DIR}/client0/*"
+	"${CMAKE_CURRENT_SOURCE_DIR}/common/*"
 )
 
 message("	-> Prepared : Client sources")

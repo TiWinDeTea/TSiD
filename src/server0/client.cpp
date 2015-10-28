@@ -39,6 +39,11 @@ bool Client::connectUser() {
         packet << BadID;
         socket.send( packet );
         packet.clear();
+        tprint();
+        std::cout << user_name << " - ";
+        setColors("light yellow");
+        std::cout << "failed to connect, bad id" << std::endl;
+        setColors("reset");
         return false;
     }//else
     
@@ -61,6 +66,11 @@ bool Client::connectUser() {
     packet << BadID;
     socket.send( packet );
     packet.clear();
+    tprint();
+    std::cout << user_name << " - ";
+    setColors("light yellow");
+    std::cout << "failed to connect, bad password" << std::endl;
+    setColors("reset");
     return false;
 }
 

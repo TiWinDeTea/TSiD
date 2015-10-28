@@ -1,17 +1,19 @@
-#ifndef DIRECTORYEXIST_HPP_INCLUDED
-#define DIRECTORYEXIST_HPP_INCLUDED
+#ifndef A_LISTFILES_HPP_INCLUDED
+#define A_LISTFILES_HPP_INCLUDED
 
 #include <SFML/Network.hpp>
 #include <dirent.h>
+#include <iostream>
 #include "../common/SCommand.hpp"
-#include "Client.hpp"
 #include "tprint.hpp"
+#include "../common/isFolder.hpp"
+#include "Client.hpp"
 
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
 #else
 	#include <sys/types.h>
 #endif
 
-void directoryExist(Client& client);
+bool a_listFiles( Client& client );
 
 #endif

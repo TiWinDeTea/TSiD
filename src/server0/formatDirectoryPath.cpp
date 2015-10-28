@@ -6,6 +6,7 @@ void formatDirectoryPath(Client& client){
 		
 		client.path.insert(8, "/" + client.name());
 	}
+	
 	else{
 		client.path = "/Public" + client.path;
 	}

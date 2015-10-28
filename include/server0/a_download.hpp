@@ -1,17 +1,16 @@
-#ifndef UPLOAD_HPP_INCLUDED
-#define UPLOAD_HPP_INCLUDED
+#ifndef A_DOWNLOAD_HPP_INCLUDED
+#define A_DOWNLOAD_HPP_INCLUDED
 
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <fstream>
+#include <stdio.h>
 #include "../common/SCommand.hpp"
 #include "../common/fileExist.hpp"
-#include "../common/getFileLength.hpp"
+#include "createFile.hpp"
 #include "tprint.hpp"
 #include "Client.hpp"
 
-#define NB_BYTE_PER_PACKET 8192
-
-bool sendData( Client& client );
+bool a_retrieveData( Client& client );
 
 #endif

@@ -1,6 +1,6 @@
-#include "../../include/server0/upload.hpp"
+#include "../../include/server0/a_upload.hpp"
 
-bool sendData(Client& client){									// Sends a file to the client
+bool a_sendData(Client& client){									// Sends a file to the client
 
 	//here : authorized or forbidden
 	client.packet.clear();
@@ -25,19 +25,18 @@ bool sendData(Client& client){									// Sends a file to the client
 	}
 
 	if(file_size < 1024 ){
-
 		std::cout << "\t-File size: " << file_size << " B" << std::endl;
 	}
+	
 	else if(file_size < 1024 * 1024 ){
-
 		std::cout << "\t-File size: " << file_size/1024 << " KiB" << std::endl;
 	}
+	
 	else if(file_size < 1024 * 1024 * 1024 ){
-
 		std::cout << "\t-File size: " << file_size/(1024 * 1024)<< " MiB" << std::endl;
 	}
+	
 	else{
-
 		std::cout << "\t-File size: " << file_size/(1024 * 1024 * 1024)<< " GiB" << std::endl;
 	}
 
@@ -71,9 +70,11 @@ bool sendData(Client& client){									// Sends a file to the client
     setColors("light blue");
 	std::cout << "* Start uploading " << client.path << " to " << client.name() << std::endl;
     setColors("reset");
+	
 	for( unsigned int i(0) ; i<loop_number ; ++i ){					//Reading an sending the file
 
 		input_file.read( input_data_array, NB_BYTE_PER_PACKET);
+		
 		for( unsigned int j(0) ; j<NB_BYTE_PER_PACKET ; ++j)
 			client.packet << static_cast<sf::Int8>(input_data_array[j]);
 
@@ -101,10 +102,12 @@ bool sendData(Client& client){									// Sends a file to the client
 	}
 
 	file_size -= loop_number * NB_BYTE_PER_PACKET;
+	
 	if( file_size > 0){								//There is some more to be transferred
 
 		char* file_tail = new char[file_size];
 		input_file.read( file_tail, file_size);
+		
 		for( unsigned int j(0) ; j< file_size ; ++j)
 			client.packet << static_cast<sf::Int8>(file_tail[j]);
 
@@ -114,11 +117,11 @@ bool sendData(Client& client){									// Sends a file to the client
             setColors("light red");
             std::cout << "connection lost" << std::endl;
             setColors("reset");
-			delete file_tail;
+			delete[] file_tail;
 			return false;
 		}
 
-		delete file_tail;
+		delete[] file_tail;
 
 	}
 
