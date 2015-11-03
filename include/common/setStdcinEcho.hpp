@@ -9,6 +9,10 @@
 	#include <unistd.h>
 #endif
 
+/**
+ * sets the display of std::cin.
+ * @param enable Displays the keyboards strikes if true, hides them if false
+ */
 void setStdcinEcho(bool enable);
 
 #endif

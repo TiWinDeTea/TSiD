@@ -11,6 +11,10 @@
 
 #include <string>
 
+/**
+ * Sets a display color in the terminal
+ * @param text_color color to display ( values are : reset, black, blue, green, cyan, red, magenta, yellow, white, grey, and their 'light')
+ */
 void setColors( std::string const& text_color );
 
 #endif

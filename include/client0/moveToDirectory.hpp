@@ -8,6 +8,12 @@
 #include <iostream>
 #include <string>
 
+/**
+ * moves the user to a given directory
+ * @param  server            socket binded to the server (connected)
+ * @param  current_directory current working directory (remote)
+ * @return                   true if successful, false otherwise
+ */
 bool moveToDirectory( sf::TcpSocket& server, std::string& current_directory );
 
 #endif

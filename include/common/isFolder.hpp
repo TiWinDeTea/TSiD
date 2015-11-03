@@ -13,6 +13,11 @@
 #include <string>
 #include "../../include/common/fileExist.hpp"
 
+/**
+ * Tells if a given path leads to a folder or not
+ * @param  path path to check
+ * @return      true if the path leads to a folder, false otherwise
+ */
 bool isFolder(std::string const& path);
 
 #endif

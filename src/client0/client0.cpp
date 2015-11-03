@@ -6,7 +6,13 @@
 #include "../../include/client0/serverAnsInterpret.hpp"
 #include "../../include/common/setColors.hpp"
 
-bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {								//Connect the client to the server
+/**
+ * Connects to a server
+ * @param  socket  sockets that will be bind to the server
+ * @param  user_id the user identifier for the server
+ * @return         true if the connection was successful, false otherwise
+ */
+bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {
 
 	unsigned short remote_port;
 	std::string remote_address, user_pass;
