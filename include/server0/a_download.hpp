@@ -10,7 +10,7 @@
 #include "createFile.hpp"
 #include "tprint.hpp"
 #include "Client.hpp"
-#include "WriteFileInformations.hpp"
+#include "writeFileInformations.hpp"
 
 bool a_retrieveData( Client& client );
 
