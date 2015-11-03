@@ -13,6 +13,7 @@
 #include "../../include/server0/a_directoryExist.hpp"
 #include "../../include/server0/a_createDirectory.hpp"
 #include "../../include/server0/tprint.hpp"
+#include "../../include/server0/readConfig.hpp"
 
 
 void clientLoop(Client* client){
@@ -161,6 +162,7 @@ void clientLoop(Client* client){
 int main(){
 
     unsigned short port;
+    readConfig();
 
     std::cout << "Port to use : ";
     std:: cin >> port;

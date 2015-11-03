@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include "../../include/client0/userInputInterpret.hpp"
-#include "../../include/client0/setStdcinEcho.hpp"
+#include "../../include/common/setStdcinEcho.hpp"
 #include "../../include/client0/serverAnsInterpret.hpp"
 #include "../../include/common/setColors.hpp"
 
