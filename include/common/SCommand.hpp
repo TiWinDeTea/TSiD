@@ -19,6 +19,7 @@ enum SCommand : signed char {
 	ClientReady = 0,
 	EndOfStream = 0,
 	GoodID = 0,
+	Succes = 0,
 
 	Upload = 1,
 	Download,
