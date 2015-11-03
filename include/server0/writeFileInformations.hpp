@@ -10,6 +10,6 @@
 #include "formatedTime.hpp"
 #include "createDirectory.hpp"
 
-char WriteFileInformations(Client& client);
+char writeFileInformations(Client& client);
 
 #endif

@@ -6,7 +6,7 @@
 #include "Client.hpp"
 #include "tprint.hpp"
 #include "createDirectory.hpp"
-#include "WriteFileInformations.hpp"
+#include "writeFileInformations.hpp"
 
 void a_createDirectory(Client& client);
 

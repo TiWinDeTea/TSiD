@@ -1,6 +1,6 @@
-#include "../../include/server0/WriteFileInformations.hpp"
+#include "../../include/server0/writeFileInformations.hpp"
 
-char WriteFileInformations(Client& client){
+char writeFileInformations(Client& client){
 
     if( fileExist("./FilesData" + client.path.substr(1, std::string::npos)) ){
     	setColors("light red");

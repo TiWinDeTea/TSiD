@@ -29,7 +29,7 @@ bool a_retrieveData(Client& client){
             break;
 
         case Created:
-            WriteFileInformations(client);
+            writeFileInformations(client);
             break;
 
         case UnknownIssue:
