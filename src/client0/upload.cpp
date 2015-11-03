@@ -1,7 +1,11 @@
 #include "../../include/client0/upload.hpp"
 
-bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string const& directory, std::string filename ) {		//Starts an upload (opening file and telling the server its name and size)
+bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket& server, std::string const& dir, std::string filename ) {		//Starts an upload (opening file and telling the server its name and size)
 													//Also retrieves server's answer (upload accepted or denied)
+	
+	std::string directory(dir);
+	formatDir(directory);
+
 	if( isFolder( filename ) ){
 		
 		std::cout << "You are trying to upload a folder... (maybe you forgot to add * ?)"
@@ -9,12 +13,12 @@ bool startUpload( std::ifstream& infile, unsigned int& file_size, sf::TcpSocket&
 		return false;
 	}
 
-	file_size = getFileLength( "./" + filename ) ;
-	infile.open( formatPath(filename).c_str(), std::ios::binary | std::ios::in);
+	file_size = getFileLength( filename ) ;
+	infile.open( filename.c_str(), std::ios::binary | std::ios::in);
 	
 	if( file_size == 0 || infile.fail() ) {
 
-		std::cout << "There was a problem reading the file : " << filename << std::endl;
+		std::cout << "There was a problem reading the file : " << filename << " (maybe that this file is empty ?)" << std::endl;
 		return false;
 	}
 

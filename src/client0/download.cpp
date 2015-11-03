@@ -1,10 +1,7 @@
 #include "../../include/client0/download.hpp"
 
-bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& directory ){
+bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& directory, std::string filename ){
 
-	std::cin.ignore();
-	std::string filename;
-	std::getline( std::cin, filename);
 	if( fileExist( formatPath(filename) ) ){
 		std::cout << "This file already exists ! Aborting." << std::endl;
 		return false;
@@ -46,19 +43,34 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 	return state_ok;
 }
 
-
 bool retrieveData( sf::TcpSocket& server, std::string current_directory ){
 
 	std::string filename(current_directory);
+	unsigned int filesize, bytes_per_packet;
+	std::ofstream output_file;
 	sf::Packet spacket;
-	unsigned int filesize(0);
-	unsigned int bytes_per_packet; std::ofstream output_file;
-	
-	if( !startDownload( server, spacket, filesize, bytes_per_packet, output_file, filename ) ){
+
+	std::cin.ignore();
+	std::getline( std::cin, filename );
+
+	if( filename.back() == '*' ){
+		
+		filename.pop_back();
+		return recursiveDownload( server, current_directory + filename );
+	}//else
+
+	if( !startDownload( server, spacket, filesize, bytes_per_packet, output_file, current_directory, filename ) ){
+
 		std::cout << "Could not download" << std::endl;
 		return false;
-	}
+	}//else
+
+	return downloadFile( server, spacket, filesize, bytes_per_packet, output_file, filename );
+}
 	
+
+bool downloadFile( sf::TcpSocket& server, sf::Packet& spacket, unsigned int filesize, unsigned int bytes_per_packet, std::ofstream& output_file, std::string const& filename ) {
+
 	unsigned int loop_number(filesize/bytes_per_packet);
 	char* input_data_array = new char[bytes_per_packet];
 	sf::Int8 input_data;
@@ -99,5 +111,17 @@ bool retrieveData( sf::TcpSocket& server, std::string current_directory ){
 	} 
 	std::cout << std::endl << "Transfer terminated successfully" << std::endl;
 	delete input_data_array;
+	return true;
+}
+
+bool recursiveDownload( sf::TcpSocket& server, std::string remote_directory ){
+	
+	///To be done
+	//
+	//This piece of code is here only to avoid warnings
+
+	sf::Packet spacket;
+	spacket << remote_directory;
+	server.send( spacket );
 	return true;
 }

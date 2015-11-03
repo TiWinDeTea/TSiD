@@ -3,7 +3,8 @@
 bool moveToDirectory( sf::TcpSocket& server, std::string& current_directory ){
 
 	std::string forward_directory(""), previous_directory(current_directory);
-	std::cin >> forward_directory;
+	std::cin.ignore();
+	std::getline( std::cin, forward_directory);
 
 	while( !forward_directory.compare(0,2,"./") )
 		forward_directory.erase( 0, 2 );
@@ -33,6 +34,7 @@ bool moveToDirectory( sf::TcpSocket& server, std::string& current_directory ){
 	sf::Int32 answer;
 
 	server.receive( spacket );
+	
 	if( !( spacket >> answer ) ){
 
 		std::cout << "Couldn't retrieve server answer" << std::endl;
