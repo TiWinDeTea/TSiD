@@ -27,7 +27,6 @@ void clientLoop(Client* client){
         formatDirectoryPath(*client);
 
         client->packet >> client_command;
-        std::cout << std::endl;
 
         switch( static_cast<char>(client_command) ){
 
