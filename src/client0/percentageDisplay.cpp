@@ -2,6 +2,9 @@
 
 void approxDisplay( unsigned int numb ){
 
+	if( numb == 0 )
+		std::cout << "   "; //Smoothing the display
+
 	std::setprecision( 2 );
 	std::cout << std::showpoint;
 

@@ -70,7 +70,7 @@ bool uploadFile( sf::TcpSocket& server, std::ifstream& input_file, unsigned int 
 	spacket.clear();
 
 	std::cout << "Upload is starting" << std::endl;
-	percentageDisplay( 0, "", file_size, 0 );
+	percentageDisplay( 0, filename, file_size, 0 );
 
 	for( unsigned int i(0) ; i<loop_number ; ++i ){					//Reading an sending the file
 
