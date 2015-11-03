@@ -1,13 +1,13 @@
 #include "../../include/server0/createFile.hpp"
 
-bool createFile(Client& client){
-	if( fileExist( client.path ) ){
+char createFile(std::string path){
+	if( fileExist( path ) ){
         std::cout << "\t-The file already exist" << std::endl;
-        return false;
+        return AlreadyExist;
     }
     std::cout << "\t-The filename is free" << std::endl;
 
-    std::ofstream file ( client.path.c_str(), std::ios::binary | std::ios::out );
+    std::ofstream file ( path.c_str(), std::ios::binary | std::ios::out );
 
     if( file.fail() ){
         file.close();
@@ -15,12 +15,12 @@ bool createFile(Client& client){
         setColors("light red");
         std::cout << "Error creating the file" << std::endl;
         setColors("reset");
-        return false;
+        return UnknownIssue;
     }
     file.close();
     tprint();
     setColors("light blue");
-    std::cout << "* file " << client.path << " created" << std::endl;
+    std::cout << "* file " << path << " created" << std::endl;
     setColors("reset");
-    return true;
+    return Created;
 }

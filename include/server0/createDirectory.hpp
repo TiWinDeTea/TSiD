@@ -12,6 +12,6 @@
 #	include <sys/stat.h>
 #endif
 
-bool createDirectory(Client& client);
+char createDirectory(std::string path);
 
 #endif

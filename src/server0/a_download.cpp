@@ -18,20 +18,32 @@ bool a_retrieveData(Client& client){
 
     client.packet.clear();
 
-    if( fileExist( client.path ) ){
-        client.packet << AlreadyExist;
-        client.socket.send(client.packet);
-        tprint();
-        std::cout << client.name() << " -> File already exists" << std::endl;
-        return false;
-    }
+    switch(createFile(client.path)){
+        
+        case AlreadyExist:
+            client.packet << AlreadyExist;
+            client.socket.send(client.packet);
+            tprint();
+            std::cout << client.name() << " -> File already exists" << std::endl;
+            return false;
+            break;
 
-    if( !createFile(client) ){
-        client.packet << ServerFailure;
-        client.socket.send(client.packet);
-        tprint();
-        std::cout << client.name() << " -> Couldn't create file" << std::endl;
-        return false;
+        case Created:
+            WriteFileInformations(client);
+            break;
+
+        case UnknownIssue:
+            client.packet << ServerFailure;
+            client.socket.send(client.packet);
+            tprint();
+            setColors("light red");
+            std::cout << client.name() << " -> Couldn't create file" << std::endl;
+            setColors("reset");
+            return false;
+            break;
+
+        default:
+            break;
     }
 
     std::ofstream output_file ( client.path.c_str(), std::ios::binary | std::ios::out );

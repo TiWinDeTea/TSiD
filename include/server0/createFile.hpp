@@ -8,6 +8,6 @@
 #include "tprint.hpp"
 #include "../common/fileExist.hpp"
 
-bool createFile(Client& client);
+char createFile(std::string path);
 
 #endif

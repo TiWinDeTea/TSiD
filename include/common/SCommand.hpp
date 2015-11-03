@@ -5,6 +5,7 @@ enum SCommand : signed char {
 	NotAuthorized = -127,
 	TooBig,
 	AlreadyExist,
+	Created,
 	VoidFileName,
 	VoidDirectory,
 	FileDoesNotExist,
