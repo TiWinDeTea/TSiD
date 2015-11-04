@@ -161,6 +161,7 @@ void clientLoop(Client* client){
 
 int main(){
 
+    setColors("reset");
     unsigned short port;
     readConfig();
 

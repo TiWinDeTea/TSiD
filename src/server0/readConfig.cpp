@@ -45,10 +45,12 @@ void createArchitecture(){
 	createDirectory("Public/documents");
 	createDirectory("Private");
 	createDirectory("FilesData");
-	createDirectory("FilesData/music");
-	createDirectory("FilesData/films");
-	createDirectory("FilesData/pictures");
-	createDirectory("FilesData/documents");
+	createDirectory("FilesData/Private");
+	createDirectory("FilesData/Public");
+	createDirectory("FilesData/Public/music");
+	createDirectory("FilesData/Public/films");
+	createDirectory("FilesData/Public/pictures");
+	createDirectory("FilesData/Public/documents");
 	createDirectory("UsersData");
 	createDirectory("ToConf");
 	createDirectory("IPList");
@@ -81,7 +83,7 @@ void newUser( std::string const& user_name, std::string const& password ){
 	}
 
 	createDirectory("Private/"+user_name);
-	createDirectory("FilesData/"+user_name);
+	createDirectory("FilesData/Private/"+user_name);
 	user_file << password;
 }
 

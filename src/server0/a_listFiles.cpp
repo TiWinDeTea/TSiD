@@ -8,6 +8,8 @@ bool a_listFiles(Client& client){
 	struct dirent* redfile = NULL;
 	client.packet.clear();
 
+	std::cout << "\t-Directory: " << client.path << std::endl;
+
 	if( directory == NULL ){
 		client.packet << VoidDirectory;
 		client.socket.send( client.packet );

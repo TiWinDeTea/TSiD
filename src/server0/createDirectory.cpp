@@ -2,7 +2,9 @@
 
 char createDirectory(std::string path){
     DIR* directory = opendir(path.c_str());
-    
+
+    std::cout << "\t-Directory: " << path << std::endl;
+
     if(directory == NULL){
         std::cout << "\t-The directory name is free" << std::endl;
         
