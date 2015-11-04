@@ -50,7 +50,7 @@ bool downloadFile( sf::TcpSocket& server, sf::Packet& spacket, unsigned int file
  * @param  server           socket binded to the server
  * @param  remote_directory directory to be downloaded
  * @return                  true if every download was successful, false otherwise
- * \todo					everything
+ * \todo                                     everything
  */
 bool recursiveDownload( sf::TcpSocket& server, std::string remote_directory );
 
