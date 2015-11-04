@@ -8,6 +8,11 @@
 #include "createDirectory.hpp"
 #include "writeFileInformations.hpp"
 
+/**
+ * @brief Answer to the client command 'mkdir'
+ * 
+ * @param client The Client object wich contain the path of the directory
+ */
 void a_createDirectory(Client& client);
 
 #endif

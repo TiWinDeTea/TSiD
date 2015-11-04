@@ -12,6 +12,14 @@
 #	include <sys/stat.h>
 #endif
 
+/**
+ * @brief Create a directory
+ * 
+ * @param path The path of the directory to create
+ * @return Created in case of success,
+ * AlreadyExist if the directory already exist,
+ * UnknownIssue in case of error
+ */
 char createDirectory(std::string path);
 
 #endif

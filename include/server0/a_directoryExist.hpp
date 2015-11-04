@@ -12,6 +12,11 @@
 	#include <sys/types.h>
 #endif
 
+/**
+ * @brief Answer to the client command Exist (send by command 'cd')
+ * 
+ * @param client The Client object wich contain the path of the directory
+ */
 void a_directoryExist(Client& client);
 
 #endif
