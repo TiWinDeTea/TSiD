@@ -47,6 +47,9 @@ What will go on when v1 will be finished ?
 What is working right now ?
 <ul>
 + v0 works, so v1 already supports that
++ Recursive upload is available
++ Improved display
++ Added client commands : mkdir.
 </ul><br/>
 
 ##Contribute

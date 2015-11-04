@@ -50,6 +50,11 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 			system( user_input.c_str() );
 			std::cout << std::endl;
 		}
+		else if( user_input == "mkdir" ){
+
+			if( !createDirectory( server, current_directory ) )
+				std::cout << "Failed to create the directory" << std::endl;
+		}
 		else if( user_input != "bye" && user_input != "exit" && user_input != "quit" ){
 
 			std::cout << "TSiD : " << user_input << " : command not found."

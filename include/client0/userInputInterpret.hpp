@@ -6,6 +6,7 @@
 #include "retrieveFileList.hpp"
 #include "upload.hpp"
 #include "moveToDirectory.hpp"
+#include "createDirectory.hpp"
 
 /**
  * Interprets the commands typed by the client

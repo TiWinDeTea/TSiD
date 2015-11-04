@@ -146,6 +146,7 @@ bool recursiveUpload( sf::TcpSocket& server, std::string remote_directory, std::
 	server.receive( spacket );
 	int s_ans(0);
 	spacket >> s_ans;
+//For some reason, the client doesn't retrieve any expected answer. Debugging required
 /*
 	switch( static_cast<char>(s_ans) ){
 	

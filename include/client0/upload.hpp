@@ -56,6 +56,7 @@ bool uploadFile( sf::TcpSocket& server, std::ifstream& input_file, unsigned int 
  * @param  current_directory working directory (local)
  * @param  folder_name       folder to upload
  * @return                   true if every upload was successful, false otherwise
+ * \todo                     debugging server answer (maybe it is on server's side)
  */
 bool recursiveUpload( sf::TcpSocket& server, std::string remote_directory, std::string current_directory, std::string folder_name );
 
