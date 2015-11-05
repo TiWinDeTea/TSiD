@@ -17,6 +17,7 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 				<< "			get" << std::endl
 				<< "			bye / quit / exit" << std::endl
 				<< "			cd" << std::endl
+				<< "			mkdir" << std::endl
 				<< "			!" << std::endl
 				<< std::endl;
 		}
