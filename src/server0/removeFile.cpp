@@ -2,7 +2,7 @@
 
 char removeFile(std::string path){
 
-    if( fileExist( path ) ){
+    if( !fileExist( path ) ){
         std::cout << "\t-File: " << path << std::endl;
         std::cout << "\t-";
         setColors("light yellow");

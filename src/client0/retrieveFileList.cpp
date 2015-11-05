@@ -21,18 +21,18 @@ bool retrieveFileList( sf::TcpSocket& server, std::string current_directory ){
 	}
 
 
-	std::vector<std::wstring> directory_array;
+	std::vector<std::string> directory_array;
 
 	do{
 		server.receive( spacket );
 		
-		directory_array.push_back( std::wstring(L"") );
+		directory_array.push_back( std::string("") );
 		spacket >> filename_length;
 
 		for( unsigned int i(0) ; i < filename_length ; ++i ){
 
 			spacket >> file;
-			directory_array.back() += static_cast<wchar_t>( file );
+			directory_array.back() += static_cast<char>( file );
 		}
 		spacket.clear();
 
@@ -45,13 +45,13 @@ bool retrieveFileList( sf::TcpSocket& server, std::string current_directory ){
 
 	for( unsigned int i(0) ; i < directory_array.size() ; ++i )
 		if( directory_array[i][directory_array[i].size()-1] == '/' && directory_array[i][0] != '.' )
-			std::wcout << directory_array[i] << std::endl;
+			std::cout << directory_array[i] << std::endl;
 
 	setColors("light green"); //for files
 
 	for( unsigned int i(0) ; i < directory_array.size() ; ++i )
 		if( directory_array[i][directory_array[i].size()-1] != '/' )
-			std::wcout << directory_array[i] << std::endl;
+			std::cout << directory_array[i] << std::endl;
 
 	std::cout << std::endl;
 	setColors("reset");
