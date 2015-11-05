@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include "getConsoleWidth.hpp"
 #include "../common/setColors.hpp"
 
 /**
@@ -19,5 +20,21 @@ void approxDisplay( unsigned int numb );
  * @param alreadygot number of bytes already transferred
  */
 void percentageDisplay( unsigned char percentage, std::string filename, unsigned int filesize, unsigned int alreadygot );
+
+/**
+ * displays the 'pacman percentage'
+ * @param size       length for pacman's line
+ * @param percentage percentage to display
+ * @return
+ */
+void displayPacman( unsigned short size, unsigned char percentage );
+
+/**
+ * @brief resizes a string to a given size
+ * If the size requested is shorter than the size of the string, "..." will be placed at the end of the generated string. Otherwise, spaces will be added until the string's size is 'size'
+ * @param str  string to resize
+ * @param size the size requested for the string
+ */
+void resize( std::string& str, unsigned int size );
 
 #endif
