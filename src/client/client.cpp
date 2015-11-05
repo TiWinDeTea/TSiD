@@ -1,10 +1,4 @@
-#include <SFML/Network.hpp>
-#include <iostream>
-#include <fstream>
-#include "c_userInputInterpret.hpp"
-#include "c_serverAnsInterpret.hpp"
-#include "setStdcinEcho.hpp"
-#include "setColors.hpp"
+#include "c_client.hpp"
 
 /**
  * Connects to a server
