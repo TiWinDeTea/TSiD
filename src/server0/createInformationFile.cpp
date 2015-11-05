@@ -1,6 +1,6 @@
-#include "../../include/server0/writeFileInformations.hpp"
+#include "../../include/server0/createInformationFile.hpp"
 
-char writeFileInformations(Client& client){
+char createInformationFile(Client& client){
 
     if( fileExist("./FilesData" + client.path.substr(1, std::string::npos)) ){
     	setColors("light red");
@@ -13,13 +13,14 @@ char writeFileInformations(Client& client){
     	return createDirectory("./FilesData" + client.path.substr(1, std::string::npos));
     }
 
+    createFile("./FilesData" + client.path.substr(1, std::string::npos));
     std::ofstream file ( ("./FilesData" + client.path.substr(1, std::string::npos)).c_str(), std::ios::binary | std::ios::out );
 
     if( file.fail() ){
         file.close();
         std::cout << "\t-";
         setColors("light red");
-        std::cout << "Error creating the informations file" << std::endl;
+        std::cout << "Error writting in the informations file" << std::endl;
         setColors("reset");
         return UnknownIssue;
     }

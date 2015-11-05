@@ -28,10 +28,6 @@ bool a_retrieveData(Client& client){
             return false;
             break;
 
-        case Created:
-            writeFileInformations(client);
-            break;
-
         case UnknownIssue:
             client.packet << ServerFailure;
             client.socket.send(client.packet);
@@ -69,20 +65,7 @@ bool a_retrieveData(Client& client){
             std::cout << "connection lost" << std::endl;
             setColors("reset");
             output_file.close();
-            
-            if( remove(client.path.c_str()) != 0 ){
-                tprint();
-                setColors("light blue");
-                std::cout << "* failed to delete part file " << client.path << std::endl;
-                setColors("reset");
-            }
-            
-            else{
-                tprint();
-                setColors("light blue");
-                std::cout << "* part file " << client.path << " deleted" << std::endl;
-                setColors("reset");
-            }
+            removeFile(client.path);
             return false;
         }
 
@@ -115,20 +98,7 @@ bool a_retrieveData(Client& client){
             std::cout << "connection lost" << std::endl;
             setColors("reset");
             output_file.close();
-            
-            if( remove(client.path.c_str()) != 0 ){
-                tprint();
-                setColors("light blue");
-                std::cout << "* failed to delete part file " << client.path << std::endl;
-                setColors("reset");
-            }
-            
-            else{
-                tprint();
-                setColors("light blue");
-                std::cout << "* part file " << client.path << " deleted" << std::endl;
-                setColors("reset");
-            }
+            removeFile(client.path);
             return false;
         }
 
@@ -146,6 +116,7 @@ bool a_retrieveData(Client& client){
     std::cout << "[100%]";
     setColors("reset");
     std::cout << " Transfer terminated successfully" << std::endl;
+    createInformationFile(client);
     delete[] input_data_array;
     return true;
 }

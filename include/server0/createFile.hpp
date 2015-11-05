@@ -4,9 +4,9 @@
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
-#include "Client.hpp"
 #include "tprint.hpp"
 #include "../common/fileExist.hpp"
+#include "../common/SCommand.hpp"
 
 /**
  * @brief Create a file

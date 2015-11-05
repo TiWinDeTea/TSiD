@@ -6,7 +6,7 @@
 #include "Client.hpp"
 #include "tprint.hpp"
 #include "createDirectory.hpp"
-#include "writeFileInformations.hpp"
+#include "createInformationFile.hpp"
 
 /**
  * @brief Answer to the client command 'mkdir'

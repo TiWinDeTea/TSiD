@@ -15,7 +15,7 @@ void a_createDirectory(Client& client) {
 
         case Created:
             
-            writeFileInformations(client);
+            createInformationFile(client);
             client.packet << Exist;
             client.socket.send(client.packet);
             client.packet.clear();

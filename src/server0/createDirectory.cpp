@@ -3,10 +3,7 @@
 char createDirectory(std::string path){
     DIR* directory = opendir(path.c_str());
 
-    std::cout << "\t-Directory: " << path << std::endl;
-
     if(directory == NULL){
-        std::cout << "\t-The directory name is free" << std::endl;
         
         #ifdef OS_WINDOWS
             
@@ -19,6 +16,7 @@ char createDirectory(std::string path){
             }
             
             else{
+                std::cout << "\t-Directory: " << path << std::endl;
                 std::cout << "\t-";
                 setColors("light red");
                 std::cout << "Error creating the directory" << std::endl;
@@ -37,6 +35,7 @@ char createDirectory(std::string path){
             }
             
             else{
+                std::cout << "\t-Directory: " << path << std::endl;
                 std::cout << "\t-";
                 setColors("light red");
                 std::cout << "Error creating the directory" << std::endl;
@@ -47,7 +46,11 @@ char createDirectory(std::string path){
     }
     
     else{
-        std::cout << "\t-The directory already exist" << std::endl;
+        std::cout << "\t-Directory: " << path << std::endl;
+        std::cout << "\t-";
+        setColors("light yellow");
+        std::cout << "The directory already exist, can't be created" << std::endl;
+        setColors("reset");
         return AlreadyExist;
     }
 }

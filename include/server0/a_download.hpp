@@ -8,9 +8,10 @@
 #include "../common/SCommand.hpp"
 #include "../common/fileExist.hpp"
 #include "createFile.hpp"
+#include "removeFile.hpp"
 #include "tprint.hpp"
 #include "Client.hpp"
-#include "writeFileInformations.hpp"
+#include "createInformationFile.hpp"
 
 /**
  * @brief Answer to the client command 'put'

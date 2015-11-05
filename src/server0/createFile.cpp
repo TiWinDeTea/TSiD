@@ -3,15 +3,19 @@
 char createFile(std::string path){
 	
     if( fileExist( path ) ){
-        std::cout << "\t-The file already exist" << std::endl;
+        std::cout << "\t-File: " << path << std::endl;
+        std::cout << "\t-";
+        setColors("light yellow");
+        std::cout << "The file already exist, can't be created" << std::endl;
+        setColors("reset");
         return AlreadyExist;
     }
-    std::cout << "\t-The filename is free" << std::endl;
 
     std::ofstream file ( path.c_str(), std::ios::binary | std::ios::out );
 
     if( file.fail() ){
         file.close();
+        std::cout << "\t-File: " << path << std::endl;
         std::cout << "\t-";
         setColors("light red");
         std::cout << "Error creating the file" << std::endl;

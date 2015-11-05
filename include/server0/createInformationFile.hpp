@@ -8,6 +8,7 @@
 #include "Client.hpp"
 #include "tprint.hpp"
 #include "formatedTime.hpp"
+#include "createFile.hpp"
 #include "createDirectory.hpp"
 
 /**
@@ -20,6 +21,6 @@
  * AlreadyExist if the file already exist,
  * UnknownIssue in case of error
  */
-char writeFileInformations(Client& client);
+char createInformationFile(Client& client);
 
 #endif
