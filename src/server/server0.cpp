@@ -1,0 +1,232 @@
+#include <SFML/System.hpp>
+#include <SFML/Network.hpp>
+#include <iostream>
+#include <fstream>
+#include <cstring>
+#include <vector>
+#include "SCommand.hpp"
+#include "s_a_upload.hpp"
+#include "s_a_download.hpp"
+#include "s_a_listFiles.hpp"
+#include "s_Client.hpp"
+#include "s_formatDirectoryPath.hpp"
+#include "s_a_directoryExist.hpp"
+#include "s_a_createDirectory.hpp"
+#include "s_tprint.hpp"
+#include "s_readConfig.hpp"
+
+
+void clientLoop(Client* client){
+
+    sf::Socket::Status client_status;
+    do{
+        int client_command(0);
+        client->packet.clear();
+        client_status = client->socket.receive( client->packet );
+        client->packet >> client->path;
+        client->packet >> client_command;
+
+        if(!formatDirectoryPath(*client)){
+            client_command = InvalidPath;
+        }
+
+        switch( static_cast<char>(client_command) ){
+
+            case Upload :
+
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light magenta");
+                std::cout << "upload request" << std::endl;
+                setColors("reset");
+
+                if( !a_retrieveData( *client ) ){
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light red");
+                    std::cout << "file download failed" << std::endl;
+                    setColors("reset");
+                }
+
+                else{
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light green");
+                    std::cout << "file downloaded successfully" << std::endl;
+                    setColors("reset");
+                }
+                break;
+
+            case Download :
+
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light magenta");
+                std::cout << "download request" << std::endl;
+                setColors("reset");
+
+                if( !a_sendData( *client ) ){
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light red");
+                    std::cout << "file upload failed" << std::endl;
+                    setColors("reset");
+                }
+
+                else{
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light green");
+                    std::cout << "file uploaded successfully" << std::endl;
+                    setColors("reset");
+                }
+                break;
+
+            case Ls :
+
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light magenta");
+                std::cout << "listing request" << std::endl;
+                setColors("reset");
+
+                if( !a_listFiles( *client ) ){
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light red");
+                    std::cout << "file listing failed" << std::endl;
+                    setColors("reset");
+                }
+
+                else{
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light green");
+                    std::cout << "file listed successfully" << std::endl;
+                    setColors("reset");
+                }
+                break;
+
+            case Disconnect :
+
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light magenta");
+                std::cout << "disconnection" << std::endl;
+                setColors("reset");
+                client_status = sf::Socket::Disconnected;
+                break;
+
+            case Exist :
+
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light magenta");
+                std::cout << "existing request" << std::endl;
+                setColors("reset");
+                a_directoryExist(*client);
+                tprint();
+                std::cout << client->name() << " - ";
+                setColors("light green");
+                std::cout << "exist request successfully answered" << std::endl;
+                setColors("reset");
+                break;
+
+            case Mkdir :
+
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light magenta");
+                std::cout << "directory creation request" << std::endl;
+                setColors("reset");
+                a_createDirectory(*client);
+                break;
+
+            case InvalidPath:
+
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light yellow");
+                std::cout << "invalid path" << std::endl;
+                setColors("reset");
+                client->packet.clear();
+                client->packet << InvalidPath;
+                client->socket.send( client->packet );
+                tprint();
+                std::cout << client->name() << " -> invalid path" << std::endl;
+
+            default:
+                
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light yellow");
+                std::cout << "invalid command" << std::endl;
+                setColors("reset");
+                client->packet.clear();
+                client->packet << UnknownIssue ;
+                client->socket.send( client->packet );
+                tprint();
+                std::cout << client->name() << " -> invalid command" << std::endl;
+
+        }
+    }while(client_status != sf::Socket::Status::Disconnected );
+    
+    client->disconnect();
+    tprint();
+    std::cout << client->name() << " - ";
+    setColors("light yellow");
+    std::cout << "disconnected" << std::endl;
+    setColors("reset");
+}
+
+int main(){
+
+    setColors("reset");
+    unsigned short port;
+    readConfig();
+
+    std::cout << "Port to use : ";
+    std:: cin >> port;
+
+    std::vector<sf::Thread*> thread_array;
+    std::vector<Client*> client_array;
+    sf::TcpListener *listener = new sf::TcpListener;
+    
+    if( listener->listen( port ) != sf::Socket::Done ){
+        tprint();
+        setColors("light red");
+        std::cout << "* failed to listen" << std::endl;
+        setColors("reset");
+        return false;
+    }
+    
+    while (true){
+
+        client_array.push_back(new Client);
+        thread_array.push_back(new sf::Thread(&clientLoop, client_array.back()));
+        
+        if(client_array.back()->getNewClient(listener)){
+            thread_array.back()->launch();
+        }
+        
+        else{
+            delete thread_array.back();
+            thread_array.pop_back();
+            delete client_array.back();
+            client_array.pop_back();
+        }
+        
+        for(unsigned int i(0); i < client_array.size(); ++i) {
+            
+            if (!client_array[i]->isConnected()){
+                tprint();
+                setColors("light blue");
+                std::cout << "* memory used by " << client_array[i]->name() << " freed" << std::endl;
+                setColors("reset");
+                thread_array.erase(thread_array.begin() + i);
+                client_array.erase(client_array.begin() + i);
+            }
+         }
+
+    }
+}

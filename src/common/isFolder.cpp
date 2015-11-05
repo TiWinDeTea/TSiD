@@ -1,4 +1,4 @@
-#include "../../include/common/isFolder.hpp"
+#include "isFolder.hpp"
 
 bool isFolder(std::string const& path)
 {

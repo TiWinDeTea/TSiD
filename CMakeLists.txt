@@ -2,8 +2,8 @@ project(TSiD)
 
 cmake_minimum_required(VERSION 2.8.9)
 
-set(SERVER server0)
-set(CLIENT client0)
+set(SERVER server)
+set(CLIENT client)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 

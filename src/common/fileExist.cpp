@@ -1,4 +1,4 @@
-#include "../../include/common/fileExist.hpp"
+#include "fileExist.hpp"
 
 bool fileExist( std::string filename ){
 

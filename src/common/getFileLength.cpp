@@ -1,4 +1,4 @@
-#include "../../include/common/getFileLength.hpp"
+#include "getFileLength.hpp"
 
 unsigned int getFileLength( std::string const& filename ) {						//Retrieving file size in bytes
 

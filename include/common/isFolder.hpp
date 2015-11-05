@@ -11,7 +11,7 @@
 #endif
 
 #include <string>
-#include "../../include/common/fileExist.hpp"
+#include "fileExist.hpp"
 
 /**
  * Tells if a given path leads to a folder or not

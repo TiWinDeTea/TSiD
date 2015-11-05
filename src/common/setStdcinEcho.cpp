@@ -1,4 +1,4 @@
-#include "../../include/common/setStdcinEcho.hpp"
+#include "setStdcinEcho.hpp"
 
 void setStdcinEcho( bool enable ) {
 

@@ -1,4 +1,4 @@
-#include "../../include/common/setColors.hpp"
+#include "setColors.hpp"
 
 void setColors( std::string const& text_color)
 {
