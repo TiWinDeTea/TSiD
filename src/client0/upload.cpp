@@ -144,18 +144,16 @@ bool recursiveUpload( sf::TcpSocket& server, std::string remote_directory, std::
 	spacket.clear();
 
 	server.receive( spacket );
-	int s_ans(0);
+	sf::Int8 s_ans(0);
 	spacket >> s_ans;
-//For some reason, the client doesn't retrieve any expected answer. Debugging required
-/*
+
 	switch( static_cast<char>(s_ans) ){
 	
-	case Exist: break;
+	case Exist:
 	case AlreadyExist: break;
 	default: return false;
 	}
-*/
-	std::cout << "s_ans : " << s_ans << std::endl;
+
 	bool returned(true);
 
 	while( (pointed_elem = readdir( directory )) != NULL){

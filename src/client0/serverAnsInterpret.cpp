@@ -4,6 +4,13 @@ bool interpretServerAns( signed char sanswer){								//Sends message to console
 	
 	switch( sanswer ){
 
+	case ServerReady:					//ServerReady or GoodID
+		std::cout << "Server ready" << std::endl;
+		return true;
+	
+	case Exist:
+		return true;
+
 	case NotAuthorized :
 		std::cout << "Message from server : action prohibited" << std::endl;
 		return false;
@@ -35,20 +42,39 @@ bool interpretServerAns( signed char sanswer){								//Sends message to console
 	case BadID:
 		std::cout << "Message from server : bad password or user name" << std::endl;
 		return false;
-
-	case ServerReady:					//ServerReady or GoodID
-		std::cout << "Server ready" << std::endl;
-		return true;
-	
-	case Exist:
-		return true;
 	
 	case VoidDirectory:
 		std::cout << "Message from server : void directory" << std::endl;
 		return false;
 	
+	case InvalidPath:
+		std::cout << "Message from server : bad path" << std::endl;
+		return false;
+
 	default:
 		std::cout << "Unexpected answer from server" << std::endl;
 		return false;
+	}
+}
+
+bool tMutedServerInterpret( signed char sanswer ){
+	switch( sanswer ){
+
+	case ServerReady:
+	case Exist:
+		return true;
+	
+	case NotAuthorized :
+	case TooBig:
+	case AlreadyExist:
+	case VoidFileName:
+	case FileDoesNotExist:
+	case ServerFailure:
+	case UnknownIssue:
+	case BadID:
+	case VoidDirectory:
+	case InvalidPath:
+	default:
+		return interpretServerAns( sanswer );
 	}
 }

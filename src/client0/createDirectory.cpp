@@ -13,8 +13,13 @@ bool createDirectory( sf::TcpSocket& server, std::string const& current_director
 	spacket.clear();
 
 	server.receive( spacket );
-	int s_ans;
-	spacket >> s_ans;
+	sf::Int8 s_ans;
 
-	return interpretServerAns( static_cast<char>(s_ans) );
+	if( !(spacket >> s_ans) ){
+
+		std::cout << "Could not retrieve server state" << std::endl;
+		return false;
+	}
+
+	return tMutedServerInterpret( static_cast<char>(s_ans) );
 }
