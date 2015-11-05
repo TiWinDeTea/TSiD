@@ -12,6 +12,7 @@ enum SCommand : signed char {
 	ServerFailure,
 	UnknownIssue,
 	BadID,
+	InvalidPath,
 
 	ClientFailure,
 

@@ -24,10 +24,11 @@ void clientLoop(Client* client){
         client->packet.clear();
         client_status = client->socket.receive( client->packet );
         client->packet >> client->path;
-
-        formatDirectoryPath(*client);
-
         client->packet >> client_command;
+
+        if(!formatDirectoryPath(*client)){
+            client_command = InvalidPath;
+        }
 
         switch( static_cast<char>(client_command) ){
 
@@ -136,7 +137,21 @@ void clientLoop(Client* client){
                 a_createDirectory(*client);
                 break;
 
+            case InvalidPath:
+
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light yellow");
+                std::cout << "invalid path" << std::endl;
+                setColors("reset");
+                client->packet.clear();
+                client->packet << InvalidPath;
+                client->socket.send( client->packet );
+                tprint();
+                std::cout << client->name() << " -> invalid path" << std::endl;
+
             default:
+                
                 tprint();
                 std::cout << client->name() << " : ";
                 setColors("light yellow");

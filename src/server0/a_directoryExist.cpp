@@ -12,7 +12,7 @@ void a_directoryExist(Client& client){
 		client.socket.send( client.packet );
 		client.packet.clear();
 		tprint();
-		std::cout << client.name() << " -> file doesn't exist" << std::endl;
+		std::cout << client.name() << " -> file doesn't exists" << std::endl;
 	}
 	
 	else{
@@ -20,6 +20,6 @@ void a_directoryExist(Client& client){
 		client.socket.send( client.packet );
 		client.packet.clear();
 		tprint();
-		std::cout << client.name() << " -> file exist" << std::endl;
+		std::cout << client.name() << " -> file exists" << std::endl;
 	}
 }

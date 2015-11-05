@@ -36,9 +36,7 @@ bool a_retrieveData(Client& client){
             client.packet << ServerFailure;
             client.socket.send(client.packet);
             tprint();
-            setColors("light red");
             std::cout << client.name() << " -> Couldn't create file" << std::endl;
-            setColors("reset");
             return false;
             break;
 

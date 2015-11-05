@@ -1,7 +1,8 @@
 #include "../../include/server0/createFile.hpp"
 
 char createFile(std::string path){
-	if( fileExist( path ) ){
+	
+    if( fileExist( path ) ){
         std::cout << "\t-The file already exist" << std::endl;
         return AlreadyExist;
     }

@@ -1,5 +1,11 @@
 #include "../../include/server0/Client.hpp"
 
+Client::Client(){
+    
+    user_name="";
+    state=false;
+}
+
 bool Client::getNewClient(sf::TcpListener* listener){
 
     sf::SocketSelector selector;
