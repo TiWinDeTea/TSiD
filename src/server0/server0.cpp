@@ -125,6 +125,11 @@ void clientLoop(Client* client){
                 std::cout << "existing request" << std::endl;
                 setColors("reset");
                 a_directoryExist(*client);
+                tprint();
+                std::cout << client->name() << " - ";
+                setColors("light green");
+                std::cout << "exist request successfully answered" << std::endl;
+                setColors("reset");
                 break;
 
             case Mkdir :

@@ -2,7 +2,9 @@
 
 char createInformationFile(Client& client){
 
-    if( fileExist("./FilesData" + client.path.substr(1, std::string::npos)) ){
+    std::string info_path = "./FilesData" + client.path.substr(1, std::string::npos);
+
+    if( fileExist(info_path) ){
     	setColors("light red");
         std::cout << "\t-The informations file already exist" << std::endl;
         setColors("reset");
@@ -10,11 +12,12 @@ char createInformationFile(Client& client){
     }
 
     if(isFolder(client.path)){
-    	return createDirectory("./FilesData" + client.path.substr(1, std::string::npos));
+        createDirectory(info_path);
     }
 
-    createFile("./FilesData" + client.path.substr(1, std::string::npos));
-    std::ofstream file ( ("./FilesData" + client.path.substr(1, std::string::npos)).c_str(), std::ios::binary | std::ios::out );
+    info_path = info_path.insert(info_path.find_last_of("/") + 1,".");
+    createFile(info_path);
+    std::ofstream file ( info_path.c_str(), std::ios::binary | std::ios::out );
 
     if( file.fail() ){
         file.close();
@@ -24,12 +27,9 @@ char createInformationFile(Client& client){
         setColors("reset");
         return UnknownIssue;
     }
+
     file << formatedTime() << std::endl;
     file << client.name() << std::endl;
     file.close();
-    std::cout << "\t-";
-    setColors("light blue");
-    std::cout << "Informations file created" << std::endl;
-    setColors("reset");
     return Created;
 }
