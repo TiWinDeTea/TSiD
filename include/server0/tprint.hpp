@@ -7,6 +7,10 @@
 #include <time.h>
 #include "../common/setColors.hpp"
 
+/**
+ * @brief Print the time
+ * @details Color: cyan, format: [09:20]
+ */
 void tprint();
 
 #endif
