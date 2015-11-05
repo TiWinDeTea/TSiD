@@ -1,5 +1,5 @@
-#ifndef CLIENT_HPP_INCLUDED
-#define CLIENT_HPP_INCLUDED
+#ifndef S_CLIENT_HPP_INCLUDED
+#define S_CLIENT_HPP_INCLUDED
 
 #include <SFML/Network.hpp>
 #include <iostream>

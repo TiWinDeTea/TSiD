@@ -1,5 +1,5 @@
-#ifndef DOWNLOAD_HPP_INCLUDED
-#define DOWNLOAD_HPP_INCLUDED
+#ifndef C_DOWNLOAD_HPP_INCLUDED
+#define C_DOWNLOAD_HPP_INCLUDED
 
 #include <SFML/Network.hpp>
 #include <iostream>

@@ -1,5 +1,5 @@
-#ifndef REMOVEFILE_HPP_INCLUDED
-#define REMOVEFILE_HPP_INCLUDED
+#ifndef S_REMOVEFILE_HPP_INCLUDED
+#define S_REMOVEFILE_HPP_INCLUDED
 
 #include <iostream>
 #include <stdio.h>

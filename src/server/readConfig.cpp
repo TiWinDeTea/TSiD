@@ -1,8 +1,10 @@
 #include "s_readConfig.hpp"
 
-void readConfig(){
+Config readConfig(){
 
 	std::ifstream config( "config.txt", std::ios::in );
+
+	bool bconfig[2]={true, true};
 
 	if( config.fail() ){
 
@@ -33,7 +35,18 @@ void readConfig(){
 				config_rewrite << line_output[i] << '\n';
 			}
 		}
+
+		int pos;
+		bool val;
+		for(unsigned int i(0) ; i<line_output.size() ; ++i){
+
+			val = configSetter( line_output[i].substr( line_output[i].find( ':' )+1 ), pos );
+			if( pos >= 0 )
+				bconfig[pos] = val;
+		}
+
 	}
+	return Config(bconfig);
 }
 
 void generateDefaultConfig(){
@@ -115,9 +128,54 @@ std::string switchConfig( std::string const& l_arg, std::string const& l_value )
 			getNewUser();
 		return "false";
 
-	}
+	}//else
+
+	if( l_arg == "allow user creation" ){
+		
+		return "__config_0_"+l_value;
+	}//else
+
+	if( l_arg == "allow private folder usage" ){
+
+		return "__config_1_"+l_value;
+	}//else
 
 
-	return "";
+	return l_value;
 }
 
+bool configSetter( std::string arg, int& place ){
+
+	if( arg.size() < 10 || arg.substr(0,9) != "__config_" ){
+		
+		place = -1;
+		return false;
+	}//else
+
+	arg.erase(0,9);
+	size_t underscore_pos = arg.find( '_', 1 );
+
+	if( underscore_pos > 2 || underscore_pos == 0 || arg.size() <= underscore_pos + 1 ){
+
+		place = -1;
+		return false;
+	}
+
+	bool value( arg.substr(underscore_pos+1) == "true" );
+	arg.erase( underscore_pos );
+
+	if( arg == "0" ){
+
+		place = 0;
+		return value;
+	}//else
+
+	if( arg == "1" ){
+
+		place = 1;
+		return value;
+	}//else
+
+	place = -1;
+	return false;
+}

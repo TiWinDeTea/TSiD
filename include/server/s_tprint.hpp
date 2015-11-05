@@ -1,5 +1,5 @@
-#ifndef TPRINT_HPP_INCLUDED
-#define TPRINT_HPP_INCLUDED
+#ifndef S_TPRINT_HPP_INCLUDED
+#define S_TPRINT_HPP_INCLUDED
 
 #include <iostream>
 #include <fstream>

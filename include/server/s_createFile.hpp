@@ -1,5 +1,5 @@
-#ifndef CREATEFILE_HPP_INCLUDED
-#define CREATEFILE_HPP_INCLUDED
+#ifndef S_CREATEFILE_HPP_INCLUDED
+#define S_CREATEFILE_HPP_INCLUDED
 
 #include <iostream>
 #include <fstream>

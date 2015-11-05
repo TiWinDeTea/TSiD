@@ -1,5 +1,5 @@
-#ifndef FORMATEDTIME_HPP_INCLUDED
-#define FORMATEDTIME_HPP_INCLUDED
+#ifndef S_FORMATEDTIME_HPP_INCLUDED
+#define S_FORMATEDTIME_HPP_INCLUDED
 
 #include <iostream>
 #include <fstream>

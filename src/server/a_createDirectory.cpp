@@ -36,7 +36,7 @@ bool a_createDirectory(Client& client) {
             break;
 
         default:
-            
+            return false;
             break;
     }
 }

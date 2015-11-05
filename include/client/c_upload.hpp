@@ -1,5 +1,5 @@
-#ifndef UPLOAD_HPP_INCLUDED
-#define UPLOAD_HPP_INCLUDED
+#ifndef C_UPLOAD_HPP_INCLUDED
+#define C_UPLOAD_HPP_INCLUDED
 
 #include <SFML/Network.hpp>
 #include <iostream>

@@ -1,5 +1,5 @@
-#ifndef A_LISTFILES_HPP_INCLUDED
-#define A_LISTFILES_HPP_INCLUDED
+#ifndef S_A_LISTFILES_HPP_INCLUDED
+#define S_A_LISTFILES_HPP_INCLUDED
 
 #include <SFML/Network.hpp>
 #include <dirent.h>

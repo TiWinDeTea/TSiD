@@ -1,5 +1,5 @@
-#ifndef MOVE_TO_DIRECTORY_HPP
-#define MOVE_TO_DIRECTORY_HPP
+#ifndef C_MOVE_TO_DIRECTORY_HPP
+#define C_MOVE_TO_DIRECTORY_HPP
 
 #include <SFML/Network.hpp>
 #include "SCommand.hpp"

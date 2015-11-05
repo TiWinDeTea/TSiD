@@ -1,5 +1,5 @@
-#ifndef GET_CONSOLE_WIDTH_HPP_INCLUDED
-#define GET_CONSOLE_WIDTH_HPP_INCLUDED
+#ifndef C_GET_CONSOLE_WIDTH_HPP_INCLUDED
+#define C_GET_CONSOLE_WIDTH_HPP_INCLUDED
 
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
 	#include <windows.h>
