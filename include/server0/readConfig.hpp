@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <vector>
 #include "createDirectory.hpp"
 #include "../common/setStdcinEcho.hpp"
 
@@ -12,6 +13,6 @@ void generateDefaultConfig();
 void createArchitecture();
 void getNewUser();
 void newUser( std::string const& user_name, std::string const& password);
-void switchConfig( std::string const& l_arg, std::string const& l_value );
+std::string switchConfig( std::string const& l_arg, std::string const& l_value );
 
 #endif
