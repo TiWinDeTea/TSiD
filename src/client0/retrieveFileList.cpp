@@ -43,13 +43,13 @@ bool retrieveFileList( sf::TcpSocket& server, std::string current_directory ){
 
 	setColors("light blue"); //for folders
 
-	for( unsigned int i(3) ; i < directory_array.size() ; ++i )
-		if( directory_array[i][directory_array[i].size()-1] == '/' )
+	for( unsigned int i(0) ; i < directory_array.size() ; ++i )
+		if( directory_array[i][directory_array[i].size()-1] == '/' && directory_array[i][0] != '.' )
 			std::wcout << directory_array[i] << std::endl;
 
 	setColors("light green"); //for files
 
-	for( unsigned int i(3) ; i < directory_array.size() ; ++i )
+	for( unsigned int i(0) ; i < directory_array.size() ; ++i )
 		if( directory_array[i][directory_array[i].size()-1] != '/' )
 			std::wcout << directory_array[i] << std::endl;
 
