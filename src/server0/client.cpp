@@ -1,6 +1,6 @@
 #include "../../include/server0/Client.hpp"
 
-Client::client(){
+Client::Client(){
     
     user_name="";
     state=false;
