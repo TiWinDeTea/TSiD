@@ -107,16 +107,6 @@ void clientLoop(Client* client){
                 }
                 break;
 
-            case Disconnect :
-
-                tprint();
-                std::cout << client->name() << " : ";
-                setColors("light magenta");
-                std::cout << "disconnection" << std::endl;
-                setColors("reset");
-                client_status = sf::Socket::Disconnected;
-                break;
-
             case Exist :
 
                 tprint();
@@ -139,7 +129,31 @@ void clientLoop(Client* client){
                 setColors("light magenta");
                 std::cout << "directory creation request" << std::endl;
                 setColors("reset");
-                a_createDirectory(*client);
+                if( !a_createDirectory(*client) ){
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light red");
+                    std::cout << "file creation failed" << std::endl;
+                    setColors("reset");
+                }
+
+                else{
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light green");
+                    std::cout << "directory creation request successfully answered" << std::endl;
+                    setColors("reset");
+                }
+                break;
+
+            case Disconnect :
+
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light magenta");
+                std::cout << "disconnection" << std::endl;
+                setColors("reset");
+                client_status = sf::Socket::Disconnected;
                 break;
 
             case InvalidPath:

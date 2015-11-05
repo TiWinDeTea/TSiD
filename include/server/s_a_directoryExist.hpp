@@ -17,6 +17,6 @@
  * 
  * @param client The Client object wich contain the path of the directory
  */
-void a_directoryExist(Client& client);
+bool a_directoryExist(Client& client);
 
 #endif

@@ -1,6 +1,6 @@
 #include "s_a_createDirectory.hpp"
 
-void a_createDirectory(Client& client) {
+bool a_createDirectory(Client& client) {
 
     switch(createDirectory(client.path)){
 
@@ -11,6 +11,7 @@ void a_createDirectory(Client& client) {
             client.packet.clear();
             tprint();
             std::cout << client.name() << " -> directory exist" << std::endl;
+            return true;
             break;
 
         case Created:
@@ -21,6 +22,7 @@ void a_createDirectory(Client& client) {
             client.packet.clear();
             tprint();
             std::cout << client.name() << " -> directory exist" << std::endl;
+            return true;
             break;
 
         case UnknownIssue:
@@ -30,6 +32,7 @@ void a_createDirectory(Client& client) {
             client.packet.clear();
             tprint();
             std::cout << client.name() << " -> error creating directory" << std::endl;
+            return false;
             break;
 
         default:

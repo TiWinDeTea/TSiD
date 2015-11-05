@@ -13,6 +13,6 @@
  * 
  * @param client The Client object wich contain the path of the directory
  */
-void a_createDirectory(Client& client);
+bool a_createDirectory(Client& client);
 
 #endif

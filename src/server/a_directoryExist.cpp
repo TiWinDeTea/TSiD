@@ -1,6 +1,6 @@
 #include "s_a_directoryExist.hpp"
 
-void a_directoryExist(Client& client){
+bool a_directoryExist(Client& client){
 
 	DIR* directory = opendir(client.path.c_str());
 	client.packet.clear();
@@ -13,6 +13,7 @@ void a_directoryExist(Client& client){
 		client.packet.clear();
 		tprint();
 		std::cout << client.name() << " -> file doesn't exists" << std::endl;
+		return false;
 	}
 	
 	else{
@@ -21,5 +22,6 @@ void a_directoryExist(Client& client){
 		client.packet.clear();
 		tprint();
 		std::cout << client.name() << " -> file exists" << std::endl;
+		return true;
 	}
 }
