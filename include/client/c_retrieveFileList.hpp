@@ -17,4 +17,6 @@
  */
 bool retrieveFileList( sf::TcpSocket& server, std::string current_directory );
 
+void formatFilesDisplay( std::string& file, size_t max_file_size );
+
 #endif
