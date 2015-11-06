@@ -7,6 +7,6 @@ std::string formatedTime() {
   struct tm * timeinfo;
   timeinfo = localtime (&now);
   char buffer[100];
-  strftime (buffer,100,"%a %m/%d/%y %H:%M:%S",timeinfo);
+  strftime (buffer,100,"%a %m/%d/%y %H:%M",timeinfo);
   return std::string(buffer);
 }
