@@ -17,7 +17,8 @@
 /**
  * @brief Answer to the client command 'ls'
  * @details If the path is /Public send the the Private folder and the list of the files in path,
- * else just send a list of the files in path
+ * else just send a list of the files in path,
+ * in addition send the creation date and the creator username
  * 
  * @param client The Client object wich contain the path to list files
  * @return 0 for fail, 1 for success

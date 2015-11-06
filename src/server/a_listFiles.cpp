@@ -76,6 +76,7 @@ bool a_listFiles(Client& client){
 			        std::cout << "Error reading the date" << std::endl;
 			        setColors("reset");
 		    	}
+		    	info_date = info_date.substr(0,12); //just keep the day
 
 		    	if(std::getline(file, info_user) != file){
 		    		
