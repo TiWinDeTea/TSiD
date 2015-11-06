@@ -1,6 +1,7 @@
 #ifndef S_CONFIG_HPP_INCLUDED
 #define S_CONFIG_HPP_INCLUDED
 
+#define CONFIG_SIZE 3
 /**
  * @class This class is to contain the server's configuration. It's a read-only class
  */
@@ -13,7 +14,7 @@ public:
 	 * @param user_creation_allowed        Sets the authorization for the creation of new users
 	 * @param private_folder_usage_allowed Sets the authorization for using the Private folder
 	 */
-	Config(	bool rights[2] );
+	Config(	bool rights[CONFIG_SIZE] );
 
 	/**
 	 * returns the value of
@@ -23,14 +24,21 @@ public:
 
 	/**
 	 * returns the value of
-	 * @return true if users may use their private folders
+	 * @return true if users may write and read in their private folders
 	 */
-	bool privateFolderUsageAllowed(){ return private_folder_usage_allowed; };
+	bool privateFolderReadingAllowed(){ return private_folder_reading_allowed; };
+
+	/**
+	 * returns the value of
+	 * @return true if users may write in their private folders
+	 */
+	bool privateFolderWritingAllowed(){ return private_folder_writing_allowed; };
 
 private:
 
 	bool user_creation_allowed,
-	     private_folder_usage_allowed;
+		private_folder_reading_allowed,
+		private_folder_writing_allowed;
 };
 
 #endif

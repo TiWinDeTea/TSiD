@@ -4,13 +4,22 @@ Config readConfig(){
 
 	std::ifstream config( "config.txt", std::ios::in );
 
-	bool bconfig[2]={true, true};
+	bool bconfig[CONFIG_SIZE];
+
+	for(unsigned int i(0) ; i<CONFIG_SIZE ; i++)
+		bconfig[i] = true;
 
 	if( config.fail() ){
 
 		std::cout << "No config file found." << std::endl;
 		std::cout << "Assuming this is the first time you are using this program\n" << std::endl;
-		generateDefaultConfig();
+
+		if(!generateDefaultConfig()){
+
+			setColors("red");
+			std::cout << "Failed to write the default configuration file" << std::endl;
+		}
+
 		createArchitecture();
 		getNewUser();
 	}
@@ -22,7 +31,7 @@ Config readConfig(){
 			std::getline( foo, l_arg, ':' );
 			std::getline( foo, l_value );
 			l_value.erase(0, 1);
-			line_output.push_back(l_arg + ": " + switchConfig( l_arg, l_value ));
+			line_output.push_back(l_arg + ": " + switchConfig( l_arg, l_value, bconfig ));
 		}
 		config.close();
 		std::ofstream config_rewrite( "config.txt", std::ios::out | std::ios::trunc );
@@ -36,25 +45,27 @@ Config readConfig(){
 			}
 		}
 
-		int pos;
-		bool val;
-		for(unsigned int i(0) ; i<line_output.size() ; ++i){
-
-			val = configSetter( line_output[i].substr( line_output[i].find( ':' )+1 ), pos );
-			if( pos >= 0 )
-				bconfig[pos] = val;
-		}
-
 	}
 	return Config(bconfig);
 }
 
-void generateDefaultConfig(){
+bool generateDefaultConfig(){
+;
+			line_output.push_back(l_arg + ": " + switchConfig( l_arg, l_value ));
+		}
+		config.close();
 
 	std::cout << "Generating config file" << std::endl;
 	std::ofstream config( "config.txt", std::ios::out );
-	config << "regen architecture: false\n";
-	config << "new user at restart: false\n";
+
+	if( config.fail() )
+		return false;
+
+	config << "regen architecture: false\n"
+		<< "new user at restart: false\n"
+		<< "allow user creation: true\n";
+		<< "allow writing in private folders: true\n"
+		<< "allow reading in private folders: true\n";
 
 	std::cout << "Done\n" << std::endl;
 
@@ -112,7 +123,7 @@ void newUser( std::string const& user_name, std::string const& password ){
 	user_file << password;
 }
 
-std::string switchConfig( std::string const& l_arg, std::string const& l_value ){
+std::string switchConfig( std::string const& l_arg, std::string const& l_value, bool& config[CONFIG_SIZE]){
 
 	if( l_arg == "regen architecture" ){
 
@@ -130,52 +141,26 @@ std::string switchConfig( std::string const& l_arg, std::string const& l_value )
 
 	}//else
 
+	//Now starting to switch for post-start configuration settings
+	
+	if( l_value == "true" )		//true is default anyway
+		return l_value;
+
 	if( l_arg == "allow user creation" ){
-		
-		return "__config_0_"+l_value;
+		config[0] = false;
+		return l_value;
 	}//else
 
-	if( l_arg == "allow private folder usage" ){
-
-		return "__config_1_"+l_value;
+	if( l_arg == "allow reading in private folders" ){
+		config[1] = false;
+		return l_value;
 	}//else
 
+	if( l_arg == "allow writing in private folders" ){
+		config[2] = false;
+		return l_value;
+	}//else
 
 	return l_value;
-}
 
-bool configSetter( std::string arg, int& place ){
-
-	if( arg.size() < 10 || arg.substr(0,9) != "__config_" ){
-		
-		place = -1;
-		return false;
-	}//else
-
-	arg.erase(0,9);
-	size_t underscore_pos = arg.find( '_', 1 );
-
-	if( underscore_pos > 2 || underscore_pos == 0 || arg.size() <= underscore_pos + 1 ){
-
-		place = -1;
-		return false;
-	}
-
-	bool value( arg.substr(underscore_pos+1) == "true" );
-	arg.erase( underscore_pos );
-
-	if( arg == "0" ){
-
-		place = 0;
-		return value;
-	}//else
-
-	if( arg == "1" ){
-
-		place = 1;
-		return value;
-	}//else
-
-	place = -1;
-	return false;
 }

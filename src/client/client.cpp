@@ -54,7 +54,7 @@ int main() {
 	std::string user_id;
 
 	if( !sconnect( socket, user_id ) )
-		return 1;
+		return EXIT_FAILURE;
 
 	userInputInterpret( socket, user_id );
 

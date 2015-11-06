@@ -10,6 +10,12 @@
  * @return         true if the answer is positive, false otherwise
  */
 bool interpretServerAns( signed char sanswer );								//Sends message to console telling the problem // success
+
+/**
+ * Interprets the answer of the server
+ * @param  sanswer answer given by the server
+ * @return         true if the answer is positive, false otherwise
+ */
 bool tMutedServerInterpret( signed char sanswer );
 
 #endif
