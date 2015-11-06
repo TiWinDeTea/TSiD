@@ -50,10 +50,6 @@ Config readConfig(){
 }
 
 bool generateDefaultConfig(){
-;
-			line_output.push_back(l_arg + ": " + switchConfig( l_arg, l_value ));
-		}
-		config.close();
 
 	std::cout << "Generating config file" << std::endl;
 	std::ofstream config( "config.txt", std::ios::out );
@@ -63,12 +59,12 @@ bool generateDefaultConfig(){
 
 	config << "regen architecture: false\n"
 		<< "new user at restart: false\n"
-		<< "allow user creation: true\n";
+		<< "allow user creation: true\n"
 		<< "allow writing in private folders: true\n"
 		<< "allow reading in private folders: true\n";
 
 	std::cout << "Done\n" << std::endl;
-
+	return true;
 }
 
 void createArchitecture(){
@@ -123,7 +119,7 @@ void newUser( std::string const& user_name, std::string const& password ){
 	user_file << password;
 }
 
-std::string switchConfig( std::string const& l_arg, std::string const& l_value, bool& config[CONFIG_SIZE]){
+std::string switchConfig( std::string const& l_arg, std::string const& l_value, bool config[CONFIG_SIZE]){
 
 	if( l_arg == "regen architecture" ){
 

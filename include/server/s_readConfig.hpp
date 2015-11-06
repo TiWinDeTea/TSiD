@@ -57,6 +57,6 @@ void newUser( std::string const& user_name, std::string const& password);
  * @param config  boolean array used to create the Config
  * @return        l_value or reset config value (eg : regen architecture is done only once, so it is to false after using it)
  */
-std::string switchConfig( std::string const& l_arg, std::string const& l_value, bool& config[CONFIG_SIZE] );
+std::string switchConfig( std::string const& l_arg, std::string const& l_value, bool config[CONFIG_SIZE] );
 
 #endif

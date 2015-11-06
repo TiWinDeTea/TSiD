@@ -146,14 +146,14 @@ bool recursiveUpload( sf::TcpSocket& server, std::string remote_directory, std::
 	server.receive( spacket );
 	sf::Int8 s_ans(0);
 	spacket >> s_ans;
-
+/*
 	switch( static_cast<char>(s_ans) ){
 	
 	case Exist:
 	case AlreadyExist: break;
 	default: return false;
 	}
-
+*/
 	bool returned(true);
 
 	while( (pointed_elem = readdir( directory )) != NULL){
