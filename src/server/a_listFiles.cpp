@@ -41,10 +41,57 @@ bool a_listFiles(Client& client){
 	while( (redfile = readdir( directory )) != NULL ){
 
 		std::string tmp( redfile->d_name );
+    	std::string info_path = "./FilesData" + client.path.substr(1, std::string::npos); //add "./FilesData" at the begening
+    	info_path += tmp; //add the filename at the end
+    	info_path = info_path.insert(info_path.find_last_of("/") + 1,"."); //insert '.' before the filename
+    	std::string info_date = " ";
+    	std::string info_user = " ";
 
-		if( isFolder(client.path + tmp) ){
+    	if( isFolder(client.path + tmp) ){
 			tmp += "/";
 		}
+
+		if (tmp != "../" && tmp != "./"){
+			
+			std::ifstream file (info_path.c_str(), std::ios::binary | std::ios::in );
+
+		    if( file.fail() ){
+		        
+		        file.close();
+		        std::cout << "\t-File: " << info_path << std::endl;
+		        std::cout << "\t-";
+		        setColors("light red");
+		        std::cout << "Error reading the file" << std::endl;
+		        setColors("reset");
+		    }
+		    else{
+
+		    	bool filename_printed(false);
+		    	if(std::getline(file, info_date) != file){
+
+		    		std::cout << "\t-File: " << info_path << std::endl;
+		    		filename_printed = true;
+			        std::cout << "\t-";
+			        setColors("light yellow");
+			        std::cout << "Error reading the date" << std::endl;
+			        setColors("reset");
+		    	}
+
+		    	if(std::getline(file, info_user) != file){
+		    		
+		    		if(!filename_printed)
+		    			std::cout << "\t-File: " << info_path << std::endl;
+
+			        std::cout << "\t-";
+			        setColors("light yellow");
+			        std::cout << "Error reading the username" << std::endl;
+			        setColors("reset");
+		    	}
+		    	file.close();
+		    }
+		}
+
+	    tmp = tmp + "|" + info_date + "|" + info_user;
 		
 		client.packet << static_cast<unsigned int>( tmp.length() );
 

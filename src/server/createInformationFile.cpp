@@ -2,7 +2,7 @@
 
 char createInformationFile(Client& client){
 
-    std::string info_path = "./FilesData" + client.path.substr(1, std::string::npos);
+    std::string info_path = "./FilesData" + client.path.substr(1, std::string::npos); //add "./FilesData" at the begening
 
     if( fileExist(info_path) ){
     	setColors("light red");
@@ -15,7 +15,7 @@ char createInformationFile(Client& client){
         createDirectory(info_path);
     }
 
-    info_path = info_path.insert(info_path.find_last_of("/") + 1,".");
+    info_path = info_path.insert(info_path.find_last_of("/") + 1,"."); //insert '.' before the filename
     createFile(info_path);
     std::ofstream file ( info_path.c_str(), std::ios::binary | std::ios::out );
 
