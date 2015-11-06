@@ -27,7 +27,7 @@
 void clientLoop(Client* client);
 
 /**
- * @brief The main
+ * @brief The main, read the config, listen for new client and launch a thread of each of new client.
  * @return EXIT_FAILURE if the listener failed to listen,
  * else never end
  */

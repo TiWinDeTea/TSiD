@@ -25,7 +25,8 @@ bool a_listFiles(Client& client){
 	std::cout << client.name() << " -> Server ready to list" << std::endl;
 
 	if(client.path == "./Public/"){
-		client.packet << 8 
+		client.packet << 14 
+		<< static_cast<sf::Int32>('|')
 		<< static_cast<sf::Int32>('P')
 		<< static_cast<sf::Int32>('r')
 		<< static_cast<sf::Int32>('i')
@@ -33,7 +34,12 @@ bool a_listFiles(Client& client){
 		<< static_cast<sf::Int32>('a')
 		<< static_cast<sf::Int32>('t')
 		<< static_cast<sf::Int32>('e')
-		<< static_cast<sf::Int32>('/');
+		<< static_cast<sf::Int32>('/')
+		<< static_cast<sf::Int32>(' ')
+		<< static_cast<sf::Int32>('|')
+		<< static_cast<sf::Int32>(' ')
+		<< static_cast<sf::Int32>('|')
+		<< static_cast<sf::Int32>(' ');
 		client.socket.send( client.packet );
 		client.packet.clear();
 	}
@@ -48,10 +54,10 @@ bool a_listFiles(Client& client){
     	std::string info_user = " ";
 
     	if( isFolder(client.path + tmp) ){
-			tmp += "/";
+			tmp = "|" + tmp + "/";
 		}
 
-		if (tmp != "../" && tmp != "./"){
+		if (tmp != "|../" && tmp != "|./"){
 			
 			std::ifstream file (info_path.c_str(), std::ios::binary | std::ios::in );
 
