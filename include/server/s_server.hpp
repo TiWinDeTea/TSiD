@@ -2,6 +2,7 @@
 #define S_SERVER_INCLUDED
 
 #include <SFML/Network.hpp>
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -17,7 +18,19 @@
 #include "s_tprint.hpp"
 #include "s_readConfig.hpp"
 
+/**
+ * @brief Lauch the loop waiting for client command ans calling the corresponding functions
+ * 
+ * @param client The Client object wich contain the socket to receive the client commands,
+ * and send the answers
+ */
 void clientLoop(Client* client);
+
+/**
+ * @brief The main
+ * @return EXIT_FAILURE if the listener failed to listen,
+ * else never end
+ */
 int main();
 
 #endif

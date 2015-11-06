@@ -195,7 +195,7 @@ int main(){
         setColors("light red");
         std::cout << "* failed to listen" << std::endl;
         setColors("reset");
-        return false;
+        return EXIT_FAILURE;
     }
     
     while (true){
@@ -227,4 +227,5 @@ int main(){
          }
 
     }
+    return EXIT_SUCCESS;
 }
