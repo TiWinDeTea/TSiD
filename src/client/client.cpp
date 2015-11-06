@@ -53,8 +53,12 @@ int main() {
 	sf::TcpSocket socket;
 	std::string user_id;
 
-	if( !sconnect( socket, user_id ) )
+	if( !sconnect( socket, user_id ) ){
+		std::cout << "press enter to quit";
+		std::cin.ignore();
+		std::cin.ignore();
 		return EXIT_FAILURE;
+	}//else
 
 	userInputInterpret( socket, user_id );
 

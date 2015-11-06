@@ -73,7 +73,9 @@ bool a_listFiles(Client& client){
 		    else{
 
 		    	bool filename_printed(false);
-		    	if(std::getline(file, info_date) != file){
+			std::getline( file, info_date );
+
+		    	if( file.fail() ){
 
 		    		std::cout << "\t-File: " << info_path << std::endl;
 		    		filename_printed = true;
@@ -84,7 +86,8 @@ bool a_listFiles(Client& client){
 		    	}
 		    	info_date = info_date.substr(0,12); //just keep the day
 
-		    	if(std::getline(file, info_user) != file){
+			std::getline(file, info_user);
+		    	if( file.fail() ){
 		    		
 		    		if(!filename_printed)
 		    			std::cout << "\t-File: " << info_path << std::endl;

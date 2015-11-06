@@ -195,6 +195,10 @@ int main(){
         setColors("light red");
         std::cout << "* failed to listen" << std::endl;
         setColors("reset");
+	std::cout << "press enter to quit";
+	std::string wait_for_input;
+	std::cin.ignore();
+	std::getline( std::cin, wait_for_input );
         return EXIT_FAILURE;
     }
     
