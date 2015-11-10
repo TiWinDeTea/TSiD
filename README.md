@@ -47,9 +47,13 @@ What will go on when v1 will be finished ?
 What is working right now ?
 <ul>
 + v0 works, so v1 already supports that
++ Dislay was improved
 + Recursive upload is available
-+ Improved display
++ Recursive download is out there too
 + Added client commands : mkdir.
++ Server removes partially uploaded files
++ Added a config file
++ Added file descriptions
 </ul><br/>
 
 ##Contribute
