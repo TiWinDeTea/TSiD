@@ -7,6 +7,7 @@
 #include <fstream>
 #include <cstring>
 #include <vector>
+#include <functional>
 #include "SCommand.hpp"
 #include "s_a_upload.hpp"
 #include "s_a_download.hpp"
