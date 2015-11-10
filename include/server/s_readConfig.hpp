@@ -10,6 +10,7 @@
 #include "s_Config.hpp"
 #include "setStdcinEcho.hpp"
 #include "setColors.hpp"
+#include "s_updateInformationsFiles.hpp"
 
 /**
  * @brief   Reads the config

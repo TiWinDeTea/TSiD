@@ -2,10 +2,10 @@
 
 bool a_retrieveData(Client& client){
 
-    unsigned int filesize;
+    unsigned int file_size;
     unsigned int bytes_per_packet;
 
-    if( !(client.packet >> filesize >> bytes_per_packet) ){
+    if( !(client.packet >> file_size >> bytes_per_packet) ){
         client.packet.clear();
         client.packet << UnknownIssue;
         client.socket.send(client.packet);
@@ -13,8 +13,31 @@ bool a_retrieveData(Client& client){
         std::cout << client.name() << " -> There was an error reading file infos" << std::endl;
         return false;
     }
-    std::cout << "\t-File informations are ok" << std::endl;
     std::cout << "\t-File: " << client.path << std::endl;
+
+    if( file_size == 0 ){
+        client.packet << UnknownIssue;
+        client.socket.send( client.packet );
+        tprint();
+        std::cout << client.name() << " -> Could not read file size" << std::endl;
+        return false;
+    }
+
+    if(file_size < 1024 ){
+        std::cout << "\t-File size: " << file_size << " B" << std::endl;
+    }
+    
+    else if(file_size < 1024 * 1024 ){
+        std::cout << "\t-File size: " << file_size/1024 << " KiB" << std::endl;
+    }
+    
+    else if(file_size < 1024 * 1024 * 1024 ){
+        std::cout << "\t-File size: " << file_size/(1024 * 1024)<< " MiB" << std::endl;
+    }
+    
+    else{
+        std::cout << "\t-File size: " << file_size/(1024 * 1024 * 1024)<< " GiB" << std::endl;
+    }
 
     client.packet.clear();
 
@@ -42,7 +65,7 @@ bool a_retrieveData(Client& client){
 
     std::ofstream output_file ( client.path.c_str(), std::ios::binary | std::ios::out );
 
-    unsigned int loop_number(filesize/bytes_per_packet);
+    unsigned int loop_number(file_size/bytes_per_packet);
     char* input_data_array = new char[bytes_per_packet];
     sf::Int8 input_data;
     unsigned char percentage_count(0);
@@ -88,8 +111,8 @@ bool a_retrieveData(Client& client){
         }
     }
 
-    filesize -= loop_number * bytes_per_packet;
-    if( filesize > 0 ){
+    file_size -= loop_number * bytes_per_packet;
+    if( file_size > 0 ){
 
         if(client.socket.receive( client.packet ) == sf::Socket::Disconnected){
             tprint();
@@ -116,7 +139,7 @@ bool a_retrieveData(Client& client){
     std::cout << "[100%]";
     setColors("reset");
     std::cout << " Transfer terminated successfully" << std::endl;
-    createInformationFile(client);
+    createInformationFile(client.path, client.name());
     delete[] input_data_array;
     return true;
 }

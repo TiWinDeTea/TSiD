@@ -276,6 +276,7 @@ int main(){
                 setColors("reset");
                 thread_array.erase(thread_array.begin() + i);
                 client_array.erase(client_array.begin() + i);
+                --i;
             }
          }
 

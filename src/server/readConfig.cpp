@@ -16,17 +16,22 @@ Config readConfig(){
 
 		if(!generateDefaultConfig()){
 
-			setColors("red");
+			setColors("light red");
 			std::cout << "Failed to write the default configuration file" << std::endl;
+			setColors("reset");
 		}
 
 		createArchitecture();
 		getNewUser();
+		updateInformationsFiles("./Public");
 	}
 	else{
+		
 		std::string word, l_arg, l_value;
 		std::vector<std::string> line_output;
+		
 		while( std::getline( config, word, '\n') ){
+			
 			std::istringstream foo(word);
 			std::getline( foo, l_arg, ':' );
 			std::getline( foo, l_value );
@@ -35,12 +40,16 @@ Config readConfig(){
 		}
 		config.close();
 		std::ofstream config_rewrite( "config.txt", std::ios::out | std::ios::trunc );
+		
 		if( config_rewrite.fail() ){
 
 			std::cout << "Could not edit the config file.\n Letting this to you\n" << std::endl;
 		}
+		
 		else{
+			
 			for(unsigned int i(0) ; i<line_output.size() ; ++i){
+				
 				config_rewrite << line_output[i] << '\n';
 			}
 		}
@@ -59,6 +68,7 @@ bool generateDefaultConfig(){
 
 	config << "regen architecture: false\n"
 		<< "new user at restart: false\n"
+		<< "auto generate files infos: false\n"
 		<< "allow user creation: true\n"
 		<< "allow writing in private folders: true\n"
 		<< "allow reading in private folders: true\n";
@@ -79,10 +89,6 @@ void createArchitecture(){
 	createDirectory("FilesData");
 	createDirectory("FilesData/Private");
 	createDirectory("FilesData/Public");
-	createDirectory("FilesData/Public/music");
-	createDirectory("FilesData/Public/films");
-	createDirectory("FilesData/Public/pictures");
-	createDirectory("FilesData/Public/documents");
 	createDirectory("UsersData");
 	createDirectory("ToConf");
 	createDirectory("IPList");
@@ -136,6 +142,14 @@ std::string switchConfig( std::string const& l_arg, std::string const& l_value, 
 		return "false";
 
 	}//else
+
+	if( l_arg == "auto generate files infos"){
+
+		if( l_value == "true")
+			updateInformationsFiles("./Public");
+		return "false";
+
+	}
 
 	//Now starting to switch for post-start configuration settings
 	

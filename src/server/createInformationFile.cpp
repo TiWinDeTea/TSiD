@@ -1,8 +1,8 @@
 #include "s_createInformationFile.hpp"
 
-char createInformationFile(Client& client){
+char createInformationFile(std::string path, std::string user_name){
 
-    std::string info_path = "./FilesData" + client.path.substr(1, std::string::npos); //add "./FilesData" at the begening
+    std::string info_path = "./FilesData" + path.substr(1, std::string::npos); //add "./FilesData" at the begening
 
     if( fileExist(info_path) ){
     	setColors("light red");
@@ -11,7 +11,7 @@ char createInformationFile(Client& client){
         return AlreadyExist;
     }
 
-    if(isFolder(client.path)){
+    if(isFolder(path)){
         createDirectory(info_path);
     }
 
@@ -29,7 +29,7 @@ char createInformationFile(Client& client){
     }
 
     file << formatedTime() << std::endl;
-    file << client.name() << std::endl;
+    file << user_name << std::endl;
     file.close();
     return Created;
 }

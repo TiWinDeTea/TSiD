@@ -16,7 +16,7 @@ bool a_createDirectory(Client& client) {
 
         case Created:
             
-            createInformationFile(client);
+            createInformationFile(client.path, client.name());
             client.packet << Exist;
             client.socket.send(client.packet);
             client.packet.clear();

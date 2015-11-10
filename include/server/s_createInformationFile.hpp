@@ -21,6 +21,7 @@
  * AlreadyExist if the file already exist,
  * UnknownIssue in case of error
  */
-char createInformationFile(Client& client);
+//char createInformationFile(Client& client);
+char createInformationFile(std::string path, std::string user_name);
 
 #endif

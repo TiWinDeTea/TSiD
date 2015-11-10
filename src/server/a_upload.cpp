@@ -13,7 +13,6 @@ bool a_sendData(Client& client){									// Sends a file to the client
 		std::cout << client.name() << " -> Requested file does not exist" << std::endl;
 		return false;
 	}
-	std::cout << "\t-The file exist" << std::endl;
 
 	unsigned int file_size(getFileLength( client.path ));
 
