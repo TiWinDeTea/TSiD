@@ -8,7 +8,7 @@ void approxDisplay( unsigned int numb ){
 	} else if( numb >= 1024 ){
 
 		std::cout << std::setw( 4 ) << static_cast<int>(numb / 1024) << " KiB";
-	} else std::cout << std::setw( 4 ) << numb << " B";
+	} else std::cout << "  " << std::setw( 4 ) << numb << " B";
 }
 
 void percentageDisplay( unsigned char percentage, std::string filename, unsigned int filesize, unsigned int alreadygot ){
@@ -45,7 +45,7 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 		resize( filename, columns - 19 );
 		std::cout << filename << ' ';
 		approxDisplay( alreadygot );
-		std::cout << '/';
+		std::cout << ' ';
 		approxDisplay( filesize );
 		std::cout << '\r';
 		return;
@@ -58,7 +58,7 @@ void percentageDisplay( unsigned char percentage, std::string filename, unsigned
 	resize( filename, columns - pacman_size - 20 );
 	std::cout << filename << ' ';
 	approxDisplay( alreadygot );
-	std::cout << '/';
+	std::cout << ' ';
 	approxDisplay( filesize );
 	displayPacman( pacman_size, percentage );
 	std::cout << '\r';
@@ -119,6 +119,8 @@ void displayPacman( unsigned short size, unsigned char percentage ){
 	}
 
 	setColors("cyan");
+	if( percentage == 100 )
+		std::cout << '-';
 	std::cout << ']';
 	setColors("reset");
 }

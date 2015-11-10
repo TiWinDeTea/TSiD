@@ -5,7 +5,7 @@ bool interpretServerAns( signed char sanswer){								//Sends message to console
 	switch( sanswer ){
 
 	case ServerReady:					//ServerReady or GoodID
-		std::cout << "Server ready" << std::endl;
+		//std::cout << "Server ready" << std::endl;
 		return true;
 	
 	case Exist:
