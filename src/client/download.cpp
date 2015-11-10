@@ -1,6 +1,7 @@
 #include "c_download.hpp"
 
-bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& directory, std::string filename ){
+bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file,
+	std::string& directory, std::string filename, size_t subst ){
 
 	if( fileExist( formatPath(filename) ) ){
 		std::cout << "This file already exists ! Aborting." << std::endl;
@@ -11,7 +12,6 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 
 	spacket.clear();
 	spacket << (directory + filename) << Download;
-	directory = filename;
 	server.send( spacket );
 	spacket.clear();
 
@@ -27,7 +27,13 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 
 	spacket.clear();
 
-	output_file.open( formatPath(filename).c_str(), std::ios::binary | std::ios::out );
+	if( subst != std::string::npos ){
+		filename = filename.substr( subst );
+		output_file.open( ("." + directory + formatPath(filename)).c_str(), std::ios::binary | std::ios::out );
+	} else {
+		output_file.open( formatPath(filename).c_str(), std::ios::binary | std::ios::out );
+	}
+
 	if( output_file.fail() ){
 		std::cout << "Couldn't read file " << filename << "." << std::endl;
 		spacket << ClientFailure;
@@ -46,20 +52,21 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 bool retrieveData( sf::TcpSocket& server, std::string current_directory ){
 
 	std::string filename(current_directory);
-	unsigned int filesize, bytes_per_packet;
+	unsigned int filesize(0), bytes_per_packet;
 	std::ofstream output_file;
 	sf::Packet spacket;
 
 	std::cin.ignore();
 	std::getline( std::cin, filename );
 
+	std::cout << "Download Starting" << std::endl;
 	if( filename.back() == '*' ){
 		
 		filename.pop_back();
-		return recursiveDownload( server, current_directory + filename );
+		return recursiveDownload( server, current_directory + filename, current_directory.size() - 1 );
 	}//else
 
-	if( !startDownload( server, spacket, filesize, bytes_per_packet, output_file, current_directory, filename ) ){
+	if( !startDownload( server, spacket, filesize, bytes_per_packet, output_file, current_directory, filename, std::string::npos ) ){
 
 		std::cout << "Could not download" << std::endl;
 		return false;
@@ -79,7 +86,6 @@ bool downloadFile( sf::TcpSocket& server, sf::Packet& spacket, unsigned int file
 	server.send(spacket);
 	spacket.clear();
 
-	std::cout << "Download is starting" << std::endl;
 	percentageDisplay( 100, filename, filesize, 0);
 
 	for( unsigned int i(0) ; i<loop_number ; ++i){
@@ -114,14 +120,78 @@ bool downloadFile( sf::TcpSocket& server, sf::Packet& spacket, unsigned int file
 	return true;
 }
 
-bool recursiveDownload( sf::TcpSocket& server, std::string remote_directory ){
-	
-	///To be done
-	//
-	//This piece of code is here only to avoid warnings
+bool recursiveDownload( sf::TcpSocket& server, std::string remote_directory, size_t const& origin ){
 
 	sf::Packet spacket;
-	spacket << remote_directory;
+	spacket << remote_directory << Ls;
 	server.send( spacket );
-	return true;
+	spacket.clear();
+
+	sf::Int32 file;
+	unsigned int filename_length;
+
+	server.receive( spacket );
+	spacket >> file;
+	spacket.clear();
+
+	if( static_cast<char>(file) == ServerFailure ){
+		return false;
+	}
+
+	std::vector<std::string> directory_array;
+
+	do{
+		spacket.clear();
+		server.receive( spacket );
+		
+		directory_array.push_back( std::string("") );
+		spacket >> filename_length;
+		
+		for( unsigned int i(0) ; i < filename_length ; ++i ){
+
+			spacket >> file;
+			directory_array.back() += static_cast<char>( file );
+		}
+
+	}while( filename_length != 0 );
+
+	spacket >> file;
+	spacket.clear();
+	if( static_cast<char>(file) != EndOfStream )
+		return false;
+
+	createDirectory( "." + remote_directory.substr(origin) );
+	bool was_successful(true);
+
+	for( unsigned int i(0) ; i < directory_array.size() ; ++i ){
+
+		if( directory_array[i] != "" ){
+			size_t tmp( directory_array[i].find(':') );
+			if( tmp == 0 ){
+		
+				directory_array[i].erase(0,1);
+				tmp = directory_array[i].find( ':', 1 );
+			}
+			directory_array[i].erase( tmp );
+
+			if( directory_array[i].back() == '/' ){
+				if( directory_array[i].front() != '.' ){
+					was_successful = (recursiveDownload( server, remote_directory + directory_array[i], origin ) && was_successful);
+				}
+			}
+			else {
+				unsigned int filesize, bytes_per_packet;
+				std::ofstream output_file;
+				was_successful = startDownload( server, spacket, filesize, bytes_per_packet, output_file, remote_directory, directory_array[i], origin ) &&
+					downloadFile( server, spacket, filesize, bytes_per_packet, output_file, directory_array[i] ) &&
+					was_successful;
+			}
+		}
+	}
+
+	return was_successful;
 }
+
+
+
+

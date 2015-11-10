@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include "SCommand.hpp"
 #include "fileExist.hpp"
+#include "c_createLocalDirectory.hpp"
 #include "c_serverAnsInterpret.hpp"
 #include "c_formatPath.hpp"
 #include "c_percentageDisplay.hpp"
@@ -23,7 +24,7 @@
  * @param  filename         Path to the file
  * @return                  true if it succesfully initialized the download, false otherwise.
  */
-bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& directory, std::string filename );
+bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file, std::string& directory, std::string filename, size_t subst );
 
 /**
  * Initialize the download (delagating the work to the right func)
@@ -52,6 +53,6 @@ bool downloadFile( sf::TcpSocket& server, sf::Packet& spacket, unsigned int file
  * @return                  true if every download was successful, false otherwise
  * \todo                                     everything
  */
-bool recursiveDownload( sf::TcpSocket& server, std::string remote_directory );
+bool recursiveDownload( sf::TcpSocket& server, std::string remote_directory, size_t const& origin );
 
 #endif
