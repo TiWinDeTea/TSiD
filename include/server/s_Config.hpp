@@ -17,28 +17,28 @@ public:
 	Config(	bool rights[CONFIG_SIZE] );
 
 	/**
-	 * returns the value of
+	 * returns the value of user_creation_allowed
 	 * @return true if the creation of a new user is allowed
 	 */
 	bool userCreationAllowed(){ return user_creation_allowed; }
 
 	/**
-	 * returns the value of
+	 * returns the value of private_folder_reading_allowed
 	 * @return true if users may write and read in their private folders
 	 */
 	bool privateFolderReadingAllowed(){ return private_folder_reading_allowed; };
 
 	/**
 	 * returns the value of
-	 * @return true if users may write in their private folders
+	 * @return true if users may write in their private folders private_folder_writing_allowed
 	 */
 	bool privateFolderWritingAllowed(){ return private_folder_writing_allowed; };
 
 private:
 
 	bool user_creation_allowed,
-		private_folder_reading_allowed,
-		private_folder_writing_allowed;
+		 private_folder_reading_allowed,
+		 private_folder_writing_allowed;
 };
 
 #endif

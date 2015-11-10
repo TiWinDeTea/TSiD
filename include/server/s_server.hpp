@@ -24,7 +24,7 @@
  * @param client The Client object wich contain the socket to receive the client commands,
  * and send the answers
  */
-void clientLoop(Client* client);
+void clientLoop(Client* client, Config* config);
 
 /**
  * @brief The main, read the config, listen for new client and launch a thread of each of new client.

@@ -8,6 +8,7 @@
 #include "isFolder.hpp"
 #include "s_tprint.hpp"
 #include "s_Client.hpp"
+#include "s_Config.hpp"
 
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
 #else
@@ -23,6 +24,6 @@
  * @param client The Client object wich contain the path to list files
  * @return 0 for fail, 1 for success
  */
-bool a_listFiles( Client& client );
+bool a_listFiles( Client& client, Config* config );
 
 #endif

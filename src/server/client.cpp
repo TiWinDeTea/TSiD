@@ -94,3 +94,13 @@ void Client::disconnect(){
 bool Client::isConnected(){
     return state;
 }
+
+bool Client::isInPrivate(){
+    
+    if(!path.compare(0,9,"./Private")){
+
+        return true;
+    }
+    return false;
+}
+

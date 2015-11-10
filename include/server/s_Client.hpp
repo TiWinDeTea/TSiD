@@ -44,6 +44,13 @@ class Client {
     bool isConnected();
 
     /**
+     * @brief *
+     * @return true if the path is in /Private,
+     * false else
+     */
+    bool isInPrivate();
+
+    /**
      * @brief Return the client username
      * @return user_name
      */

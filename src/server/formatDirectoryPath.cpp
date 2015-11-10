@@ -1,6 +1,6 @@
 #include "s_formatDirectoryPath.hpp"
 
-bool formatDirectoryPath(Client& client){
+bool formatDirectoryPath(Client& client, Config* config){
 
 	std::size_t pos = client.path.find("..");
 	while(pos != std::string::npos){ //while there is .. not analysed somewhere
@@ -24,6 +24,11 @@ bool formatDirectoryPath(Client& client){
 	if (!client.path.compare(0,8,"/Private")){
 		
 		client.path.insert(8, "/" + client.name());
+		
+		if(!config->privateFolderReadingAllowed() &&  !config->privateFolderWritingAllowed()){
+
+			return false;
+		}
 	}
 	
 	else{

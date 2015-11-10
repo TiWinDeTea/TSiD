@@ -6,6 +6,7 @@
 #include <string>
 #include "SCommand.hpp"
 #include "s_Client.hpp"
+#include "s_Config.hpp"
 
 /**
  * @brief format the path send by the client
@@ -17,6 +18,6 @@
  * @return true if the path is correct,
  * false else
  */
-bool formatDirectoryPath(Client& client);
+bool formatDirectoryPath(Client& client, Config* config);
 
 #endif

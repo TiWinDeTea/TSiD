@@ -4,6 +4,7 @@ bool a_sendData(Client& client){									// Sends a file to the client
 
 	//here : authorized or forbidden
 	client.packet.clear();
+	std::cout << "\t-File: " << client.path << std::endl;
 
 	if( !fileExist( client.path ) ){
 		client.packet << VoidFileName << 0 << 0;
