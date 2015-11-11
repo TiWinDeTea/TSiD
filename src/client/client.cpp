@@ -11,21 +11,26 @@ bool sconnect( sf::TcpSocket& socket, std::string& user_id ) {
 	unsigned short remote_port;
 	std::string remote_address, user_pass;
 
-	std::cout << "User ID : ";
-	std::cin >> user_id;
+	if( !loadPreferences( user_id, remote_address, remote_port ) ){
 
+		std::cout << std::endl << "Remote address : ";
+		std::cin >> remote_address;
+		std::cout << "Remote port : ";
+		std::cin >> remote_port;
+
+		std::cout << "User ID : ";
+		std::cin >> user_id;
+		std::cin.ignore();
+
+		writePreferences( user_id, remote_address, remote_port );
+	}
+	
 	std::cout << "User passwd : ";
 	setStdcinEcho( false );
-	std::cin.ignore();
 	std::getline(std::cin, user_pass);
 	setStdcinEcho( true );
 
-
-	std::cout << std::endl << "Remote address : ";
-	std::cin >> remote_address;
-	std::cout << "Remote port : ";
-	std::cin >> remote_port;
-	std::cout << "Connecting to the remote @ " << remote_address << ":" << remote_port << std::endl;
+	std::cout << "\n\nConnecting to the remote @ " << remote_address << ":" << remote_port << std::endl;
 
 	if( socket.connect( remote_address, remote_port ) != sf::Socket::Done ){
 		std::cout << "Connection wasn't successful" << std::endl;
@@ -55,7 +60,7 @@ int main() {
 
 	if( !sconnect( socket, user_id ) ){
 		std::cout << "press enter to quit";
-		std::cin.ignore();
+		std::cin.clear();
 		std::cin.ignore();
 		return EXIT_FAILURE;
 	}//else

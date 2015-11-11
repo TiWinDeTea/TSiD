@@ -4,6 +4,7 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <fstream>
+#include "c_preferences.hpp"
 #include "c_userInputInterpret.hpp"
 #include "c_serverAnsInterpret.hpp"
 #include "setStdcinEcho.hpp"
