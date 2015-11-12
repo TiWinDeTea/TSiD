@@ -2,7 +2,7 @@
 
 char createNewUser( std::string const& user_name, std::string const& password ){
 
-    if(createFile("UsersData/"+user_name) != Succes)
+    if(createFile("UsersData/"+user_name) == UnknownIssue)
     	return UnknownIssue;
 
 	std::ofstream user_file( ("UsersData/"+user_name).c_str(), std::ios::out);
@@ -26,10 +26,11 @@ char createNewUser( std::string const& user_name, std::string const& password ){
 		return UnknownIssue;
 	}
 
-	if(createDirectory("FilesData/Private/"+user_name) == UnknownIssue)
+	if(createDirectory("FilesData/Private/"+user_name) == UnknownIssue){
 
 		removeFile("UsersData/"+user_name);
 		return UnknownIssue;
+	}
 
 	return Succes;
 }

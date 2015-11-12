@@ -19,7 +19,7 @@ bool a_createNewUser(Client& client){
         client.packet << AlreadyExist;
         client.socket.send(client.packet);
         tprint();
-        std::cout << client.name() << " -> The user already exist" << std::endl;
+        std::cout << client.name() << " -> The user already exist (" << user_name << ")" << std::endl;
         return false;
 	}
     
@@ -32,7 +32,7 @@ bool a_createNewUser(Client& client){
         client.packet << BadChar;
         client.socket.send(client.packet);
         tprint();
-        std::cout << client.name() << " -> Bad character in the username" << std::endl;
+        std::cout << client.name() << " -> Bad character in the username (" << user_name << ")" << std::endl;
         return false;
     }
 
@@ -40,7 +40,7 @@ bool a_createNewUser(Client& client){
     client.packet << ServerReady;
     client.socket.send(client.packet);
     tprint();
-    std::cout << client.name() << " -> username is valid" << std::endl;
+    std::cout << client.name() << " -> username is valid (" << user_name << ")" << std::endl;
 
     client.packet.clear();
     if(client.socket.receive( client.packet ) == sf::Socket::Disconnected){
