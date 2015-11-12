@@ -4,6 +4,11 @@ void clientLoop(Client* client, Config* config){
 
     sf::Socket::Status client_status;
     std::string message;
+
+    client->packet.clear();
+    client->packet << "message du jour";
+    client->socket.send( client->packet );
+
     do{
         int client_command(0);
         client->packet.clear();
@@ -201,6 +206,31 @@ void clientLoop(Client* client, Config* config){
                     std::cout << client->name() << " - ";
                     setColors("light green");
                     std::cout << "password changed" << std::endl;
+                    setColors("reset");
+                }
+                break;
+
+            case Invite :
+
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light magenta");
+                std::cout << "invite request" << std::endl;
+                setColors("reset");
+
+                if( !a_createNewUser(*client) ){
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light red");
+                    std::cout << "new user creation failed" << std::endl;
+                    setColors("reset");
+                }
+
+                else{
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light green");
+                    std::cout << "new user successfully created" << std::endl;
                     setColors("reset");
                 }
                 break;

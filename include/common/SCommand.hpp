@@ -13,6 +13,7 @@ enum SCommand : signed char {
 	UnknownIssue,
 	BadID,
 	InvalidPath,
+	BadChar,
 
 	ClientFailure,
 
@@ -30,7 +31,8 @@ enum SCommand : signed char {
 	Exist,
 	Mkdir,
 	Passwd,
-	Msg
+	Msg,
+	Invite
 };
 
 #endif

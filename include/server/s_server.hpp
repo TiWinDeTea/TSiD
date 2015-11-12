@@ -17,6 +17,7 @@
 #include "s_a_directoryExist.hpp"
 #include "s_a_createDirectory.hpp"
 #include "s_a_changePassword.hpp"
+#include "s_a_createNewUser.hpp"
 #include "s_tprint.hpp"
 #include "s_readConfig.hpp"
 

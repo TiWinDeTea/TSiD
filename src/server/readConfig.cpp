@@ -24,6 +24,7 @@ Config readConfig( unsigned short& port ){
 
 		std::cout << "~ Generating default folders" << std::endl;
 		updateInformationsFiles("./Public");
+		updateInformationsFiles("./Private");
 		setColors("light green");
 		std::cout << "~ Done\n" << std::endl;
 		setColors("reset");
@@ -180,55 +181,74 @@ void newUser( std::string const& user_name, std::string const& password ){
 	user_file.close();
 }
 
-std::string switchConfig( std::string const& l_arg, std::string const& l_value, bool config[CONFIG_SIZE]){
+std::string switchConfig( std::string const& arg, std::string const& value, bool config[CONFIG_SIZE]){
 
-	if( l_arg == "regen architecture" ){
+	if( arg == "regen architecture" ){
 
-		if( l_value=="true" )
+		if( value=="true" ){
+
+			std::cout << "~ Generating default folders" << std::endl;
 			createArchitecture();
+			setColors("light green");
+			std::cout << "~ Done\n" << std::endl;
+			setColors("reset");
+		}
 		return "false";
 
 	}//else
 	
-	if( l_arg == "new user at restart" ){
+	if( arg == "new user at restart" ){
 
-		if( l_value=="true" )
+		if( value=="true" ){
+
+			std::cout << "~ Setting a new user" << std::endl;
 			getNewUser();
+			setColors("light green");
+			std::cout << "~ Done\n" << std::endl;
+			setColors("reset");
+		}
 		return "false";
 
 	}//else
 
-	if( l_arg == "auto generate files infos"){
+	if( arg == "auto generate files infos"){
 
-		if( l_value == "true")
+		if( value == "true"){
+			
+			std::cout << "~ Generating default folders" << std::endl;
 			updateInformationsFiles("./Public");
+			updateInformationsFiles("./Private");
+			setColors("light green");
+			std::cout << "~ Done\n" << std::endl;
+			setColors("reset");
+		}
 		return "false";
 
 	}
 
 	//Now starting to switch for post-start configuration settings
 	
-	if( l_arg == "port" )
-		return '_' + l_value;
+	if( arg == "port" )
+		return '_' + value;
 	
-	if( l_value == "true" )		//true is default anyway
-		return l_value;
+	if( value == "true" )		//true is default anyway
+		return value;
 
-	if( l_arg == "allow user creation" ){
+	if( arg == "allow user creation" ){
 		config[0] = false;
-		return l_value;
+		return value;
 	}//else
 
-	if( l_arg == "allow reading in private folders" ){
+	if( arg == "allow reading in private folders" ){
 		config[1] = false;
-		return l_value;
+		return value;
 	}//else
 
-	if( l_arg == "allow writing in private folders" ){
+	if( arg == "allow writing in private folders" ){
 		config[2] = false;
-		return l_value;
+		return value;
 	}//else
 
-	return '*'+l_value;
+	return '*'+value;
 
 }
