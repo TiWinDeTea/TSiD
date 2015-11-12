@@ -29,7 +29,8 @@ enum SCommand : signed char {
 	Cd,
 	Exist,
 	Mkdir,
-	Passwd
+	Passwd,
+	Msg
 };
 
 #endif

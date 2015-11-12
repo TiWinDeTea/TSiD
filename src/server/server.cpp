@@ -204,6 +204,23 @@ void clientLoop(Client* client, Config* config){
                 }
                 break;
 
+            case msg :
+
+                std::string message;
+
+                if(client.packet >> message){
+
+                    tprint();
+                    std::cout << client->name() << " : ";
+                    setColors("light magenta");
+                    std::cout << "message :" << std::endl;
+                    setColors("light cyan");
+                    std::cout << message << std::endl;
+                    setColors("reset");
+                }
+
+                break;
+
             case Disconnect :
 
                 tprint();
