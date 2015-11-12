@@ -22,12 +22,12 @@ void setColors( std::string const& text_color)
 	else if( text_color == "light red" )			output_color = 12;/**break**/
 	else if( text_color == "light magenta" )		output_color = 13;/**break**/
 	else if( text_color == "light yellow" )			output_color = 14;/**break**/
-	else if( text_color == "bright white" )			output_color = 15;
+	else if( text_color == "light white" )			output_color = 15;
 
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), output_color);
 #else
 	
-	if( text_color == "reset" )					std::cout << "\033[97;1m" ;/**break**/
+	if( text_color == "reset" )				std::cout << "\033[97;1m" ;/**break**/
 	else if( text_color == "black" )			std::cout << "\033[8m" ;/**break**/
 	else if( text_color == "grey" )				std::cout << "\033[30m";/**break**/
 	else if( text_color == "red" )				std::cout << "\033[31m";/**break**/
@@ -43,7 +43,7 @@ void setColors( std::string const& text_color)
 	else if( text_color == "light blue" )			std::cout << "\033[94m";/**break**/
 	else if( text_color == "light magenta" )		std::cout << "\033[95m";/**break**/
 	else if( text_color == "light cyan" )			std::cout << "\033[96m";/**break**/
-	else if( text_color == "bright white" )			std::cout << "\033[97m";
+	else if( text_color == "light white" )			std::cout << "\033[97m";
 
 #endif
 }

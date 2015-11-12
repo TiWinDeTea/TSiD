@@ -21,6 +21,7 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 				<< "                       !" << std::endl
 				<< "                       passwd" << std::endl
 				<< "                       msg" << std::endl
+				<< "                       invite" << std::endl
 				<< "                       version" << std::endl
 				<< std::endl << "For further informations about a command, use ? <command>" << std::endl
 				<< std::endl;
@@ -73,6 +74,11 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 			sf::Packet spacket;
 			spacket << "/" << Msg << user_input;
 			server.send( spacket );
+		}
+		else if( user_input == "invite" ){
+
+			if( !invite( server ) )
+				std::cout << "Could not create the account" << std::endl;
 		}
 		else if( user_input == "version" ){
 

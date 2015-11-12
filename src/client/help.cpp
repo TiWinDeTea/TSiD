@@ -53,6 +53,11 @@ void help(){
 		std::cout << "Sends a message to the server's console" << std::endl
 			<< "Usage : msg <message>" << std::endl;
 	}
+	else if( user_input == "invite" ){
+
+		std::cout << "Creates a new account" << std::endl
+			<< "Usage : invite <user_name>" << std::endl;
+	}
 	else if( user_input == "version" ){
 
 		std::cout << "Outputs version information" << std::endl;

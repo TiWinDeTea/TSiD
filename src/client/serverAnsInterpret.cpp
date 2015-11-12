@@ -4,12 +4,13 @@ bool interpretServerAns( signed char sanswer){								//Sends message to console
 	
 	switch( sanswer ){
 
-	case ServerReady:					//ServerReady or GoodID
-		//std::cout << "Server ready" << std::endl;
-		return true;
-	
+	case ServerReady:					//ServerReady, GoodID, Success, …
 	case Exist:
 		return true;
+
+	case BadChar:
+		std::cout << "Message from server : usage of a prohibited character" << std::endl;
+		return false;
 
 	case NotAuthorized :
 		std::cout << "Message from server : action prohibited" << std::endl;
@@ -20,7 +21,7 @@ bool interpretServerAns( signed char sanswer){								//Sends message to console
 		return false;
 	
 	case AlreadyExist:
-		std::cout << "Message from server : this file already exists" << std::endl;
+		std::cout << "Message from server : already exists" << std::endl;
 		return false;
 
 	case VoidFileName:
@@ -54,28 +55,5 @@ bool interpretServerAns( signed char sanswer){								//Sends message to console
 	default:
 		std::cout << "Unexpected answer from server" << std::endl;
 		return false;
-	}
-}
-
-bool tMutedServerInterpret( signed char sanswer ){
-
-	switch( sanswer ){
-
-	case ServerReady:
-	case Exist:
-		return true;
-	
-	case NotAuthorized :
-	case TooBig:
-	case AlreadyExist:
-	case VoidFileName:
-	case FileDoesNotExist:
-	case ServerFailure:
-	case UnknownIssue:
-	case BadID:
-	case VoidDirectory:
-	case InvalidPath:
-	default:
-		return interpretServerAns( sanswer );
 	}
 }

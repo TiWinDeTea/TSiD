@@ -15,7 +15,14 @@ void passwd( sf::TcpSocket& server ){
 	std::cout << '\n';
 
 	if( new_pass_attempt_1 != new_pass_attempt_2 ){
+
 		std::cout << "Passwords don't match." << std::endl;
+		return;
+	}
+
+	if( new_pass_attempt_1 == "" ){
+
+		std::cout << "\nYour password must not be empty" << std::endl;
 		return;
 	}
 

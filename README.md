@@ -50,10 +50,11 @@ What is working right now ?
 + Dislay was improved
 + Recursive upload is available
 + Recursive download is out there too
-+ Added client commands : mkdir.
++ Added client commands : mkdir, msg, invite, version, ?, passwd.
 + Server removes partially uploaded files
 + Added a config file
 + Added file descriptions
++ The server may send a message to a client at his connection
 </ul><br/>
 
 ##Contribute

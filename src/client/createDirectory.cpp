@@ -21,5 +21,5 @@ bool createDirectory( sf::TcpSocket& server, std::string const& current_director
 		return false;
 	}
 
-	return tMutedServerInterpret( static_cast<char>(s_ans) );
+	return interpretServerAns( static_cast<char>(s_ans) );
 }

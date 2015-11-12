@@ -7,6 +7,10 @@
 #include "setStdcinEcho.hpp"
 #include "c_serverAnsInterpret.hpp"
 
+/**
+ * Changes the user password
+ * @param server socket binded to the server
+ */
 void passwd( sf::TcpSocket& server );
 
 #endif

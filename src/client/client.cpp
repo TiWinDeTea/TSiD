@@ -65,6 +65,7 @@ int main() {
 		return EXIT_FAILURE;
 	}//else
 
+	getServerMessage( socket );
 	userInputInterpret( socket, user_id );
 
 	sf::Packet bye;

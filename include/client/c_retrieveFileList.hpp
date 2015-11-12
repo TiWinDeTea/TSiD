@@ -18,6 +18,12 @@
  */
 bool retrieveFileList( sf::TcpSocket& server, std::string current_directory );
 
+/**
+ * Formats the retrieved files and folders to a readable format.
+ * Files and folders should be passed with this format : <filename>|<date>|<creator>
+ * @param file          string to format
+ * @param max_file_size size of the longest file
+ */
 void formatFilesDisplay( std::string& file, size_t max_file_size );
 
 #endif

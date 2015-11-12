@@ -7,6 +7,7 @@
 #include "c_preferences.hpp"
 #include "c_userInputInterpret.hpp"
 #include "c_serverAnsInterpret.hpp"
+#include "c_getServerMessage.hpp"
 #include "setStdcinEcho.hpp"
 #include "setColors.hpp"
 
