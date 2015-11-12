@@ -134,7 +134,7 @@ bool recursiveDownload( sf::TcpSocket& server, std::string remote_directory, siz
 	spacket >> file;
 	spacket.clear();
 
-	if( static_cast<char>(file) == ServerFailure ){
+	if( !interpretServerAns(static_cast<char>(file)) ){
 		return false;
 	}
 

@@ -15,11 +15,8 @@ bool retrieveFileList( sf::TcpSocket& server, std::string current_directory ){
 	spacket >> file;
 	spacket.clear();
 
-	if( static_cast<char>(file) == ServerFailure ){
-		std::cout << "ServerFailure" << std::endl;
+	if( !interpretServerAns(static_cast<char>(file)) )
 		return false;
-	}
-
 
 	std::vector<std::string> directory_array;
 

@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <SFML/Network.hpp>
+#include "c_serverAnsInterpret.hpp"
 #include "SCommand.hpp"
 #include "setColors.hpp"
 
