@@ -7,6 +7,7 @@
 #include "c_upload.hpp"
 #include "c_moveToDirectory.hpp"
 #include "c_createDirectory.hpp"
+#include "c_passwd.hpp"
 
 /**
  * Interprets the commands typed by the client

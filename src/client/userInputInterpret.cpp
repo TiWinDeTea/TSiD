@@ -11,14 +11,16 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 
 		if( user_input == "help"){
 
-			std::cout << "available commands :	help" << std::endl
-				<< "			ls" << std::endl
-				<< "			put" << std::endl
-				<< "			get" << std::endl
-				<< "			bye / quit / exit" << std::endl
-				<< "			cd" << std::endl
-				<< "			mkdir" << std::endl
-				<< "			!" << std::endl
+			std::cout << "available commands : help" << std::endl
+				<< "                       ls" << std::endl
+				<< "                       put" << std::endl
+				<< "                       get" << std::endl
+				<< "                       bye / quit / exit" << std::endl
+				<< "                       cd" << std::endl
+				<< "                       mkdir" << std::endl
+				<< "                       !" << std::endl
+				<< "                       passwd" << std::endl
+				<< "                       msg" << std::endl
 				<< std::endl;
 		}
 		else if( user_input == "put" ){
@@ -55,6 +57,17 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 
 			if( !createDirectory( server, current_directory ) )
 				std::cout << "Failed to create the directory" << std::endl;
+		}
+		else if( user_input == "passwd" ){
+			passwd( server );
+		}
+		else if( user_input == "msg" ){
+
+			std::cin.ignore();
+			std::getline( std::cin, user_input );
+			sf::Packet spacket;
+			spacket << "/" << Msg << user_input;
+			server.send( spacket );
 		}
 		else if( user_input != "bye" && user_input != "exit" && user_input != "quit" ){
 
