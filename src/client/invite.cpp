@@ -50,6 +50,7 @@ bool invite( sf::TcpSocket& server ){
 
 	if( !(spacket >> s_ans) ){
 		std::cout << "There was an error retrieving server answer." << std::endl;
+		std::cout << "The user creation might have failed." << std::endl;
 		return false;
 	}
 

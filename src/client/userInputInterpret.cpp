@@ -77,8 +77,7 @@ void userInputInterpret( sf::TcpSocket& server, std::string user_id ){
 		}
 		else if( user_input == "invite" ){
 
-			if( !invite( server ) )
-				std::cout << "Could not create the account" << std::endl;
+			invite( server );
 		}
 		else if( user_input == "version" ){
 

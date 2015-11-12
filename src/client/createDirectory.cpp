@@ -13,7 +13,7 @@ bool createDirectory( sf::TcpSocket& server, std::string const& current_director
 	spacket.clear();
 
 	server.receive( spacket );
-	sf::Int8 s_ans;
+	sf::Int32 s_ans;
 
 	if( !(spacket >> s_ans) ){
 

@@ -2,6 +2,8 @@
 
 bool a_createDirectory(Client& client) {
 
+    client.packet.clear();
+
     switch(createDirectory(client.path)){
 
         case AlreadyExist:
