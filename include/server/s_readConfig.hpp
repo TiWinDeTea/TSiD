@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <cstdlib>
 #include <vector>
 #include "s_createDirectory.hpp"
 #include "s_Client.hpp"

@@ -44,7 +44,7 @@ Config readConfig( unsigned short& port ){
 			if( word.front() == '_' ){
 				word.erase(0,1);
 				if( word.front() >= '0' && word.front() <= '9' )
-					port = static_cast<unsigned short>(std::stoi( word ));
+					port = static_cast<unsigned short>(strtol( word.c_str(), 0, 10 ));
 				else{
 					std::cout << "Port : ";
 					std::cin >> port;

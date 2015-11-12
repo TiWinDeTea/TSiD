@@ -3,6 +3,7 @@
 void clientLoop(Client* client, Config* config){
 
     sf::Socket::Status client_status;
+    std::string message;
     do{
         int client_command(0);
         client->packet.clear();
@@ -204,11 +205,9 @@ void clientLoop(Client* client, Config* config){
                 }
                 break;
 
-            case msg :
-
-                std::string message;
-
-                if(client.packet >> message){
+            case Msg :
+                
+                if(client->packet >> message){
 
                     tprint();
                     std::cout << client->name() << " : ";
@@ -217,6 +216,7 @@ void clientLoop(Client* client, Config* config){
                     setColors("light cyan");
                     std::cout << message << std::endl;
                     setColors("reset");
+                    message.erase();
                 }
 
                 break;
