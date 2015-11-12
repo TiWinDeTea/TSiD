@@ -8,6 +8,7 @@
 #include "c_moveToDirectory.hpp"
 #include "c_createDirectory.hpp"
 #include "c_passwd.hpp"
+#include "c_help.hpp"
 
 /**
  * Interprets the commands typed by the client
