@@ -29,7 +29,7 @@ public:
 	bool privateFolderReadingAllowed(){ return private_folder_reading_allowed; };
 
 	/**
-	 * returns the value of
+	 * returns the value of private_folder_writing_allowed
 	 * @return true if users may write in their private folders private_folder_writing_allowed
 	 */
 	bool privateFolderWritingAllowed(){ return private_folder_writing_allowed; };
@@ -39,6 +39,7 @@ private:
 	bool user_creation_allowed,
 		 private_folder_reading_allowed,
 		 private_folder_writing_allowed;
+
 };
 
 #endif

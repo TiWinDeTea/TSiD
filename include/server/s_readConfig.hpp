@@ -22,7 +22,7 @@
  *
  * @return config containing some of the red parameters
  */
-Config readConfig();
+Config readConfig( unsigned short& port );
 
 /**
  * Generates a default configuration with the following settings :
@@ -32,7 +32,7 @@ Config readConfig();
  *   - full private folders authorization
  * @return true if the config file could be generated
  */
-bool generateDefaultConfig();
+bool generateDefaultConfig( unsigned short port );
 
 /**
  * Creates the defaults folders

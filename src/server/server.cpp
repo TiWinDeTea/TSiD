@@ -229,11 +229,8 @@ void clientLoop(Client* client, Config* config){
 int main(){
 
     setColors("reset");
-    unsigned short port;
-    Config config(readConfig());
-
-    std::cout << "Port to use : ";
-    std:: cin >> port;
+    unsigned short port(0);
+    Config config(readConfig( port ));
 
     std::vector<sf::Thread*> thread_array;
     std::vector<Client*> client_array;

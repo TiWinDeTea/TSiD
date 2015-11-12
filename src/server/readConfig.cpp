@@ -1,6 +1,6 @@
 #include "s_readConfig.hpp"
 
-Config readConfig(){
+Config readConfig( unsigned short& port ){
 
 	std::ifstream config( "config.txt", std::ios::in );
 
@@ -14,31 +14,62 @@ Config readConfig(){
 		std::cout << "No config file found." << std::endl;
 		std::cout << "Assuming this is the first time you are using this program\n" << std::endl;
 
-		if(!generateDefaultConfig()){
+		createArchitecture();
+		getNewUser();
+		updateInformationsFiles("./Public");
+
+		std::cout << "Port : ";
+		std::cin >> port;
+
+		if(!generateDefaultConfig( port )){
 
 			setColors("light red");
 			std::cout << "Failed to write the default configuration file" << std::endl;
 			setColors("reset");
 		}
-
-		createArchitecture();
-		getNewUser();
-		updateInformationsFiles("./Public");
 	}
 	else{
 		
-		std::string word, l_arg, l_value;
+		std::string word, arg, value;
 		std::vector<std::string> line_output;
 		
 		while( std::getline( config, word, '\n') ){
 			
 			std::istringstream foo(word);
-			std::getline( foo, l_arg, ':' );
-			std::getline( foo, l_value );
-			l_value.erase(0, 1);
-			line_output.push_back(l_arg + ": " + switchConfig( l_arg, l_value, bconfig ));
+			std::getline( foo, arg, ':' );
+			std::getline( foo, value );
+			value.erase(0, 1);
+			word = switchConfig( arg, value, bconfig );
+
+			if( word.front() == '_' ){
+				word.erase(0,1);
+				if( word.front() >= '0' && word.front() <= '9' )
+					port = static_cast<unsigned short>(std::stoi( word ));
+				else{
+					std::cout << "Port : ";
+					std::cin >> port;
+					std::ostringstream convert;
+					convert << port;
+					word = convert.str();
+				}
+			}
+
+			if( word.front() == '*' )
+				word.erase(0,1);
+
+			line_output.push_back(arg + ": " + word );
 		}
 		config.close();
+
+		if( port == 0 ){
+
+			std::cout << "Port : ";
+			std::cin >> port;
+			std::ostringstream convert;   // stream used for the conversion
+			convert << port;
+			line_output.push_back("port: " + convert.str());
+		}
+
 		std::ofstream config_rewrite( "config.txt", std::ios::out | std::ios::trunc );
 		
 		if( config_rewrite.fail() ){
@@ -58,7 +89,7 @@ Config readConfig(){
 	return Config(bconfig);
 }
 
-bool generateDefaultConfig(){
+bool generateDefaultConfig( unsigned short port ){
 
 	std::cout << "Generating config file" << std::endl;
 	std::ofstream config( "config.txt", std::ios::out );
@@ -66,7 +97,8 @@ bool generateDefaultConfig(){
 	if( config.fail() )
 		return false;
 
-	config << "regen architecture: false\n"
+	config << "port: " << port << '\n'
+		<< "regen architecture: false\n"
 		<< "new user at restart: false\n"
 		<< "auto generate files infos: false\n"
 		<< "allow user creation: true\n"
@@ -153,6 +185,9 @@ std::string switchConfig( std::string const& l_arg, std::string const& l_value, 
 
 	//Now starting to switch for post-start configuration settings
 	
+	if( l_arg == "port" )
+		return '_' + l_value;
+	
 	if( l_value == "true" )		//true is default anyway
 		return l_value;
 
@@ -171,6 +206,6 @@ std::string switchConfig( std::string const& l_arg, std::string const& l_value, 
 		return l_value;
 	}//else
 
-	return l_value;
+	return '*'+l_value;
 
 }
