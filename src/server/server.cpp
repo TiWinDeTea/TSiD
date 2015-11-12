@@ -214,7 +214,7 @@ void clientLoop(Client* client, Config* config){
                     setColors("light magenta");
                     std::cout << "message :" << std::endl;
                     setColors("light cyan");
-                    std::cout << message << std::endl;
+                    std::cout << "\t" << message << std::endl;
                     setColors("reset");
                     message.erase();
                 }
