@@ -271,6 +271,14 @@ void clientLoop(Client* client, Config* config){
 int main(){
 
     setColors("reset");
+
+    std::cout << "TSiD client v1\n\n"
+                << "Copyright (C) 2015 Lucas Lazare and Maxime Pinard\n"
+                << "Program under MIT License : <https://github.com/Organic-Code/TSiD/blob/v1/LICENSE>\n"
+                << "This is a free software : you are free to change and redistribute it.\n"
+                << "There is NO WARRANTY, to the extent permitted by law.\n\n"
+                << "Written by Maxime Pinard and Lucas Lazare\n\n" << std::endl;
+
     unsigned short port(0);
     Config config(readConfig( port ));
 
@@ -290,6 +298,10 @@ int main(){
         return EXIT_FAILURE;
     }
     
+    setColors("light blue");
+    std::cout << "~ server started" << std::endl;
+    setColors("reset");
+
     while (true){
 
         client_array.push_back(new Client);

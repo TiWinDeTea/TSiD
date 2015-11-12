@@ -11,20 +11,37 @@ Config readConfig( unsigned short& port ){
 
 	if( config.fail() ){
 
-		std::cout << "No config file found." << std::endl;
-		std::cout << "Assuming this is the first time you are using this program\n" << std::endl;
+		setColors("light yellow");
+		std::cout << "~ No config file found." << std::endl;
+		std::cout << "~ Assuming this is the first time you are using this program\n" << std::endl;
+		setColors("reset");
 
+		std::cout << "~ Generating default folders" << std::endl;
 		createArchitecture();
-		getNewUser();
+		setColors("light green");
+		std::cout << "~ Done\n" << std::endl;
+		setColors("reset");
+
+		std::cout << "~ Generating default folders" << std::endl;
 		updateInformationsFiles("./Public");
+		setColors("light green");
+		std::cout << "~ Done\n" << std::endl;
+		setColors("reset");
+
+		std::cout << "~ Setting a new user" << std::endl;
+		getNewUser();
+		setColors("light green");
+		std::cout << "~ Done\n" << std::endl;
+		setColors("reset");
 
 		std::cout << "Port : ";
 		std::cin >> port;
+		std::cout << "\n";
 
 		if(!generateDefaultConfig( port )){
 
 			setColors("light red");
-			std::cout << "Failed to write the default configuration file" << std::endl;
+			std::cout << "~ Failed to write the default configuration file" << std::endl;
 			setColors("reset");
 		}
 	}
@@ -65,6 +82,7 @@ Config readConfig( unsigned short& port ){
 
 			std::cout << "Port : ";
 			std::cin >> port;
+			std::cout << "\n";
 			std::ostringstream convert;   // stream used for the conversion
 			convert << port;
 			line_output.push_back("port: " + convert.str());
@@ -74,7 +92,9 @@ Config readConfig( unsigned short& port ){
 		
 		if( config_rewrite.fail() ){
 
-			std::cout << "Could not edit the config file.\n Letting this to you\n" << std::endl;
+			setColors("light red");
+			std::cout << "~ Could not edit the config file" << std::endl;
+			setColors("reset");
 		}
 		
 		else{
@@ -91,7 +111,8 @@ Config readConfig( unsigned short& port ){
 
 bool generateDefaultConfig( unsigned short port ){
 
-	std::cout << "Generating config file" << std::endl;
+	std::cout << "~ Generating config file" << std::endl;
+	createFile("config.txt");
 	std::ofstream config( "config.txt", std::ios::out );
 
 	if( config.fail() )
@@ -105,13 +126,14 @@ bool generateDefaultConfig( unsigned short port ){
 		<< "allow writing in private folders: true\n"
 		<< "allow reading in private folders: true\n";
 
-	std::cout << "Done\n" << std::endl;
+	setColors("light green");
+	std::cout << "~ Done\n" << std::endl;
+	setColors("reset");
 	return true;
 }
 
 void createArchitecture(){
 
-	std::cout << "Generating default folders" << std::endl;
 	createDirectory("Public");
 	createDirectory("Public/music");
 	createDirectory("Public/films");
@@ -125,13 +147,11 @@ void createArchitecture(){
 	createDirectory("ToConf");
 	createDirectory("IPList");
 	createDirectory("Downloading_Threads");
-
-	std::cout << "Done\n" << std::endl;
 }
 
 void getNewUser(){
 
-	std::cout << "Setting a new user\n\tUser name : ";
+	std::cout << "\tUser name : ";
 	std::string user_name, user_password;
 	std::cin >> user_name;
 	std::cout << "\tUser password : ";
@@ -148,7 +168,9 @@ void newUser( std::string const& user_name, std::string const& password ){
 	std::ofstream user_file( ("UsersData/"+user_name).c_str(), std::ios::out | std::ios::trunc );
 	if( user_file.fail() ){
 
-		std::cout << "Could not open user file.\nAborting user creation" << std::endl;
+		setColors("light red");
+		std::cout << "~ Could not open user file.\n~ Aborting user creation" << std::endl;
+		setColors("reset");
 		return;
 	}
 
