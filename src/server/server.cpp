@@ -179,6 +179,31 @@ void clientLoop(Client* client, Config* config){
                 }
                 break;
 
+            case Passwd :
+
+                tprint();
+                std::cout << client->name() << " : ";
+                setColors("light magenta");
+                std::cout << "password modification request" << std::endl;
+                setColors("reset");
+
+                if( !a_changePassword(*client) ){
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light red");
+                    std::cout << "password modification failed" << std::endl;
+                    setColors("reset");
+                }
+
+                else{
+                    tprint();
+                    std::cout << client->name() << " - ";
+                    setColors("light green");
+                    std::cout << "password changed" << std::endl;
+                    setColors("reset");
+                }
+                break;
+
             case Disconnect :
 
                 tprint();

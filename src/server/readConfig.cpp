@@ -155,6 +155,7 @@ void newUser( std::string const& user_name, std::string const& password ){
 	createDirectory("Private/"+user_name);
 	createDirectory("FilesData/Private/"+user_name);
 	user_file << password;
+	user_file.close();
 }
 
 std::string switchConfig( std::string const& l_arg, std::string const& l_value, bool config[CONFIG_SIZE]){

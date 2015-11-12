@@ -16,6 +16,7 @@
  * @brief Answer to the client command Exist (send by command 'cd')
  * 
  * @param client The Client object wich contain the path of the directory
+ * @return 1 for fail, 0 for success
  */
 bool a_directoryExist(Client& client);
 
