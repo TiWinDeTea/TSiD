@@ -20,6 +20,7 @@
 #include "s_a_createNewUser.hpp"
 #include "s_tprint.hpp"
 #include "s_readConfig.hpp"
+#include "s_formatedWelcomeMessage.hpp"
 
 /**
  * @brief Lauch the loop waiting for client command ans calling the corresponding functions

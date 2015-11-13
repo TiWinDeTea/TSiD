@@ -3,11 +3,14 @@
 void clientLoop(Client* client, Config* config){
 
     sf::Socket::Status client_status;
-    std::string message;
+    std::string message(" ");
 
+    formatedWelcomeMessage(message, *client);
     client->packet.clear();
-    client->packet << "message du jour";
+    client->packet << message;
     client->socket.send( client->packet );
+    tprint();
+    std::cout << client->name() << " -> welcome message send" << std::endl;
 
     do{
         int client_command(0);
