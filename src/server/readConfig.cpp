@@ -16,6 +16,14 @@ Config readConfig( unsigned short& port ){
 		std::cout << "~ Assuming this is the first time you are using this program\n" << std::endl;
 		setColors("reset");
 
+		std::cout << "\nAbout 'ServerMessage.txt' :\n"
+			<< "\tThis file contains a message that will be send to each client at their connection.\n"
+			<< "\tFollowing variables are available :\n"
+			<< "\t\t$[user] : client's user name\n"
+			<< "\t\t$[hour] / $[date] / $[day] : instant time variables\n"
+			<< "\t\t$[color] : change the color, where 'color' is blue, green, cyan, red, magenta, yellow, or white\n"
+			<< "\t\t$$ : contains '$'\n" << std::endl;
+
 		std::cout << "~ Generating default folders" << std::endl;
 		createArchitecture();
 		setColors("light green");
@@ -130,6 +138,15 @@ bool generateDefaultConfig( unsigned short port ){
 	setColors("light green");
 	std::cout << "~ Done\n" << std::endl;
 	setColors("reset");
+
+	config.close();
+
+	std::ofstream message_of_the_day( "WelcomeMessage.txt" );
+
+	if( config.fail() )
+		return true;
+
+	message_of_the_day << "Welcome";
 	return true;
 }
 
