@@ -14,18 +14,33 @@ void getServerMessage( sf::TcpSocket& server ){
 	std::istringstream converter( message );
 
 	char next;
-	while( std::getline( converter, message, '$' ) ){
+	while( std::getline( converter, message, '$' ) && !converter.eof() ){
 
 		std::cout << message;
 		converter >> next;
-		if( next == '$' )
+		switch( next ){
+
+		case '$':
 			std::cout << '$';
-		else{
+			break;
+		
+		case '[':
+
 			std::getline( converter, message, ']' );
-			message.erase( 0, 7 );
-			message.pop_back();
-			setColors( "light "+message );
+			if( message == "white" || message == "blue" || message == "cyan" || message == "red" ||
+					message == "magenta" || message == "yellow" || message == "green" )
+			{
+				setColors( "light "+message );
+			}
+			else{
+				std::cout << "$[" << message << ']';
+			}
+			break;
+
+		default:
+			std::cout << '$' << next;
 		}
 	}
-	std::cout << "\n\n";
+	std::cout << message << '\n' << std::endl;
+	setColors("reset");
 }
