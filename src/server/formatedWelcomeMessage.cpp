@@ -41,15 +41,15 @@ void formatedWelcomeMessage(std::string& message, Client& client){
     				i += 4;
     			}
     			else if(keyword == "day"){
-    				message += formatedTime();
+    				message += formatedTime().substr(0,3);
     				i += 3;
     			}
     			else if(keyword == "date"){
-    				message += formatedTime();
+    				message += formatedTime().substr(4,8);
     				i += 4;
     			}
     			else if(keyword == "hour"){
-    				message += formatedTime();
+    				message += formatedTime().substr(13,5);
     				i += 4;
     			}
     			else{
