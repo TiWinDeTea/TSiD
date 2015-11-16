@@ -54,7 +54,7 @@ void formatedWelcomeMessage(std::string& message, Client& client){
     			}
     			else{
     				message += ("$[" + keyword + "]");
-    				i += (keyword.size());
+    				i = static_cast<unsigned short>( i + (keyword.size()) );
     			}
     			break;
 
