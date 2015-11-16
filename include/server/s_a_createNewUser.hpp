@@ -9,6 +9,14 @@
 #include "s_createNewUser.hpp"
 #include "s_tprint.hpp"
 
+/**
+ * @brief answer to the client command 'invite'
+ * @details call the function 'createNewUser'
+ * 
+ * @param client The Client object which contain the socket and packet
+ * @return true for success,
+ * false for error
+ */
 bool a_createNewUser(Client& client);
 
 #endif
