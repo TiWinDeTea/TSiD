@@ -3,7 +3,9 @@ TSiD Project
 
 ##Introduction
 <br/>
-In this branch lies the v1 of TSiD Project
+TSiD Project is a community server meant to have its users as 'administrators'
+Current Stable version : 1
+Version 2 is not being developed yet, but will probably be next summer
 <br/>
 
 ##Authors
@@ -13,7 +15,7 @@ In this branch lies the v1 of TSiD Project
 
 ##Download
 <br/>
-You can get either the server or the client from the [git hub repo](https://github.com/Organic-Code/TSiD).
+You can get either the server or the client sources from the [git hub repo](https://github.com/Organic-Code/TSiD), or get directly the binaries on the [realease page](https://github.com/Organic-Code/TSiD/releases/tag/v1.0).
 <br/>
 
 ##Requirements
@@ -33,30 +35,20 @@ License : MIT License
 
 ##About v1
 <br/>
-What will go on when v1 will be finished ?
+What can v1 do ?
 + All what [v0](https://github.com/Organic-Code/TSiD/tree/v0) already does
-+ Smoother display
++ Smooth display
 + File description
 + Removing partially retrieved files on server
-+ Client can dowload a whole folder
++ Client can dowload/upload a whole folder recursively
 + A client can create a new account ( ie, for friends )
-+ More commands for client : invite <mail>, msg <text>, mkdir, alias, version, passwd
++ More commands for client : invite, msg <text>, mkdir, version, passwd, ?
 + Better help for client
-<br/>
-</ul>
-What is working right now ?
-<ul>
-+ v0 works, so v1 already supports that
-+ Dislay was improved
-+ Recursive upload is available
-+ Recursive download is out there too
-+ Added client commands : mkdir, msg, invite, version, ?, passwd.
 + Server removes partially uploaded files
 + Added a config file
-+ Added file descriptions
 + The server may send a message to a client at his connection
-</ul><br/>
+<br/>
 
 ##Contribute
 
-No contributions are wanted on this version as this is a school project
+Any contributions are welcome. (on br v2 or above)
