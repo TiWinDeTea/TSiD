@@ -3,9 +3,18 @@
 bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& filesize, unsigned int& bytes_per_packet, std::ofstream& output_file,
 	std::string& directory, std::string filename, size_t subst ){
 
-	if( fileExist( formatPath(filename) ) ){
-		std::cout << "This file already exists ! Aborting." << std::endl;
-		return false;
+	if( subst == std::string::npos ){
+
+		if( fileExist( formatPath(filename) ) ){
+			std::cout << "This file already exists ! Aborting." << std::endl;
+			return false;
+		}
+	}
+	else{
+		if( fileExist( "." + directory.substr( subst ) + formatPath(filename) ) ){
+			std::cout << "This file already exists ! Aborting." << std::endl;
+			return false;
+		}
 	}
 
 	int server_state;
@@ -28,14 +37,13 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 	spacket.clear();
 
 	if( subst != std::string::npos ){
-		filename = filename.substr( subst );
-		output_file.open( ("." + directory + formatPath(filename)).c_str(), std::ios::binary | std::ios::out );
+		output_file.open( ("." + directory.substr( subst ) + formatPath(filename)).c_str(), std::ios::binary | std::ios::out );
 	} else {
 		output_file.open( formatPath(filename).c_str(), std::ios::binary | std::ios::out );
 	}
 
 	if( output_file.fail() ){
-		std::cout << "Couldn't read file " << filename << "." << std::endl;
+		std::cout << "Couldn't write in file file " << filename << "." << std::endl;
 		spacket << ClientFailure;
 		server.send(spacket);
 		return false;
@@ -160,7 +168,9 @@ bool recursiveDownload( sf::TcpSocket& server, std::string remote_directory, siz
 	if( static_cast<char>(file) != EndOfStream )
 		return false;
 
-	createDirectory( "." + remote_directory.substr(origin) );
+	if( !createDirectory( "." + remote_directory.substr(origin) ) )
+		return false;
+
 	bool was_successful(true);
 
 	for( unsigned int i(0) ; i < directory_array.size() ; ++i ){
