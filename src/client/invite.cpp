@@ -47,6 +47,8 @@ bool invite( sf::TcpSocket& server ){
 
 	spacket << Invite << password_attempt_1;
 	server.send( spacket );
+	spacket.clear();
+	server.receive( spacket );
 
 	if( !(spacket >> s_ans) ){
 		std::cout << "There was an error retrieving server answer." << std::endl;

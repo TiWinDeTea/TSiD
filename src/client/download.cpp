@@ -191,7 +191,3 @@ bool recursiveDownload( sf::TcpSocket& server, std::string remote_directory, siz
 
 	return was_successful;
 }
-
-
-
-

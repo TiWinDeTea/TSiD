@@ -1,9 +1,8 @@
-#ifndef S_CREATEDIRECTORY_HPP_INCLUDED
-#define S_CREATEDIRECTORY_HPP_INCLUDED
+#ifndef C_CREATELOCALDIRECTORY_HPP_INCLUDED
+#define C_CREATELOCALDIRECTORY_HPP_INCLUDED
 
 #include <dirent.h>
-#include "s_Client.hpp"
-#include "s_tprint.hpp"
+#include "isFolder.hpp"
 
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
 #	define OS_WINDOWS

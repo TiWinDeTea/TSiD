@@ -26,5 +26,5 @@ bool createDirectory(std::string path){
             }
         #endif
     }//else
-    return true;
+    return !isFolder( path );
 }
