@@ -76,5 +76,5 @@ char addDescription(Client& client, std::string description){
     file2 << file_username << std::endl;
     file2 << description << std::endl;
     file2.close();
-    return Succes;
+    return Success;
 }

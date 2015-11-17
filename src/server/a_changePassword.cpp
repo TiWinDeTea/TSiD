@@ -70,7 +70,7 @@ bool a_changePassword(Client& client){
 	o_user_file.close();
 
 	client.packet.clear();
-    client.packet << Succes;
+    client.packet << Success;
     client.socket.send(client.packet);
     return true;
 }

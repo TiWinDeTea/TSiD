@@ -11,7 +11,7 @@
  * @brief Remove a file
  * 
  * @param path The path of the file to remove
- * @return Succes in case of success,
+ * @return Success in case of success,
  * FileDoesNotExist if the file doesn't exist,
  * UnknownIssue in case of error
  */

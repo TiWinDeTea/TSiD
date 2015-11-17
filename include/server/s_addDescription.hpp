@@ -17,7 +17,7 @@
  * @return FileDoesNotExist if the description file doesn't exist,
  * NotAuthorized if the user doesn't have th permission to change the description,
  * UnknownIssue in case of error,
- * Succes in case of succes
+ * Success in case of success
  */
 char addDescription(Client& client, std::string description);
 
