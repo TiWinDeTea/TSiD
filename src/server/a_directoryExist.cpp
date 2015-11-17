@@ -3,8 +3,8 @@
 bool a_directoryExist(Client& client){
 
 	DIR* directory = opendir(client.path.c_str());
-	client.packet.clear();
 	std::cout << "\t-file asked: " << client.path << std::endl;
+	client.packet.clear();
 	
 	if( directory == NULL ){
 

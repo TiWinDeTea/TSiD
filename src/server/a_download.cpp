@@ -16,6 +16,7 @@ bool a_retrieveData(Client& client){
     std::cout << "\t-File: " << client.path << std::endl;
 
     if( file_size == 0 ){
+        client.packet.clear();
         client.packet << UnknownIssue;
         client.socket.send( client.packet );
         tprint();
@@ -70,9 +71,9 @@ bool a_retrieveData(Client& client){
     sf::Int8 input_data;
     unsigned char percentage_count(0);
 
+    client.packet.clear();
     client.packet << ServerReady;
     client.socket.send(client.packet);
-    client.packet.clear();
 
     tprint();
     setColors("light blue");
@@ -80,6 +81,8 @@ bool a_retrieveData(Client& client){
     setColors("reset");
     
     for( unsigned int i(0) ; i<loop_number ; ++i){
+        
+        client.packet.clear();
 
         if(client.socket.receive( client.packet ) == sf::Socket::Disconnected){
             tprint();
@@ -98,7 +101,6 @@ bool a_retrieveData(Client& client){
         }
 
         output_file.write( input_data_array, bytes_per_packet );
-        client.packet.clear();
 
         if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
             tprint();
@@ -113,7 +115,8 @@ bool a_retrieveData(Client& client){
 
     file_size -= loop_number * bytes_per_packet;
     if( file_size > 0 ){
-
+        
+        client.packet.clear();
         if(client.socket.receive( client.packet ) == sf::Socket::Disconnected){
             tprint();
             std::cout << client.name() << " - ";

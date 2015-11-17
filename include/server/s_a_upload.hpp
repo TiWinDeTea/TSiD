@@ -7,6 +7,7 @@
 #include "SCommand.hpp"
 #include "fileExist.hpp"
 #include "getFileLength.hpp"
+#include "isFolder.hpp"
 #include "s_tprint.hpp"
 #include "s_Client.hpp"
 

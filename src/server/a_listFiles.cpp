@@ -20,9 +20,10 @@ bool a_listFiles(Client& client, Config* config){
     
     client.packet << ServerReady;
     client.socket.send( client.packet );
-    client.packet.clear();
     tprint();
     std::cout << client.name() << " -> Server ready to list" << std::endl;
+
+    client.packet.clear();
 
     if(client.path == "./Public/" 
     && (config->privateFolderReadingAllowed() || config->privateFolderWritingAllowed())){
@@ -42,7 +43,6 @@ bool a_listFiles(Client& client, Config* config){
         << static_cast<sf::Int32>(':')
         << static_cast<sf::Int32>(' ');
         client.socket.send( client.packet );
-        client.packet.clear();
     }
 
     while( (redfile = readdir( directory )) != NULL ){
@@ -104,6 +104,7 @@ bool a_listFiles(Client& client, Config* config){
 
         tmp = tmp + ":" + info_date + ":" + info_user;
         
+        client.packet.clear();
         client.packet << static_cast<unsigned int>( tmp.length() );
 
         for( unsigned short i(0) ; i < tmp.length() ; ++i ){
@@ -111,13 +112,12 @@ bool a_listFiles(Client& client, Config* config){
         }
 
         client.socket.send( client.packet );
-        client.packet.clear();
 
     }
 
+    client.packet.clear();
     client.packet << 0 << EndOfStream;
     client.socket.send( client.packet );
-    client.packet.clear(); 
     tprint();
     std::cout << client.name() << " -> file listed" << std::endl;
 

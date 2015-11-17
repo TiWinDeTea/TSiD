@@ -2,15 +2,23 @@
 
 bool a_sendData(Client& client){									// Sends a file to the client
 
-	//here : authorized or forbidden
-	client.packet.clear();
 	std::cout << "\t-File: " << client.path << std::endl;
+
+	client.packet.clear();
 
 	if( !fileExist( client.path ) ){
 		client.packet << VoidFileName << 0 << 0;
 		client.socket.send( client.packet );
 		tprint();
 		std::cout << client.name() << " -> Requested file does not exist" << std::endl;
+		return false;
+	}
+
+	if ( isFolder( client.path )){
+		client.packet << VoidFileName << 0 << 0;
+		client.socket.send( client.packet );
+		tprint();
+		std::cout << client.name() << " -> Requested file is a directory" << std::endl;
 		return false;
 	}
 
@@ -44,12 +52,11 @@ bool a_sendData(Client& client){									// Sends a file to the client
 	client.socket.send( client.packet );
 	tprint();
 	std::cout << client.name() << " -> Server ready for upload" << std::endl;
-	client.packet.clear();
 
 	int client_state;
+	client.packet.clear();
 	client.socket.receive( client.packet );
 	client.packet >> client_state;
-	client.packet.clear();
 
 	if( static_cast<char>( client_state ) != ClientReady ){
 		tprint();
@@ -75,6 +82,7 @@ bool a_sendData(Client& client){									// Sends a file to the client
 
 		input_file.read( input_data_array, NB_BYTE_PER_PACKET);
 		
+		client.packet.clear();
 		for( unsigned int j(0) ; j<NB_BYTE_PER_PACKET ; ++j)
 			client.packet << static_cast<sf::Int8>(input_data_array[j]);
 
@@ -87,7 +95,6 @@ bool a_sendData(Client& client){									// Sends a file to the client
             setColors("reset");
 			return false;
 		}
-		client.packet.clear();
 
 		if( static_cast<unsigned char>(100*i/loop_number) > percentage_count ){
 			tprint();
@@ -108,6 +115,7 @@ bool a_sendData(Client& client){									// Sends a file to the client
 		char* file_tail = new char[file_size];
 		input_file.read( file_tail, file_size);
 		
+		client.packet.clear();
 		for( unsigned int j(0) ; j< file_size ; ++j)
 			client.packet << static_cast<sf::Int8>(file_tail[j]);
 
