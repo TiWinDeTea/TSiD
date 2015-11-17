@@ -25,6 +25,6 @@ char removeFile(std::string path){
         setColors("light blue");
         std::cout << "* file " << path << " deleted" << std::endl;
         setColors("reset");
-        return Succes;
+        return Success;
     }
 }

@@ -32,5 +32,5 @@ char createNewUser( std::string const& user_name, std::string const& password ){
 		return UnknownIssue;
 	}
 
-	return Succes;
+	return Success;
 }

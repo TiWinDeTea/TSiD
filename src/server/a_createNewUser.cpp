@@ -78,7 +78,7 @@ bool a_createNewUser(Client& client){
         std::cout << client.name() << " -> invalid command" << std::endl;
     }
 
-    if(createNewUser(user_name, password) != Succes){
+    if(createNewUser(user_name, password) != Success){
     	
     	client.packet.clear();
         client.packet << UnknownIssue;
@@ -87,6 +87,12 @@ bool a_createNewUser(Client& client){
         std::cout << client.name() << " -> There was an error creating the new client" << std::endl;
         return false;
     }
+
+    client.packet.clear();
+    client.packet << Success;
+    client.socket.send(client.packet);
+    tprint();
+    std::cout << client.name() << " -> New user created" << std::endl;
 
     return true;
 }
