@@ -12,7 +12,7 @@ bool startDownload( sf::TcpSocket& server, sf::Packet& spacket, unsigned int& fi
 	}
 	else{
 		if( fileExist( "." + directory.substr( subst ) + formatPath(filename) ) ){
-			std::cout << "This file already exists ! Aborting." << std::endl;
+			std::cout << formatPath(filename) << " : this file already exists ! Aborting." << std::endl;
 			return false;
 		}
 	}
