@@ -1,0 +1,11 @@
+\begin{lstlisting}
+procedure writeFileInformations( directory: table of characters, file_name: table of characters, client_id: table of characters )
+|
+|	date: table of characters
+|	
+|	date <- retrieveDate()
+|	makeDirectory( directory )
+|	write( date + NEWLINE + client_id, "./FilesData" + directory + "." + file_name ) //writes the file's info in FilesData/directory/.filname
+|	
+done
+\end{lstlisting}

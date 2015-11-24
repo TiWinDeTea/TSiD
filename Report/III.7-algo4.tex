@@ -1,0 +1,28 @@
+\begin{lstlisting}
+Procedure InterpretWelcomeMessage()
+|	
+|	ReceiveFromServer(message)
+|	
+|	while( not_the_end_of_the_message )
+|	|	
+|	|	Print( GetTextUntilSymbol(message, '$') )
+|	|	
+|	|	switch( GetNextChar(message) ) //switch char after $
+|	|	|	
+|	|	|	case '$': Print('$') //there is $$ in the message, put $
+|	|	|	
+|	|	|	case '[': //there is $[color] in the message, change the color
+|	|	|	|	
+|	|	|	|	color <- GetTextUntilChar(']') //color take the value in $[color]
+|	|	|	|	
+|	|	|	|	if( IsAPrintableColor( color ) ) then
+|	|	|	|	|
+|	|	|	|	|	SetTextColor( color )
+|	|	|	|	|
+|	|	|	|	endif
+|	|	|	|	
+|	|	|	break
+|	|	end
+|	done
+done
+\end{lstlisting}

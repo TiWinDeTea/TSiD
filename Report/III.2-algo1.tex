@@ -1,0 +1,26 @@
+\begin{lstlisting}
+procedure main()
+|
+|	directory: table of characters
+|	command: integer
+|	
+|	while true do
+|	|
+|	|	recieveFromClient( command )
+|	|	receiveFromClient( directory )
+|	|	
+|	|	if formatPath( directory, client_id ) = true then
+|	|	|
+|	|	|	switch command
+|	|	|	|	.
+|	|	|	|	.
+|	|	|	|	.
+|	|	|	|	.
+|	|	|	end
+|	|	|
+|	|	else
+|	|	|	sendToClient( prohibited ) //where 'prohibited' is associated to an answer code (integer)
+|	|	endif
+|	done
+done
+\end{lstlisting}

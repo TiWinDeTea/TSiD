@@ -1,0 +1,24 @@
+\begin{lstlisting}
+function formatPath( directory: table of characters, client_id: table_of_characters ): boolean
+|
+|	if find( directory, "/../" ) = true then
+|	//if you can find "/../" in directory
+|	|	return false
+|	endif
+|
+|	if endsBy( directory, "/.." ) = true then
+|	//if directory ends by "/.."
+|	|	return false
+|	endif
+|
+|	if startsBy( directory, "/Private") = true then
+|	//if directory starts by "/Private"
+|	|	insert( directory, 9, "/"+client_id ) //inserts /client_id right after /Private
+|	else
+|	|	directory <- "/Public" + directory
+|	endif
+|	directory <- "." + directory //The directory is not from the disk's root, but from the server execution folder
+|	return true
+|
+done
+\end{lstlisting}

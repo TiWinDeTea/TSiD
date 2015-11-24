@@ -1,0 +1,25 @@
+\begin{lstlisting}
+Procedure formatedWelcomeMessage(message: table of characters, client_id: table of characters)
+|
+|	read( "WelcomeMessage.txt", message )
+|	
+|	foreach $[command] in message do
+|	|	
+|	|	switch command
+|	|	|	
+|	|	|	case user: remplace( $[command], client_id )
+|	|	|	
+|	|	|	case date: remplace( $[command], getDate() )
+|	|	|	           //formated 'dd/mm/yy'
+|	|	|	
+|	|	|	case day: remplace( $[command], getDay() )
+|	|	|	           //formated 'Mon,Tue,Wed,Thu...'
+|	|	|	
+|	|	|	case hour: remplace( $[command], getHour() )
+|	|	|	           //formated 'hh:mm'
+|	|	|	
+|	|	|	default: //let the client interpret $$ and $[color]
+|	|	end
+|	done
+done
+\end{lstlisting}

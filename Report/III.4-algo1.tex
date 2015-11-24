@@ -1,0 +1,19 @@
+\begin{lstlisting}
+procedure retrieveAFile( directory: table of characters, client_id: table of characters )
+|
+|	file: table of characters
+|	file_name: table of characters
+|	
+|	if ClientIsAllowedToUploadThere( directory ) = true then
+|	|
+|	|	sendToClient( posivite_answer ) //where 'positive_answer' is associated to an answer code (integer)
+|	|	receiveFromClient( file_name )
+|	|	receiveFromClient( file )
+|	|	write( file_name, file )
+|	|	writeFileInformations( directory, file_name, client_id )
+|	|	
+|	else
+|	|	sendToClient( negative_answer ) //where 'negative_answer' is associated to an answer code (integer)
+|	endif
+done
+\end{lstlisting}

@@ -2,9 +2,9 @@
 
 char addDescription(Client& client, std::string description){
 
-	if( !fileExist("./FilesData" + client.path.substr(1, std::string::npos)) ){
-    	
-    	setColors("light red");
+    if( !fileExist("./FilesData" + client.path.substr(1, std::string::npos)) ){
+        
+        setColors("light red");
         std::cout << "\t-The informations file doesn't exist" << std::endl;
         setColors("reset");
         return FileDoesNotExist;
@@ -24,8 +24,8 @@ char addDescription(Client& client, std::string description){
 
     std::string file_time;
     if(!std::getline(file,file_time)){
-    	
-    	file.close();
+        
+        file.close();
         std::cout << "\t-";
         setColors("light red");
         std::cout << "Error reading the date of the upload" << std::endl;
@@ -35,8 +35,8 @@ char addDescription(Client& client, std::string description){
 
     std::string file_username;
     if(!std::getline(file,file_username)){
-    	
-    	file.close();
+        
+        file.close();
         std::cout << "\t-";
         setColors("light red");
         std::cout << "Error reading the username of the uploader" << std::endl;
@@ -47,13 +47,13 @@ char addDescription(Client& client, std::string description){
     std::string file_description;
     if(!std::getline(file,file_description)){ //if there is already a desciption
 
-    	if(client.name() != file_username){
+        if(client.name() != file_username){
 
-    		file.close();
-	        tprint();
-			std::cout << client.name() << " : not authorized to change description" << std::endl;
-	        return NotAuthorized;
-    	}
+            file.close();
+            tprint();
+            std::cout << client.name() << " : not authorized to change description" << std::endl;
+            return NotAuthorized;
+        }
 
     }
 

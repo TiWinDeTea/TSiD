@@ -1,0 +1,34 @@
+\begin{lstlisting}
+function recursiveDownload( remote_working_directory: table of characters ): boolean
+|
+|	successful: boolean
+|	server_answer: integer
+|	i: integer
+|	file_list: table of table of characters
+|
+|	sendToServer( listFiles )		//Where 'listFiles' is associated to a command code
+|	sendToServer( remote_working_directory )
+|	receiveFromServer( server_answer )
+|
+|	if server_answer = negative_answer then	//Where 'negative_answer is associated to some answer codes
+|	|	return false
+|	endif
+|
+|	successful <- true	
+|	
+|	receiveFromServer( file_list )		//file_list now contains a list of the files and folders that are within 'remote_working_directory'
+|
+|	for i in [1..file_list.size()]		//from 1 to the number of files/folder within 'file_list'
+|	|
+|	|	if endsBy( file_list[i], "/" ) then	//if 'file_list[i]' ends by '/', it is a folder
+|	|	|	recursiveDownload( remote_working_directory + '/' + file_list[i] )
+|	|	|
+|	|	else
+|	|	|	success <- download( remote_working_directory + '/' + file_list[i] ) and success	//'success' is true if the download was successful AND if it was true before
+|	|	endif
+|	done
+|
+|	return success
+|
+done
+\end{lstlisting}

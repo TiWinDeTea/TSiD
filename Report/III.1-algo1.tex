@@ -1,0 +1,23 @@
+\begin{lstlisting}[breaklines]
+function uploadAFile( remote_working_directory: string, name_of_file_to_upload: string ): boolean
+|
+|	server_answer: integer
+|	file: table of characters
+|
+|	sendToServer( upload ) //where 'upload' is associated to a command code (integer)
+|	sendToServer( remote_working_directory )
+|	receiveFromServer( server_answer )
+|	
+|	if isPositive( server_answer ) = true then
+|	|	
+|	|	file <- readFile( name_of_file_to_upload )
+|	|	sendToServer( name_of_file_to_upload )
+|	|	sendToServer( file )
+|	|	return true
+|	|
+|	else
+|	|	return false
+|	endif
+|	
+done
+\end{lstlisting}

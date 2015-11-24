@@ -1,0 +1,15 @@
+\select@language {english}
+\contentsline {section}{\numberline {I.}Introduction}{2}{section.1}
+\contentsline {section}{\numberline {II.}Description of objectives and problem statements}{2}{section.2}
+\contentsline {section}{\numberline {III.}Chosen solutions}{3}{section.3}
+\contentsline {subsection}{\numberline {1.}Client - server communication}{3}{subsection.3.1}
+\contentsline {subsection}{\numberline {2.}Server: Acces restriction}{5}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.}Client: Display}{7}{subsection.3.3}
+\contentsline {subsection}{\numberline {4.}Server: Store file informations}{8}{subsection.3.4}
+\contentsline {subsection}{\numberline {5.}Client: Recursive upload / download}{9}{subsection.3.5}
+\contentsline {subsection}{\numberline {6.}Server: Configuration}{10}{subsection.3.6}
+\contentsline {subsection}{\numberline {7.}Server, client: Welcome message}{11}{subsection.3.7}
+\contentsline {section}{\numberline {IV.}Conclusion}{13}{section.4}
+\contentsline {subsection}{\numberline {1.}Possible improvements}{13}{subsection.4.1}
+\contentsline {subsection}{\numberline {2.}Acquired knowledge}{14}{subsection.4.2}
+\contentsfinish 
