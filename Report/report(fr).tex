@@ -20,33 +20,33 @@
 			To answer these questions, we spend quite a few time, as these were important questions. For instance, the file's organisation sets a lot about the server's working way.
 	\section{Description des objectifs et énoncés des problèmes} %II
 		\subparagraph*{}
-			The objective TSiD Project is to write a functional command-line server and its client, using SFML network library to communicate over the internet.
-			They will be capable of the following:
+			L'objectif du projet TSiD est de coder un serveur et un client fonctionnels en ligne de commande, cela en utilisant la bibliothèque réseau SFML pour communiquer par internet.
+			Les fonctionnalités seront les suivantes:
 			\begin{itemize}
-				\item{} Server access is restricted to recorded members
-				\item{} A members has access to a public folder and a private folder. He is the only one that can access his private folder
-				\item{} When listing files in a folder, the member can see when each one was created and by whom
-				\item{} A member can delete a file in the public folder within 24h, given he is the one who uploaded it
-				\item{} The server records connection logs
-				\item{} A member can change his password
-				\item{} He can add a description of a file he uploaded
-				\item{} He can also create an account for someone (this is the only way to create an account; mail address required)
-				\item{} The server is configurable (ie: allow or not users to access to their private folder)
-				Also it may be later on, the server shouldn't store member's password, but their hash
-				Both program (client and server) should be available under both Linux and Windows operating systems
-				To meet these requirements, we had to answer to the following problems:
-				\begin{itemize}
-					\item{} How will client and server communicate together? How to handle each command sent by the client?
-					\item{} How may we handle folders access and their restrictions?
-					\item{} How may we retrieve the list of existing files and folder within a folder?
-					\item{} How to store basic informations about uploaded files and folders?
-					\item{} How may we display informations in a readable/beautiful way (ie: with colors)?
-					\item{} How may we send mails via a program?
-					\item{} How may we make/use the configuration of the server?
-					\item{} How may the client upload / download a whole folder?
-				\end{itemize}
+				\item{} L'acces au serveur est restrain aux membres qui possèdent un compte
+				\item{} Chaque membre a accès a un dossier publique ainsi qu'a un dossier privé. Seul la personne a qui appartient le dossier privé peut y accèder
+				\item{} Lorsque le client liste les fichiers d'un dossier, la date de création ainsi que le nom du créateur de chaque fichier lui sont aussi indiqués
+				\item{} Un utilisateur, après avoir uploadé un fichier dans l'espace publique peut le supprimer dans les 24 heures
+				\item{} Le serveur enrigistre des logs de connection
+				\item{} Les utilisateurs peuvent changer de mot de passe
+				\item{} Un utilisateur peut ajouter une dscription a un fichier qu'il a uploadé
+				\item{} Un utilisateur peut créer un compte pour quelqu'un (c'est le seul moyen de créer un compte)
+				\item{} Le serveur est configurable (ex: autoriser ou non aux utilisateurs l'accès a leur dossier privé)
 			\end{itemize}
-			We must answer to each problem for both platforms (Linux \& Windows)
+			Aussi, plus tard peut etre, le serveur ne devra pas enregistrer les mots de passe des utilisateur mais un hash de ceux-ci.
+			Les deux programmes (client et serveur) doivent être disponibles sous les deux systèmes d'exploitation: Windows et Linux
+			Pour implémenter ces fonctionnalités nous auront a résoudre les problèmes suivants:
+			\begin{itemize}
+				\item{} Comment communiqueront le client et le serveur? Comment traiter les commandes envoyées par le client?
+				\item{} Comment traiter les accès aux dossier ainsi que les restrictions d'accès aux dossier?
+				\item{} Comment récupérer la liste des dissiers et fichiers présents dans un dossier?
+				\item{} Comment stoquer des informations a propos des dossiers et fichiers uploadés?
+				\item{} Comment afficher des informations de façon ergonomique/lisible (avec des couleurs)?
+				\item{} Comment envoyer des mails via un programme?
+				\item{} Comment créer, gérer et utiliser la configuration du serveur?
+				\item{} Comment permettre au client de télécharger / uploader un dossier complet?
+			\end{itemize}
+			Nous devont résoudre chaque problème sur les deux systèmes d'exploitation (Linux \& Windows)
 	\section{Solutions choisies} %III
 		\subsection{Client - server: communication} %1
 			\subparagraph*{}
