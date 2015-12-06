@@ -1,0 +1,115 @@
+%Definition of colors
+\definecolor{mygreen}{HTML}{256428}
+\definecolor{myblue}{HTML}{2e75b6}
+\definecolor{codecolor}{HTML}{205280}
+
+%Prevent page breaks in paragraphs
+\predisplaypenalty=1000
+\postdisplaypenalty=1000
+\clubpenalty=1000
+
+%Minimal space required in the bottom margin not to move the title on the next page
+\renewcommand{\bottomtitlespace}{.1\textheight}
+
+%redefinition of the title numbering
+%\renewcommand{\thechapter}{Chap.\arabic{chapter}}
+\renewcommand{\thesection}{\Roman{section}.}
+\renewcommand{\thesubsection}{\arabic{subsection}.}
+\renewcommand{\thesubsubsection}{\alph{subsubsection}.}
+
+%Definition of the format of my titles
+%\titleformat*{command}{format}
+%\titleformat{command}[shape]{format}{label}{sep}{before-code}[after-code]
+\titleformat{\chapter}
+{\normalfont\scshape\huge\color{myblue}}{Chapitre \thechapter:}{0.5em}{}
+
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{myblue}}{\thesection}{0.5em}{}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries\color{myblue}}{\hspace{15pt}\thesubsection}{0.5em}{}
+
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries\color{myblue}}{\hspace{30pt}\thesubsubsection}{0.5em}{}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries\color{mygreen}}{\theparagraph:}{1em}{}
+
+\titleformat{\subparagraph}[runin]
+{\normalfont\normalsize\bfseries}{\thesubparagraph}{1em}{}
+
+%\titlespacing*{command}	{left}{before-sep}{after-sep}[right-sep]
+\titlespacing*{\chapter}     {0pt}{0pt}{30pt}
+\titlespacing*{\section}     {0pt}{4.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titlespacing*{\subsection}   {0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\paragraph}   {0pt}{3.25ex plus 1ex minus .2ex}{1em}
+\titlespacing*{\subparagraph} {\parindent}{3.25ex plus 1ex minus .2ex}{1em}
+
+%option for cover
+\title{TZ20 - Rapport}
+\author{PINARD Maxime - LAZARE Lucas}
+\date{F2015}
+
+%Fancy style options
+\lhead{\small{TZ20 - Rapport}}
+\rhead{\small{PINARD Maxime - LAZARE Lucas}}
+\lfoot{\small{UTBM}}
+\rfoot{\small{\today}}
+\pagestyle{fancy}
+
+%Redefine the plain page style
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\lhead{\small{TZ20 - Rapport}}
+	\rhead{\small{PINARD Maxime - LAZARE Lucas}}
+	\lfoot{\small{UTBM}}
+	\rfoot{\small{\today}}
+	\cfoot{\thepage}
+}
+
+% Table of contents to list down to 'titleimportance' 5
+\setcounter{tocdepth}{5}
+
+% Number down to 'lasttitleimportance' to list
+\setcounter{secnumdepth}{10}
+
+%link option, especialy for the table of contents
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    linktoc=all
+}
+
+%table of content space after sections number
+%\setlength{\cftbeforetoctitleskip}{0pt}% Set space before TOC
+\setlength{\cftsecnumwidth}{25pt}% Set numwidth of section
+\setlength{\cftsubsecnumwidth}{25pt}% Set numwidth of subsection
+
+%environment 'lstlisting' settings
+\lstset{ %
+language=C++,                                    % choose the language of the code
+basicstyle=\normalsize\color{codecolor},
+keywordstyle=\textit,
+commentstyle=\itshape\color{gray},
+identifierstyle=\textbf,
+stringstyle=\color{red},
+numbers=left,                                    % where to put the line-numbers
+numberstyle=\scriptsize,                         % the size of the fonts that are used for the line-numbers
+stepnumber=1,                                    % the step between two line-numbers. If it is 1 each line will be numbered
+numbersep=7pt,                                   % how far the line-numbers are from the code
+backgroundcolor=\color{yellow!3},                % choose the background color. You must add \usepackage{color}
+showspaces=false,                                % show spaces adding particular underscores
+showstringspaces=false,                          % underline spaces within strings
+showtabs=false,                                  % show tabs within strings adding particular underscores
+frame=single,                                    % adds a frame around the code
+tabsize=4,                                       % sets default tabsize to 2 spaces
+captionpos=b,                                    % sets the caption-position to bottom
+breaklines=true,                                 % sets automatic line breaking
+breakatwhitespace=true,                          % sets if automatic breaks should only happen at whitespace
+emph={if, then, else, endif, for, foreach, while, do, done, switch, case, break, end, procedure, function, return},
+emphstyle={\color{blue!50}\bfseries}
+}
+
+\frenchbsetup{StandardLayout=true,ReduceListSpacing=false,CompactItemize=false}
