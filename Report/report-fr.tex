@@ -1,60 +1,60 @@
 \documentclass[12pt,a4paper,twoside]{article}
-\include{packages(fr)}
-\include{settings(fr)}
+\include{packages}
+\include{settings}
 
 \begin{document}
 	\maketitle{}
-	\renewcommand{\contentsname}{Sommaire} %redefinition of the tableofcontent title
+	%\renewcommand{\contentsname}{Contents} %redefinition of the tableofcontent title
 	\tableofcontents{}
 	\newpage{}
 	\section{Introduction} %I
 		\subparagraph*{}
-			Et si nous programmions nous même un serveur et son client, en partant de rien, plutôt que d'utiliser un programme préexistant ? C'est la question que nous nous sommes posés lorsque nous avons décidés de commencer ce projet. En effet, bien qu'il existe déjà de nombreux programmes pouvant faire cela — comme Apache, par exemple —, nous voulions comprendre la façon dont ces progammes fonctionnent. S'il est vrai que nous aurions pu simplement lire les sources d'Apache, nous avons pensés qu'il serait plus instructif de le refaire nous même. Ce faisant, nous devions décider de :
+			What if we programmed server and its client from scratch, instead of using already existing one? That's the question we asked ourselves when we decided to work on this project, because, well, if they are a lot of programs	that already does that — such as Apache, for instance, we wanted to understand. How does this kind of program work? How does the client and the server communicates together? Even though we could simply read the source codes of Apache, we decided it was much funnier to program our own, and see what we could do. To do so, we needed to decide:
 			\begin{itemize}
-				\item{} Comment organiser les fichiers sur le serveur.
-				\item{} Quelles sont les tâches respectives du client et du serveur.
-				\item{} Comment ceux-ci communiquerons-t-ils.
-				\item{} Quelles sont les autorisations du client.
+				\item{} How to organise the files in the server.
+				\item{} What will do what (ie: will that be the server that will sort the files when the client wants to list them?).
+				\item{} How will they communicate together.
+				\item{} What should the client be able / not be able to do.
 			\end{itemize}
 		\subparagraph*{}
-			Afin de répondre à ses questions, nous avons longuement réfléchi, ces questions étant importantes. L'organisation des fichiers, par exemple, règle pour beaucoup la façon dont le serveur fonctionne
-	\section{Description des objectifs et énoncés des problèmes} %II
+			To answer these questions, we spend quite a few time, as these were important questions. For instance, the file's organisation sets a lot about the server's working way.
+	\section{Description of objectives and problem statements} %II
 		\subparagraph*{}
-			L'objectif du projet TSiD est de coder un serveur et un client fonctionnels en ligne de commande, cela en utilisant la bibliothèque réseau SFML pour communiquer par internet.
-			Les fonctionnalités seront les suivantes:
+			The objective TSiD Project is to write a functional command-line server and its client, using SFML network library to communicate over the internet.
+			They will be capable of the following:
 			\begin{itemize}
-				\item{} L'acces au serveur est restrain aux membres qui possèdent un compte
-				\item{} Chaque membre a accès a un dossier publique ainsi qu'a un dossier privé. Seul la personne a qui appartient le dossier privé peut y accèder
-				\item{} Lorsque le client liste les fichiers d'un dossier, la date de création ainsi que le nom du créateur de chaque fichier lui sont aussi indiqués
-				\item{} Un utilisateur, après avoir uploadé un fichier dans l'espace publique peut le supprimer dans les 24 heures
-				\item{} Le serveur enrigistre des logs de connection
-				\item{} Les utilisateurs peuvent changer de mot de passe
-				\item{} Un utilisateur peut ajouter une dscription a un fichier qu'il a uploadé
-				\item{} Un utilisateur peut créer un compte pour quelqu'un (c'est le seul moyen de créer un compte)
-				\item{} Le serveur est configurable (ex: autoriser ou non aux utilisateurs l'accès a leur dossier privé)
-			\end{itemize}
-			Aussi, plus tard peut etre, le serveur ne devra pas enregistrer les mots de passe des utilisateur mais un hash de ceux-ci.
-			Les deux programmes (client et serveur) doivent être disponibles sous les deux systèmes d'exploitation: Windows et Linux
-			Pour implémenter ces fonctionnalités nous auront a résoudre les problèmes suivants:
-			\begin{itemize}
-				\item{} Comment communiqueront le client et le serveur? Comment traiter les commandes envoyées par le client?
-				\item{} Comment traiter les accès aux dossier ainsi que les restrictions d'accès aux dossier?
-				\item{} Comment récupérer la liste des dissiers et fichiers présents dans un dossier?
-				\item{} Comment stoquer des informations a propos des dossiers et fichiers uploadés?
-				\item{} Comment afficher des informations de façon ergonomique/lisible (avec des couleurs)?
-				\item{} Comment envoyer des mails via un programme?
-				\item{} Comment créer, gérer et utiliser la configuration du serveur?
-				\item{} Comment permettre au client de télécharger / uploader un dossier complet?
-			\end{itemize}
-			Nous devont résoudre chaque problème sur les deux systèmes d'exploitation (Linux \& Windows)
-	\section{Solutions choisies} %III
-		\subsection{Client - server: communication} %1
-			\subparagraph*{}
-				Afin de permettre la communication entre le client et le serveur, nous avons du mettre en place une \textit{'grammaire standard'}. Celle-ci fonctionne de la façon suivante :
+				\item{} Server access is restricted to recorded members
+				\item{} A members has access to a public folder and a private folder. He is the only one that can access his private folder
+				\item{} When listing files in a folder, the member can see when each one was created and by whom
+				\item{} A member can delete a file in the public folder within 24h, given he is the one who uploaded it
+				\item{} The server records connection logs
+				\item{} A member can change his password
+				\item{} He can add a description of a file he uploaded
+				\item{} He can also create an account for someone (this is the only way to create an account; mail address required)
+				\item{} The server is configurable (ie: allow or not users to access to their private folder)
+				Also it may be later on, the server shouldn't store member's password, but their hash
+				Both program (client and server) should be available under both Linux and Windows operating systems
+				To meet these requirements, we had to answer to the following problems:
 				\begin{itemize}
-					\item{} Le client envoie : \textit{'Je veux faire ça, ici'}
-					\item{} Le serveur essaiera ensuite de remplir la commande du client. Si cela est possible, il répondra au client \textit{'D\'accord, fait le'}, ou renverra directement la réponse attendue. Sinon, il renverra la réponse apropriée (action non autorisée, une erreur est survenue, \ldost{})
-					\item{} Si le client doit effectuer une action suppléementaire (ie : téleverser un fichier), il le fera.
+					\item{} How will client and server communicate together? How to handle each command sent by the client?
+					\item{} How may we handle folders access and their restrictions?
+					\item{} How may we retrieve the list of existing files and folder within a folder?
+					\item{} How to store basic informations about uploaded files and folders?
+					\item{} How may we display informations in a readable/beautiful way (ie: with colors)?
+					\item{} How may we send mails via a program?
+					\item{} How may we make/use the configuration of the server?
+					\item{} How may the client upload / download a whole folder?
+				\end{itemize}
+			\end{itemize}
+			We must answer to each problem for both platforms (Linux \& Windows)
+	\section{Chosen solutions} %III
+		\subsection{Client - server communication} %1
+			\subparagraph*{}
+				In order to allow the server and the client to communicate together, we had to implement a \textit{'standardised grammar'}. For instance, it works as the following:
+				\begin{itemize}
+					\item{} The client sends \textit{'I want to do this, right here'}
+					\item{} The server will then try to fulfill the client's wish. If it can do it, it will reply either \textit{'Alrigth, do so'}, or directly give to the client the expected answer. Otherwise it will send to the client the appropriate answer (action prohibited, an error occured, \ldots{})
+					\item{} If the client still has something to do (ie : upload a file), it will do it
 				\end{itemize}
 			\subparagraph*{}
 				For the communication at its low level, which is sending and receiving a variable, we will use \textbf{SFML/Network} library that provides the functions required to send a variable across the internet, these are: \lstinline$sf::TcpSocket::send( sf::Packet& packet )$ and \lstinline$sf::TcpSocket::receive( sf::Packet& packet )$, where a packet is an iostream.
@@ -64,7 +64,7 @@
 			\paragraph*{Pseudo-code, server:}
 				\input{III.1-algo2}
 				\input{III.1-algo3}
-		\subsection{Server: Restriction d'accès} %2
+		\subsection{Server: Acces restriction} %2
 			note: \textit{'./'} is the current folder, \textit{'../'} is the parent's folder.
 			\subparagraph*{}
 				What we basically want to do here is to avoid people to access files that are not in the server itself, but that might be, for example, at the root of the filesystem. We also want to avoid the access by a member of another member's private folder.\\
@@ -88,7 +88,7 @@
 			\paragraph*{Pseudo-code, sever's restrictions (note that client\_id is known):}
 				\input{III.2-algo1}
 				\input{III.2-algo2}
-		\subsection{Client: Affichage} %3
+		\subsection{Client: Display} %3
 			\subparagraph*{}
 				A readable display is required for the client so that the member may understand its output. For instance, if we make a really simple display like this:
 				\input{III.3-ls_result1}
@@ -110,7 +110,7 @@
 					 \item{} if there is more than 45 characters available, the above is display followed by pacman style's percentage display, which takes at most 1/3 of the total available characters.
 				 \end{itemize}
 				Color being system dependent, the function is programmed within guards
-		\subsection{Server: Stockage des informations sur les fichiers} %4
+		\subsection{Server: Store file informations} %4
 			\subparagraph*{}
 				The objective is to store basic informations about uploaded files, such as the upload date and the creator.
 				To do so, we will use the following architecture:
@@ -129,7 +129,7 @@
 			\paragraph*{Pseudo-code, server:}
 				\input{III.4-algo1}
 				\input{III.4-algo2}
-		\subsection{Client: upload / download récursif} %5
+		\subsection{Client: Recursive upload / download} %5
 			\subparagraph*{}
 				In order to allow the client to dowload and upload a whole folder, we decided to use a recursive approach, working as the following:
 				\begin{itemize}
@@ -162,7 +162,7 @@
 				This object will be in read-only.\\
 				The first two setting do not appear in the object, as they are used only at startup.\\
 				A pointer to this object will be passed to each client's thread.
-		\subsection{Server, client: Message d'accueil} %7
+		\subsection{Server, client: Welcome message} %7
 			\subparagraph*{}
 				The objective is to allow the the server owner to write a user-adjustable welcome message for all users.
 				In this way we wanted to implement some variables in the welcome message, so we used the syntax \textit{'\$[variable\_name]'}, the available variables are:
@@ -184,7 +184,7 @@
 	\section{Conclusion} %IV
 		\subparagraph*{}
 			This project was very instructive and pleasant to work on. The last version of the program for TZ20 is V1 Ranitomeya reticulata, it doesn’t contain everything we wanted to implement but the most important functionalities were programmed. We want to continue to work on this program on the future, as a personal interest. The actual version can be used with people you trust (friends for exemple), but security was not tested at all so we don't recommand it for a wide scale use.
-		\subsection{Améliorations possibles} %1
+		\subsection{Possible improvements} %1
 			\subparagraph*{}
 				Some functionnality deserve to be developped, but were not because we hadn't enough time, such as:
 				\begin{itemize}
@@ -206,7 +206,7 @@
 					\item{} \textbf{Limit private folder space usage}\\
 						The goal of this server is mainly to use the public folder, so it could be nice to set a limit to the private folder, let's say 10Gio, configurable via the server's configuration
 				\end{itemize}
-		\subsection{Connaissances acquises} %2
+		\subsection{Acquired knowledge} %2
 			\subparagraph*{}
 				What did we learn while doing this project?
 				\begin{itemize}
