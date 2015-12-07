@@ -1,2 +1,0 @@
-/home/organic-code/git_repos/TSiD/build/src/CMakeFiles/client.dir
-/home/organic-code/git_repos/TSiD/build/src/CMakeFiles/server.dir
