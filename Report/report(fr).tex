@@ -9,7 +9,7 @@
 	\newpage{}
 	\section{Introduction} %I
 		\subparagraph*{}
-			Et si nous programmions nous même un serveur et son client, en partant de rien, plutôt que d'utiliser un programme préexistant ? C'est la question que nous nous sommes posés lorsque nous avons décidés de commencer ce projet. En effet, bien qu'il existe déjà de nombreux programmes pouvant faire cela — comme Apache, par exemple —, nous voulions comprendre la façon dont ces progammes fonctionnent. S'il est vrai que nous aurions pu simplement lire les sources d'Apache, nous avons pensés qu'il serait plus instructif de le refaire nous même. Ce faisant, nous devions décider de :
+			Et si nous programmions nous même un serveur et son client, en partant de rien, plutôt que d'utiliser un programme préexistant? C'est la question que nous nous sommes posés lorsque nous avons décidés de commencer ce projet. En effet, bien qu'il existe déjà de nombreux programmes pouvant faire cela — comme Apache, par exemple —, nous voulions comprendre la façon dont ces programmes fonctionnent. S'il est vrai que nous aurions pu simplement lire les sources d'Apache, nous avons pensés qu'il serait plus instructif de le refaire nous même. Ce faisant, nous devions décider de:
 			\begin{itemize}
 				\item{} Comment organiser les fichiers sur le serveur.
 				\item{} Quelles sont les tâches respectives du client et du serveur.
@@ -23,24 +23,24 @@
 			L'objectif du projet TSiD est de coder un serveur et un client fonctionnels en ligne de commande, cela en utilisant la bibliothèque réseau SFML pour communiquer par internet.
 			Les fonctionnalités seront les suivantes:
 			\begin{itemize}
-				\item{} L'acces au serveur est restrain aux membres qui possèdent un compte
-				\item{} Chaque membre a accès a un dossier publique ainsi qu'a un dossier privé. Seul la personne a qui appartient le dossier privé peut y accèder
+				\item{} L'accès au serveur est restreint aux membres qui possèdent un compte
+				\item{} Chaque membre a accès à un dossier publique ainsi qu'a un dossier privé. Seul la personne a qui appartient le dossier privé peut y accéder
 				\item{} Lorsque le client liste les fichiers d'un dossier, la date de création ainsi que le nom du créateur de chaque fichier lui sont aussi indiqués
 				\item{} Un utilisateur, après avoir uploadé un fichier dans l'espace publique peut le supprimer dans les 24 heures
-				\item{} Le serveur enrigistre des logs de connection
+				\item{} Le serveur enregistre des logs de connexion
 				\item{} Les utilisateurs peuvent changer de mot de passe
-				\item{} Un utilisateur peut ajouter une dscription a un fichier qu'il a uploadé
+				\item{} Un utilisateur peut ajouter une description a un fichier qu'il a uploadé
 				\item{} Un utilisateur peut créer un compte pour quelqu'un (c'est le seul moyen de créer un compte)
 				\item{} Le serveur est configurable (ex: autoriser ou non aux utilisateurs l'accès a leur dossier privé)
 			\end{itemize}
-			Aussi, plus tard peut etre, le serveur ne devra pas enregistrer les mots de passe des utilisateur mais un hash de ceux-ci.
+			Aussi, plus tard peut être, le serveur ne devra pas enregistrer les mots de passe des utilisateurs mais un hash de ceux-ci.
 			Les deux programmes (client et serveur) doivent être disponibles sous les deux systèmes d'exploitation: Windows et Linux
-			Pour implémenter ces fonctionnalités nous auront a résoudre les problèmes suivants:
+			Pour implémenter ces fonctionnalités nous auront à résoudre les problèmes suivants:
 			\begin{itemize}
 				\item{} Comment communiqueront le client et le serveur? Comment traiter les commandes envoyées par le client?
 				\item{} Comment traiter les accès aux dossier ainsi que les restrictions d'accès aux dossier?
-				\item{} Comment récupérer la liste des dissiers et fichiers présents dans un dossier?
-				\item{} Comment stoquer des informations a propos des dossiers et fichiers uploadés?
+				\item{} Comment récupérer la liste des dossiers et fichiers présents dans un dossier?
+				\item{} Comment stocker des informations à propos des dossiers et fichiers uploadés?
 				\item{} Comment afficher des informations de façon ergonomique/lisible (avec des couleurs)?
 				\item{} Comment envoyer des mails via un programme?
 				\item{} Comment créer, gérer et utiliser la configuration du serveur?
@@ -50,11 +50,11 @@
 	\section{Solutions choisies} %III
 		\subsection{Client - server: communication} %1
 			\subparagraph*{}
-				Afin de permettre la communication entre le client et le serveur, nous avons du mettre en place une \textit{'grammaire standard'}. Celle-ci fonctionne de la façon suivante :
+				Afin de permettre la communication entre le client et le serveur, nous avons dû mettre en place une \textit{'grammaire standard'}. Celle-ci fonctionne de la façon suivante :
 				\begin{itemize}
 					\item{} Le client envoie : \textit{'Je veux faire ça, ici'}
-					\item{} Le serveur essaiera ensuite de remplir la commande du client. Si cela est possible, il répondra au client \textit{'D\'accord, fait le'}, ou renverra directement la réponse attendue. Sinon, il renverra la réponse apropriée (action non autorisée, une erreur est survenue, \ldost{})
-					\item{} Si le client doit effectuer une action suppléementaire (ie : téleverser un fichier), il le fera.
+					\item{} Le serveur essaiera ensuite de remplir la commande du client. Si cela est possible, il répondra au client \textit{'D\'accord, fait le'}, ou renverra directement la réponse attendue. Sinon, il renverra la réponse apropriée (action non autorisée, une erreur est survenue, \ldots{})
+					\item{} Si le client doit effectuer une action supplémentaire (ie : téléverser un fichier), il le fera.
 				\end{itemize}
 			\subparagraph*{}
 				For the communication at its low level, which is sending and receiving a variable, we will use \textbf{SFML/Network} library that provides the functions required to send a variable across the internet, these are: \lstinline$sf::TcpSocket::send( sf::Packet& packet )$ and \lstinline$sf::TcpSocket::receive( sf::Packet& packet )$, where a packet is an iostream.
@@ -183,24 +183,24 @@
 				\input{III.7-algo4}
 	\section{Conclusion} %IV
 		\subparagraph*{}
-			This project was very instructive and pleasant to work on. The last version of the program for TZ20 is V1 Ranitomeya reticulata, it doesn’t contain everything we wanted to implement but the most important functionalities were programmed. We want to continue to work on this program on the future, as a personal interest. The actual version can be used with people you trust (friends for exemple), but security was not tested at all so we don't recommand it for a wide scale use.
+			Ce projet fut très instructif et intéressant. La dernière version du programme pour l'UV de TZ20 et la V1 Ranitomeya reticulata, elle ne contient pas tout ce que nous aurions voulu implémenter mais les fonctionnalités les plus importantes ont été implémentées. Nous avons la volonté de continuer à travailler sur ce programme. La version actuelle peut être utilisée avec des personnes en lesquelles vous avez confiance, mais la sécurité n’ayant pas été testée nous ne recommandons pas son utilisation à plus grande échelle.
 		\subsection{Améliorations possibles} %1
 			\subparagraph*{}
-				Some functionnality deserve to be developped, but were not because we hadn't enough time, such as:
+				Certaines fonctionnalités mériteraient d'être plus développées mais ne l'ont pas été par manque de temps, par exemple:
 				\begin{itemize}
-					\item{} \textbf{Deleting files}\\
-						Members can upload files and folders, but they can't delete them. We thought of a voting system where people could vote for or against the deletion of a file.
-					\item{} \textbf{Passwords}\\
-						Passwords are saved in plain text in the server, which is quite unsecure. We'd better save a hash of the passwords.
+					\item{} \textbf{Suppression de fichiers}\\
+						Les utilisateurs peuvent uploader des fichiers et dossier mais ils ne peuvent pas les supprimer. Nous avions pensé à un système de vote ou les utilisateurs auraient pu voter pour ou contre la suppression d'un fichier.
+					\item{} \textbf{Mots de passe}\\
+						Les mots de passe sont enregistrés tel-quel sur le serveur ce qui n'est pas assez sécurisé. Il serait préférable de sauvegarder des hash de ces derniers.
 					\item{} \textbf{Mails}\\
-						We wanted to have a mail system that would be used to:
+						Nous aurions voulu implémenter un système de mails qui aurait pu être utilisé pour:
 						\begin{itemize}
-							\item{} Invite guys
-							\item{} Let a member know an unknown ip tried to access their account
-							\item{} Inform a member if a vote has started to delete a file they uploaded
+							\item{} Inviter des nouveaux utilisateurs
+							\item{} Prévenir les membres lorsqu'une adresse IP inconnue essaye d'accèder a leur compte
+							\item{} Informer un membres lorsqu'un vote a été lancer pour la suppression d'un fichier qu'il a uploadé
 						\end{itemize}
-					\item{} \textbf{IP filter}\\
-						In order to help people in securing their account, we could add an ip checking. Any unauthorized ip would not be allowed to connect to the account. A mail could be send to allow the member to add the ip to the whitelist. A member should have the possibility to desactivate this service if he likes to.
+					\item{} \textbf{Filtre IP}\\
+						Dans le but d'aider les utilisateurs à sécuriser leur compte, nous voudrions ajouter une vérification de l'adresse IP à la connexion. Toute IP non autorisée se verra ainsi refuser la connexion au compte. Un mail pourra être envoyé à l'utilisateur pour ajouter l'IP à la liste des adresses autorisées. L'utilisateur aurait la possibilité de désactiver ce service.
 					\item{} \textbf{Admin thread}\\
 						There is no way to delete a user, a file, or to change the server configuration easily, which is not nice. The problem could be solved by adding an admin console, were you could enter some commands
 					\item{} \textbf{Limit private folder space usage}\\
