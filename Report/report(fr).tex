@@ -17,47 +17,47 @@
 				\item{} Quelles sont les autorisations du client.
 			\end{itemize}
 		\subparagraph*{}
-			Afin de répondre à ses questions, nous avons longuement réfléchi, ces questions étant importantes. L'organisation des fichiers, par exemple, règle pour beaucoup la façon dont le serveur fonctionne
+			Nous avons longuement réfléchi, afin de répondre à ces importantes questions. Le fonctionnement du serveur est, par exemple, très dépendant de l'organisation des fichiers.
 	\section{Description des objectifs et énoncés des problèmes} %II
 		\subparagraph*{}
-			L'objectif du projet TSiD est de coder un serveur et un client fonctionnels en ligne de commande, cela en utilisant la bibliothèque réseau SFML pour communiquer par internet.
+			L'objectif du projet TSiD est de coder un serveur et un client fonctionnels en ligne de commande, en utilisant la bibliothèque réseau SFML pour communiquer par internet.
 			Les fonctionnalités seront les suivantes:
 			\begin{itemize}
 				\item{} L'accès au serveur est restreint aux membres qui possèdent un compte
-				\item{} Chaque membre a accès à un dossier publique ainsi qu'a un dossier privé. Seule la personne à qui appartient le dossier privé peut y accéder
+				\item{} Chaque membre a accès à un dossier publique ainsi qu'à un dossier privé. Seule le propriétaire de ce dossier peut y accéder
 				\item{} Lorsque le client liste les fichiers d'un dossier, la date de création ainsi que le nom du créateur de chaque fichier lui sont aussi indiqués
-				\item{} Un utilisateur, après avoir uploadé un fichier dans l'espace publique peut le supprimer dans les 24 heures
-				\item{} Le serveur enregistre des logs de connexion
+				\item{} Un utilisateur, après avoir téléversé un fichier dans l'espace publique, peut le supprimer dans les 24 heures
+				\item{} Le serveur enregistre des logs de connexions
 				\item{} Les utilisateurs peuvent changer de mot de passe
-				\item{} Un utilisateur peut ajouter une description a un fichier qu'il a uploadé
-				\item{} Un utilisateur peut créer un compte pour quelqu'un (c'est le seul moyen de créer un compte)
+				\item{} Un utilisateur peut ajouter une description à un fichier qu'il a téléversé
+				\item{} Un utilisateur peut créer un compte pour quelqu'un (il s'agit du seul moyen de créer un compte)
 				\item{} Le serveur est configurable (ex: autoriser ou non aux utilisateurs l'accès à leur dossier privé)
 			\end{itemize}
-			Aussi, plus tard peut être, le serveur ne devra pas enregistrer les mots de passe des utilisateurs mais un hash de ceux-ci.
-			Les deux programmes (client et serveur) doivent être disponibles sous les deux systèmes d'exploitation: Windows et Linux
-			Pour implémenter ces fonctionnalités nous auront à résoudre les problèmes suivants:
+			On pourra également ajouter le fait que le serveur ne devrait pas enregistrer les mots de passe des utilisateurs mais un hash de ceux-ci.
+			Les deux programmes (client et serveur) doivent être disponibles sous deux systèmes d'exploitation : Windows et Linux.\\\\
+			Pour implémenter ces fonctionnalités nous aurons à résoudre les problèmes suivants:
 			\begin{itemize}
-				\item{} Comment communiqueront le client et le serveur? Comment traiter les commandes envoyées par le client?
-				\item{} Comment traiter les accès aux dossier ainsi que les restrictions d'accès aux dossier?
+				\item{} Comment le client et le serveur communiqueront-ils? Comment traiter les commandes envoyées par le client?
+				\item{} Comment traiter les autorisations et restrictions d'accès aux dossiers?
 				\item{} Comment récupérer la liste des dossiers et fichiers présents dans un dossier?
-				\item{} Comment stocker des informations à propos des dossiers et fichiers uploadés?
-				\item{} Comment afficher des informations de façon ergonomique/lisible (avec des couleurs)?
+				\item{} Comment stocker des informations à propos des dossiers et fichiers téléversés?
+				\item{} Comment afficher des informations de façon ergonomique/lisible (couleurs, espacement, \ldots{})?
 				\item{} Comment envoyer des mails via un programme?
 				\item{} Comment créer, gérer et utiliser la configuration du serveur?
-				\item{} Comment permettre au client de télécharger / uploader un dossier complet?
+				\item{} Comment permettre au client de télécharger / téléverser un dossier complet?
 			\end{itemize}
-			Nous devons résoudre chaque problème sur les deux systèmes d'exploitation (Linux \& Windows)
+			Nous devons résoudre chaque problèmes sur deux systèmes d'exploitation (Linux et Windows)
 	\section{Solutions choisies} %III
-		\subsection{Client - server: communication} %1
+		\subsection{Client - serveur: communication} %1
 			\subparagraph*{}
 				Afin de permettre la communication entre le client et le serveur, nous avons dû mettre en place une \textit{'grammaire standard'}. Celle-ci fonctionne de la façon suivante :
 				\begin{itemize}
 					\item{} Le client envoie : \textit{'Je veux faire ça, ici'}
-					\item{} Le serveur essaiera ensuite de remplir la commande du client. Si cela est possible, il répondra au client \textit{'D\'accord, fait le'}, ou renverra directement la réponse attendue. Sinon, il renverra la réponse appropriée (action non autorisée, une erreur est survenue, \ldots{})
+					\item{} Le serveur essaiera ensuite de répondre à la requete du client. Si cela est possible, il répondra au client \textit{'D'accord, fait le'}, ou renverra directement la réponse attendue. Sinon, il renverra la réponse appropriée (action non autorisée, une erreur est survenue, \ldots{})
 					\item{} Si le client doit effectuer une action supplémentaire (ie : téléverser un fichier), il le fera.
 				\end{itemize}
 			\subparagraph*{}
-				Pour la communication de bas niveau (envoyer et recevoir une variable), nous avons utilisés la librairie \textbf{SFML/Network}, qui fournit toutes les fonctions nécessaire à l'envoi et la réception de variables par internet. Nous utilisons notamment : \lstinline$sf::TcpSocket::send( sf::Packet& packet )$ et \lstinline$sf::TcpSocket::receive( sf::Packet& packet )$, ou sf::Packet et un flux d'entrée/sortie.
+				Pour la communication de bas niveau (envoyer et recevoir une variable), nous avons utilisé la librairie \textbf{SFML/Network}, qui fournit toutes les fonctions nécessaires à l'envoi et la réception de variables par internet. Nous utilisons notamment : \lstinline$sf::TcpSocket::send( sf::Packet& packet )$ et \lstinline$sf::TcpSocket::receive( sf::Packet& packet )$, où \lstinline$sf::Packet$ est un flux d'entrée/sortie.
 				Algorithme ci-après : le client téléverse un fichier
 			\paragraph*{Pseudo-code, client:}
 				\input{III.1-algo1}
@@ -67,8 +67,8 @@
 		\subsection{Server: Restriction d'accès} %2
 			note: \textit{'./'} désigne le dossier courant et \textit{'../'} désigne le dossier parent.
 			\subparagraph*{}
-				L'objectif de cette fonctionnalité est d'empêcher au client d'accéder aux dossiers qui ne sont pas dans l'architecture du serveur même, mais à ceux existant dans des dossiers parents. Il faut également restreindre l'accès aux dossiers personnels, pour empêcher un membre d'accéder au dossier privé d'un autre membre.
-				Afin de remplir cette contrainte, nous analyserons simplement le chemin d'accès envoyé par le client.
+				L'objectif de cette fonctionnalité est d'empêcher le client d'accéder aux dossiers qui ne sont pas dans l'architecture du serveur même, ou qui sont dans des dossiers parallèles (tel que \textit{'./UsersData'}). Il faut également restreindre l'accès aux dossiers personnels, pour empêcher un membre d'accéder au dossier privé d'un autre membre.
+				Afin de satisfaire ces besoins, nous analyserons simplement le chemin d'accès envoyé par le client.
 			\subparagraph*{}
 				Pour le premier point, nous supposerons que le client utilisé est bien celui que nous avons programmé, et pas un autre fait par un tiers. En particulier, les chaînes \textit{'/..'} et \textit{'../'} ne sont jamais présentes dans le chemin d'accès fourni par le client. Par  conséquent, si l'une d'entre elles est trouvée, l'action du client sera refusée, quelle qu'elle soit.
 			\subparagraph*{}
@@ -84,7 +84,7 @@
 					\item{} Si le client demande l'accès à \textit{'/Private'}, le serveur le redirigera vers \textit{'./Private/client\_id'} silencieusement (le client affichera être dans \textit{'/Private'}).
 				 \end{itemize}
 			\subparagraph*{}
-				Pour faire ces vérifications, il nous faut modifier le code du serveur. Aucune vérification d'accès de doit être effectuée de côté du client.
+				Pour faire ces vérifications, il nous faut modifier le code du serveur. Aucune vérification d'accès ne doit être effectuée du côté du client.
 				\paragraph*{Algorithme : restrictions d'accès (note : client\_id est connu) :}
 				\input{III.2-algo1}
 				\input{III.2-algo2}
@@ -182,28 +182,28 @@
 				\input{III.7-algo4}
 	\section{Conclusion} %IV
 		\subparagraph*{}
-			Ce projet fut très instructif et intéressant. La dernière version du programme pour l'UV de TZ20 et la V1 Ranitomeya reticulata, elle ne contient pas tout ce que nous aurions voulu implémenter mais les fonctionnalités les plus importantes ont été implémentées. Nous avons la volonté de continuer à travailler sur ce programme. La version actuelle peut être utilisée avec des personnes en lesquelles vous avez confiance, mais la sécurité n’ayant pas été testée nous ne recommandons pas son utilisation à plus grande échelle.
+		Ce projet fut très instructif et intéressant. La dernière version du programme pour l'UV de TZ20 et la V1 \textit{Ranitomeya reticulata}, elle ne contient pas tout ce que nous aurions voulu implémenter mais les fonctionnalités les plus importantes l'ont été. Nous avons la volonté de continuer à travailler sur ce programme. La version actuelle peut être utilisée par des personnes de confiance, mais la sécurité n’ayant pas été testée nous ne recommandons pas son utilisation à plus grande échelle.
 		\subsection{Améliorations possibles} %1
 			\subparagraph*{}
 				Certaines fonctionnalités mériteraient d'être plus développées mais ne l'ont pas été par manque de temps, par exemple:
 				\begin{itemize}
 					\item{} \textbf{Suppression de fichiers}\\
-						Les utilisateurs peuvent uploader des fichiers et dossier mais ils ne peuvent pas les supprimer. Nous avions pensé à un système de vote ou les utilisateurs auraient pu voter pour ou contre la suppression d'un fichier.
+						Les utilisateurs peuvent téléverser des fichiers et dossier mais ils ne peuvent pas les supprimer. Nous avions pensé à un système de vote ou les utilisateurs auraient pu voter pour ou contre la suppression d'un fichier.
 					\item{} \textbf{Mots de passe}\\
-						Les mots de passe sont enregistrés tel-quel sur le serveur ce qui n'est pas assez sécurisé. Il serait préférable de sauvegarder des hash de ces derniers.
+						Les mots de passe sont enregistrés en clair sur le serveur, ce qui n'est pas assez sécurisé. Il serait préférable de sauvegarder des hash de ces derniers.
 					\item{} \textbf{Mails}\\
 						Nous aurions voulu implémenter un système de mails qui aurait pu être utilisé pour:
 						\begin{itemize}
 							\item{} Inviter des nouveaux utilisateurs
 							\item{} Prévenir les membres lorsqu'une adresse IP inconnue essaye d'accéder à leur compte
-							\item{} Informer un membres lorsqu'un vote a été lancer pour la suppression d'un fichier qu'il a uploadé
+							\item{} Informer un membres lorsqu'un vote a été lancé pour la suppression d'un fichier qu'il a téléversé
 						\end{itemize}
 					\item{} \textbf{Filtre IP}\\
 						Dans le but d'aider les utilisateurs à sécuriser leur compte, nous voudrions ajouter une vérification de l'adresse IP à la connexion. Toute IP non autorisée se verra ainsi refuser la connexion au compte. Un mail pourra être envoyé à l'utilisateur pour ajouter l'IP à la liste des adresses autorisées. L'utilisateur aurait la possibilité de désactiver ce service.
 					\item{} \textbf{Thread Administrateur}\\
-						Il n'y a actuellement aucun moyen de supprimer à compte, un fichier, ou de changer la configuration du serveur directement depuis le serveur. Ce problème pourrait être résolu en ajoutant une console administratrice, où il serait possible d'entrer des commandes.
+						Il n'y a actuellement aucun moyen de supprimer un compte, un fichier, ou de changer la configuration du serveur directement depuis le serveur. Ce problème pourrait être résolu en ajoutant une console administratrice, où il serait possible d'entrer des commandes.
 					\item{} \textbf{Limiter la taille des dossiers privés}\\
-						Il est impossible pour l'instant de limiter la taille des dossiers privés, ce qui pourrait être intéressant afin de limiter les abus. La taille maximum serait également configurable.
+						Il est impossible pour l'instant de limiter la taille des dossiers privés, ce qui pourrait être intéressant afin d'empêcher les abus. La taille maximum serait également configurable.
 				\end{itemize}
 		\subsection{Connaissances acquises} %2
 			\subparagraph*{}
