@@ -116,7 +116,7 @@
 				\begin{samepage}
 					\input{III.4-server_architecture}
 				\end{samepage}
-				Où \textit{.Somefolders}, \textit{.Somefiles.ext}, \ldost{} contiennent les informations concernant \textit{SomeFolders/}, \textit{SomeFiles.ext}, \ldots{}
+				Où \textit{.Somefolders}, \textit{.Somefiles.ext}, \ldots{} contiennent les informations concernant \textit{SomeFolders/}, \textit{SomeFiles.ext}, \ldots{}
 				Un point est ajouté au début du nom du fichier / dossier afin de permettre la création d'un dossier et de sa description au même endroit. Il est à noter que la crétion d'un dossier commençant par un point doit être interdite.
 			\subparagraph*{}
 				Ainsi, lorsque \textit{foo} souhaite uploader le fichier \textit{'file'} dans \textit{'directory'}, il suffit de :
@@ -142,42 +142,42 @@
 				\input{III.5-algo1}
 		\subsection{Serveur : Configuration} %6
 			\subparagraph*{}
-				We want to have a configuration for the server. There is a list of the configurable elements for now:
+				Nous avons également voulu permettre aux utilisateurs de configurer facilement le serveur. Il est pour le moment possible de régler les éléments suivants :
 				\begin{itemize}
-					\item{} Generate or not the server folders at next startup
-					\item{} Create a new user or not at next startup
-					\item{} Allow members to invite another member (basically: create a new account) or not
-					\item{} Allow members to write in their private folders or not
-					\item{} Allow members to download from their private folders or not
+					\item{} Générer ou non l'architecture des dossiers au démarrage.
+					\item{} Créer ou non un nouvel utilisateur au démarrage.
+					\item{} Autoriser ou non les membres à inviter d'autres membres (et domc créer un nouveau compte).
+					\item{} Permettre ou non aux membres de téléverser des fichiers dans leur dossier personnel.
+					\item{} Autoriser ou non les membres de télécharger depuis leur dossier personnel.
 				\end{itemize}
 			\subparagraph*{}
-				To do so, we decided to create an object Config, having the following private variables:
+				Pour ce faire, nous avons ajouté l'objet Config à notre serveur, celui-ci contenant les variables suivantes :
 				\begin{itemize}
 					\item{} user\_creation\_allowed
 					\item{} private\_folder\_writing\_allowed
 					\item{} private\_folder\_reading\_allowed
 				\end{itemize}
-				all booleans\\
-				This object will be in read-only.\\
-				The first two setting do not appear in the object, as they are used only at startup.\\
-				A pointer to this object will be passed to each client's thread.
-		\subsection{Server, client: Message d'accueil} %7
+				Toutes étant booléennes, et en lecture seule.\\
+				Les deux premières configurations n'apparaissent pas dans l'objet, car elles ne sont utilisées qu'au démarrage.\\
+				Un pointeur vers cet objet est passé à chaque thread de client.
+		\subsection{Serveur, client: Message d'accueil} %7
 			\subparagraph*{}
-				The objective is to allow the the server owner to write a user-adjustable welcome message for all users.
-				In this way we wanted to implement some variables in the welcome message, so we used the syntax \textit{'\$[variable\_name]'}, the available variables are:
+				L'objectif est de permettre au propriétaire du serveur d'envoyer un message personnel a chaque utilisateur, lors de leur connection.
+				Dans cette optique, nous avons implémenté des variable pouvant être utilisé dans le fichier contenant le message, celles-ci ayant la sytaxe \textit{'\$[nom\_de\_variable]'}.
+				Variables utilisables :
 				\begin{itemize}
-					\item{} \textbf{user} the user name
-					\item{} \textbf{date} the date formated \textit{'dd/mm/yy'}
-					\item{} \textbf{day} the day formated \textit{'Mon,Tue,Wed,Thu\ldots'}
-					\item{} \textbf{hour} the hour formated \textit{'hh:mm'}
-					\item{} \textbf{color} to set the text color from the variable to the next color variable
+					\item{} \textbf{user} Nom de l'utilisateur
+					\item{} \textbf{date} Date du jour, au format \textit{'dd/mm/yy'}
+					\item{} \textbf{day} Jour, au format \textit{'Mon,Tue,Wed,Thu,\ldots'}
+					\item{} \textbf{hour} Heure actuelle, au format \textit{'hh:mm'}
+					\item{} \textbf{color} Change la couleur du texte pour que celle-ci corresponde à la variable indiqée
 				\end{itemize}
-				where \textbf{color} can be blue, green, cyan, red, magenta, yellow, white.
-				To put the \textit{'\$'} symbol simply put \textit{'\$\$'}
-			\paragraph*{Pseudo-code, server:}
+				\textbf{color} pouvant être : \textit{'can be blue, green, cyan, red, magenta, yellow, white'}.
+				Pour écrire le symbole \textit{'\$'}, il suffit d'écrire \textit{'\$\$'}.
+			\paragraph*{Algorithme, serveur:}
 				\input{III.7-algo1}
 				\input{III.7-algo2}
-			\paragraph*{Pseudo-code, client:}
+			\paragraph*{Algorithme, client:}
 				\input{III.7-algo3}
 				\input{III.7-algo4}
 	\section{Conclusion} %IV
@@ -200,22 +200,23 @@
 						\end{itemize}
 					\item{} \textbf{Filtre IP}\\
 						Dans le but d'aider les utilisateurs à sécuriser leur compte, nous voudrions ajouter une vérification de l'adresse IP à la connexion. Toute IP non autorisée se verra ainsi refuser la connexion au compte. Un mail pourra être envoyé à l'utilisateur pour ajouter l'IP à la liste des adresses autorisées. L'utilisateur aurait la possibilité de désactiver ce service.
-					\item{} \textbf{Admin thread}\\
-						There is no way to delete a user, a file, or to change the server configuration easily, which is not nice. The problem could be solved by adding an admin console, were you could enter some commands
-					\item{} \textbf{Limit private folder space usage}\\
-						The goal of this server is mainly to use the public folder, so it could be nice to set a limit to the private folder, let's say 10Gio, configurable via the server's configuration
+					\item{} \textbf{Thread Administrateur}\\
+						Il n'y a actullement aucun moyen de supprimer a compte, un fichier, ou de changer la configuration du serveur directement depuis le serveur. Ce problème pourrait être résolu en ajoutant une console administratrice, où il serait possible d'entrer des commandes.
+					\item{} \textbf{Limiter la taille des dossiers privés}\\
+						Il est impossible pour l'instant de limiter la taille des dossiers privés, ce qui pourrait être interessant afin de limiter les abus. La taille maximum serait également configurable.
 				\end{itemize}
 		\subsection{Connaissances acquises} %2
 			\subparagraph*{}
-				What did we learn while doing this project?
+				Qu'avons-nous appris en faisant ce projet?
 				\begin{itemize}
-					\item{} \textbf{Teamwork}\\
-						We learned to work as a team, in a different way we did in others UV with a team presentation, such as LE03
-					\item{} \textbf{Work organization}\\
-						As we were working in autonomy, we had to organize us in order to meet the deadlines. We had to organize both the working order (what to do), and timing (when to do it). That may be very useful in our professional life.
+					\item{} \textbf{Travail d'équipe}\\
+						Nous avons appris à travailler en équipe, d'une manière différente que ce que nous avons déjà fait dans d'autres matières avec des présentations de groupe.
+					\item{} \textbf{Organiser son travail}\\
+						Comme nous avons travaillé en autonomie, nous avons dû nous organiser afin de pouvoir travailler efficacement, ce qui nous sera utile pour notre vie professionelle.
 					\item{} \textbf{GitHub}\\
-						GitHub is a powerful tool of version gesture that helps developpers to work together on a project. This could help us as well in our active life, as we may work as developpers, and our company will probably use a similar tool
-					\item{} \textbf{Strings manipulation}\\
+						GitHub est un outil de gestion de version puissant, qui aide les programmeurs à travailler de concert sur un projet. Ceci pourra également nous être utile dans notre vie active, où nous serons vraissemblablement amenés à travailler avec un outil similaire.
+					\item{} \textbf{Manipulation de chaînes de caractères}\\
+						Nous avons appris beaucoup concernant 
 						We learned a lot about strings [in C++], and that knowledge can easily be transfered most of others programming languages
 					\item{} \textbf{Cmake}\\
 						Finally, we learned about CMake, which is a powerful tool to generate MakeFiles.
