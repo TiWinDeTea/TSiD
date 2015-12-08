@@ -9,7 +9,7 @@
 	\newpage{}
 	\section{Introduction} %I
 		\subparagraph*{}
-			Et si nous programmions nous même un serveur et son client, en partant de rien, plutôt que d'utiliser un programme préexistant? C'est la question que nous nous sommes posés lorsque nous avons décidés de commencer ce projet. En effet, bien qu'il existe déjà de nombreux programmes pouvant faire cela — comme Apache, par exemple —, nous voulions comprendre la façon dont ces programmes fonctionnent. S'il est vrai que nous aurions pu simplement lire les sources d'Apache, nous avons pensés qu'il serait plus instructif de le refaire nous même. Ce faisant, nous devions décider de:
+			Et si nous programmions nous même un serveur et son client, en partant de rien, plutôt que d'utiliser un programme préexistant? C'est la question que nous nous sommes posés lorsque nous avons décidés de commencer ce projet. En effet, bien qu'il existe déjà de nombreux programmes pouvant faire cela — comme Apache, par exemple —, nous voulions comprendre la façon dont ces programmes fonctionnent. S'il est vrai que nous aurions pu simplement lire les sources d'Apache, nous avons pensés qu'il serait plus instructif de le refaire nous-même. Ce faisant, nous devions décider de:
 			\begin{itemize}
 				\item{} Comment organiser les fichiers sur le serveur.
 				\item{} Quelles sont les tâches respectives du client et du serveur.
@@ -24,14 +24,14 @@
 			Les fonctionnalités seront les suivantes:
 			\begin{itemize}
 				\item{} L'accès au serveur est restreint aux membres qui possèdent un compte
-				\item{} Chaque membre a accès à un dossier publique ainsi qu'a un dossier privé. Seul la personne a qui appartient le dossier privé peut y accéder
+				\item{} Chaque membre a accès à un dossier publique ainsi qu'a un dossier privé. Seule la personne à qui appartient le dossier privé peut y accéder
 				\item{} Lorsque le client liste les fichiers d'un dossier, la date de création ainsi que le nom du créateur de chaque fichier lui sont aussi indiqués
 				\item{} Un utilisateur, après avoir uploadé un fichier dans l'espace publique peut le supprimer dans les 24 heures
 				\item{} Le serveur enregistre des logs de connexion
 				\item{} Les utilisateurs peuvent changer de mot de passe
 				\item{} Un utilisateur peut ajouter une description a un fichier qu'il a uploadé
 				\item{} Un utilisateur peut créer un compte pour quelqu'un (c'est le seul moyen de créer un compte)
-				\item{} Le serveur est configurable (ex: autoriser ou non aux utilisateurs l'accès a leur dossier privé)
+				\item{} Le serveur est configurable (ex: autoriser ou non aux utilisateurs l'accès à leur dossier privé)
 			\end{itemize}
 			Aussi, plus tard peut être, le serveur ne devra pas enregistrer les mots de passe des utilisateurs mais un hash de ceux-ci.
 			Les deux programmes (client et serveur) doivent être disponibles sous les deux systèmes d'exploitation: Windows et Linux
@@ -46,31 +46,31 @@
 				\item{} Comment créer, gérer et utiliser la configuration du serveur?
 				\item{} Comment permettre au client de télécharger / uploader un dossier complet?
 			\end{itemize}
-			Nous devont résoudre chaque problème sur les deux systèmes d'exploitation (Linux \& Windows)
+			Nous devons résoudre chaque problème sur les deux systèmes d'exploitation (Linux \& Windows)
 	\section{Solutions choisies} %III
 		\subsection{Client - server: communication} %1
 			\subparagraph*{}
 				Afin de permettre la communication entre le client et le serveur, nous avons dû mettre en place une \textit{'grammaire standard'}. Celle-ci fonctionne de la façon suivante :
 				\begin{itemize}
 					\item{} Le client envoie : \textit{'Je veux faire ça, ici'}
-					\item{} Le serveur essaiera ensuite de remplir la commande du client. Si cela est possible, il répondra au client \textit{'D\'accord, fait le'}, ou renverra directement la réponse attendue. Sinon, il renverra la réponse apropriée (action non autorisée, une erreur est survenue, \ldots{})
+					\item{} Le serveur essaiera ensuite de remplir la commande du client. Si cela est possible, il répondra au client \textit{'D\'accord, fait le'}, ou renverra directement la réponse attendue. Sinon, il renverra la réponse appropriée (action non autorisée, une erreur est survenue, \ldots{})
 					\item{} Si le client doit effectuer une action supplémentaire (ie : téléverser un fichier), il le fera.
 				\end{itemize}
 			\subparagraph*{}
-				Pour la communication de bas niveau (envoyer et recevoir une variable), nous avons utilisés la librairie \textbf{SFML/Network}, qui fournit toutes les fonctions nécessaire à l'envoi et la réception de variables par internet. Nous utilisons nottament : \lstinline$sf::TcpSocket::send( sf::Packet& packet )$ et \lstinline$sf::TcpSocket::receive( sf::Packet& packet )$, ou sf::Packet et un flux d'entrée/sortie.
+				Pour la communication de bas niveau (envoyer et recevoir une variable), nous avons utilisés la librairie \textbf{SFML/Network}, qui fournit toutes les fonctions nécessaire à l'envoi et la réception de variables par internet. Nous utilisons notamment : \lstinline$sf::TcpSocket::send( sf::Packet& packet )$ et \lstinline$sf::TcpSocket::receive( sf::Packet& packet )$, ou sf::Packet et un flux d'entrée/sortie.
 				Algorithme ci-après : le client téléverse un fichier
 			\paragraph*{Pseudo-code, client:}
 				\input{III.1-algo1}
-			\paragraph*{Pseudo-code, server:}
+			\paragraph*{Algorithme, serveur:}
 				\input{III.1-algo2}
 				\input{III.1-algo3}
 		\subsection{Server: Restriction d'accès} %2
 			note: \textit{'./'} désigne le dossier courant et \textit{'../'} désigne le dossier parent.
 			\subparagraph*{}
-				L'objectif de cette fonctionnalitée est d'empêcher au client d'acceder aux dossiers qui ne sont pas dans l'architecture du serveur même, mais à ceux existant dans des dossiers parents. Il faut egalement restreindre l'accès aux dossiers personnels, pour empêcher un membre d'accéder au dossier privé d'un autre membre.
+				L'objectif de cette fonctionnalité est d'empêcher au client d'accéder aux dossiers qui ne sont pas dans l'architecture du serveur même, mais à ceux existant dans des dossiers parents. Il faut également restreindre l'accès aux dossiers personnels, pour empêcher un membre d'accéder au dossier privé d'un autre membre.
 				Afin de remplir cette contrainte, nous analyserons simplement le chemin d'accès envoyé par le client.
 			\subparagraph*{}
-				Pour le premier point, nous supposerons que le client utilisé est bien celui que nous avons programmé, et pas un autre fait par un tiers. En particulier, les chaînes \textit{'/..'} et \textit{'../'} ne sont jamais présentes dans le chemin d'accès fourni par le client. Par  concéquant, si l'une d'entre elles est trouvée, l'action du client sera refusée, quelle qu'elle soit.
+				Pour le premier point, nous supposerons que le client utilisé est bien celui que nous avons programmé, et pas un autre fait par un tiers. En particulier, les chaînes \textit{'/..'} et \textit{'../'} ne sont jamais présentes dans le chemin d'accès fourni par le client. Par  conséquent, si l'une d'entre elles est trouvée, l'action du client sera refusée, quelle qu'elle soit.
 			\subparagraph*{}
 				Pour la deuxième vérification, nous utiliseront l'architecture des dossiers du serveur (avec \textit{foo} et \textit{bar} des membres inscrits) :
 				\begin{samepage}
@@ -79,24 +79,24 @@
 			\subparagraph*{}
 				Listage de fichiers et comportement du client pour le chemin d'accès :
 				\begin{itemize}
-					\item{} Le client considère qu'il accède par défaut dans \textit{'/'}, mais cela est reéinterprété par le serveur en \textit{'./Public'}.
+					\item{} Le client considère qu'il accède par défaut dans \textit{'/'}, mais cela est réinterprété par le serveur en \textit{'./Public'}.
 					\item{} Si le client demande à lister les fichiers et dossiers dans \textit{'/'}, il verra les fichiers de \textit{'./Public'}, ainsi qu'un dossier supplémentaire, \textit{'Private/'}.
 					\item{} Si le client demande l'accès à \textit{'/Private'}, le serveur le redirigera vers \textit{'./Private/client\_id'} silencieusement (le client affichera être dans \textit{'/Private'}).
 				 \end{itemize}
 			\subparagraph*{}
 				Pour faire ces vérifications, il nous faut modifier le code du serveur. Aucune vérification d'accès de doit être effectuée de côté du client.
-				\paragraph*{Arlgorithme : restrictions d'accès (note : client\_id est connu) :}
+				\paragraph*{Algorithme : restrictions d'accès (note : client\_id est connu) :}
 				\input{III.2-algo1}
 				\input{III.2-algo2}
 		\subsection{Client: Affichage} %3
 			\subparagraph*{}
 				Afin que le membre puisse comprendre l'affichage, il faut que celui-ci soit lisible. Il aurait été par exemple très facile de faire un affichage comme celui-ci :
 				\input{III.3-ls_result1}
-				Cepedant, c'est assez difficile à lire et à comprendre. Nous avons donc opté pour un affichage obéissant aux règles suivantes :
+				Cependant, c'est assez difficile à lire et à comprendre. Nous avons donc opté pour un affichage obéissant aux règles suivantes :
 				\begin{itemize}
 					\item{} Afficher les éléments ligne par ligne.
 					\item{} Afficher en premier les dossiers (en bleu), puis les fichiers (en vert), en les séparant d'une line vide.
-					\item{} Trier les fichiers et dossiers par ordre alphabetique.
+					\item{} Trier les fichiers et dossiers par ordre alphabétique.
 					\item{} Ajouter des colonnes indiquant la date de création et le pseudo du créateur.
 				\end{itemize}
 				Le résultat final donne donc :
@@ -105,19 +105,19 @@
 				Nous avons également décidé d'indiquer les pourcentages de téléchargement/téléversement avec un affichage en style \textit{'pacman'}. Afin d'être toujours lisible, l'affichage doit respecter les règles suivants :
 				\begin{itemize}
 					\item{} Si moins de 10 caractères sont disponibles pour l'affichage, on n'affiche que des \textit{'–'}.
-					\item{} Si 11 à 34 caractères sont disponibles, le nom du fichier et le nombre d'octets transferés est affiché.
-					\item{} Si 35 à 45 caractères sont disponibles, on affiche en plus le nombre total d'octets à transferer.
+					\item{} Si 11 à 34 caractères sont disponibles, le nom du fichier et le nombre d'octets transférés est affiché.
+					\item{} Si 35 à 45 caractères sont disponibles, on affiche en plus le nombre total d'octets à transférer.
 					\item{} Si plus de 45 caractères sont disponibles, on affiche également le pourcentage \textit{'pacmanisé'}, qui prendra au plus 1/3 des caractères disponibles.
 				 \end{itemize}
 		\subsection{Server: Stockage des informations sur les fichiers} %4
 			\subparagraph*{}
-				Il peut être interessant de stocker des informations sur les fichiers ayant été uploadés, tels que la date de création et l'auteur.
+				Il peut être intéressant de stocker des informations sur les fichiers ayant été uploadés, tels que la date de création et l'auteur.
 				Pour ce faire, l'architecture suivante sera utilisée :
 				\begin{samepage}
 					\input{III.4-server_architecture}
 				\end{samepage}
 				Où \textit{.Somefolders}, \textit{.Somefiles.ext}, \ldots{} contiennent les informations concernant \textit{SomeFolders/}, \textit{SomeFiles.ext}, \ldots{}
-				Un point est ajouté au début du nom du fichier / dossier afin de permettre la création d'un dossier et de sa description au même endroit. Il est à noter que la crétion d'un dossier commençant par un point doit être interdite.
+				Un point est ajouté au début du nom du fichier / dossier afin de permettre la création d'un dossier et de sa description au même endroit. Il est à noter que la création d'un dossier commençant par un point doit être interdite.
 			\subparagraph*{}
 				Ainsi, lorsque \textit{foo} souhaite uploader le fichier \textit{'file'} dans \textit{'directory'}, il suffit de :
 				\begin{itemize}
@@ -137,7 +137,7 @@
 					\item[\textbf{2b}]{} Sinon, le télécharger/verser, puis aller à l'étape suivante.
 					\item[\textbf{3 }]{} Retourner à l'étape 2 avec l'élément suivant.
 				\end{itemize}
-				Algorithme du télécharement récursif (pas de changements au serveur) :
+				Algorithme du téléchargement récursif (pas de changements au serveur) :
 			\paragraph*{Algorithme, client:}
 				\input{III.5-algo1}
 		\subsection{Serveur : Configuration} %6
@@ -162,8 +162,8 @@
 				Un pointeur vers cet objet est passé à chaque thread de client.
 		\subsection{Serveur, client: Message d'accueil} %7
 			\subparagraph*{}
-				L'objectif est de permettre au propriétaire du serveur d'envoyer un message personnel a chaque utilisateur, lors de leur connection.
-				Dans cette optique, nous avons implémenté des variable pouvant être utilisé dans le fichier contenant le message, celles-ci ayant la sytaxe \textit{'\$[nom\_de\_variable]'}.
+				L'objectif est de permettre au propriétaire du serveur d'envoyer un message personnel a chaque utilisateur, lors de leur connexion.
+				Dans cette optique, nous avons implémenté des variable pouvant être utilisé dans le fichier contenant le message, celles-ci ayant la syntaxe \textit{'\$[nom\_de\_variable]'}.
 				Variables utilisables :
 				\begin{itemize}
 					\item{} \textbf{user} Nom de l'utilisateur
@@ -195,15 +195,15 @@
 						Nous aurions voulu implémenter un système de mails qui aurait pu être utilisé pour:
 						\begin{itemize}
 							\item{} Inviter des nouveaux utilisateurs
-							\item{} Prévenir les membres lorsqu'une adresse IP inconnue essaye d'accèder a leur compte
+							\item{} Prévenir les membres lorsqu'une adresse IP inconnue essaye d'accéder à leur compte
 							\item{} Informer un membres lorsqu'un vote a été lancer pour la suppression d'un fichier qu'il a uploadé
 						\end{itemize}
 					\item{} \textbf{Filtre IP}\\
 						Dans le but d'aider les utilisateurs à sécuriser leur compte, nous voudrions ajouter une vérification de l'adresse IP à la connexion. Toute IP non autorisée se verra ainsi refuser la connexion au compte. Un mail pourra être envoyé à l'utilisateur pour ajouter l'IP à la liste des adresses autorisées. L'utilisateur aurait la possibilité de désactiver ce service.
 					\item{} \textbf{Thread Administrateur}\\
-						Il n'y a actullement aucun moyen de supprimer a compte, un fichier, ou de changer la configuration du serveur directement depuis le serveur. Ce problème pourrait être résolu en ajoutant une console administratrice, où il serait possible d'entrer des commandes.
+						Il n'y a actuellement aucun moyen de supprimer à compte, un fichier, ou de changer la configuration du serveur directement depuis le serveur. Ce problème pourrait être résolu en ajoutant une console administratrice, où il serait possible d'entrer des commandes.
 					\item{} \textbf{Limiter la taille des dossiers privés}\\
-						Il est impossible pour l'instant de limiter la taille des dossiers privés, ce qui pourrait être interessant afin de limiter les abus. La taille maximum serait également configurable.
+						Il est impossible pour l'instant de limiter la taille des dossiers privés, ce qui pourrait être intéressant afin de limiter les abus. La taille maximum serait également configurable.
 				\end{itemize}
 		\subsection{Connaissances acquises} %2
 			\subparagraph*{}
@@ -212,9 +212,9 @@
 					\item{} \textbf{Travail d'équipe}\\
 						Nous avons appris à travailler en équipe, d'une manière différente que ce que nous avons déjà fait dans d'autres matières avec des présentations de groupe.
 					\item{} \textbf{Organiser son travail}\\
-						Comme nous avons travaillé en autonomie, nous avons dû nous organiser afin de pouvoir travailler efficacement, ce qui nous sera utile pour notre vie professionelle.
+						Comme nous avons travaillé en autonomie, nous avons dû nous organiser afin de pouvoir travailler efficacement, ce qui nous sera utile pour notre vie professionnelle.
 					\item{} \textbf{GitHub}\\
-						GitHub est un outil de gestion de version puissant, qui aide les programmeurs à travailler de concert sur un projet. Ceci pourra également nous être utile dans notre vie active, où nous serons vraissemblablement amenés à travailler avec un outil similaire.
+						GitHub est un outil de gestion de version puissant, qui aide les programmeurs à travailler de concert sur un projet. Ceci pourra également nous être utile dans notre vie active, où nous serons vraisemblablement amenés à travailler avec un outil similaire.
 					\item{} \textbf{Manipulation de chaînes de caractères}\\
 						Nous avons appris beaucoup concernant 
 						We learned a lot about strings [in C++], and that knowledge can easily be transfered most of others programming languages
