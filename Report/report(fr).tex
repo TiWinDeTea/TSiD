@@ -67,12 +67,12 @@
 		\subsection{Server: Restriction d'accès} %2
 			note: \textit{'./'} désigne le dossier courant et \textit{'../'} désigne le dossier parent.
 			\subparagraph*{}
-				L'objectif de cette fonctionnalité est d'empêcher le client d'accéder aux dossiers qui ne sont pas dans l'architecture du serveur même, ou qui sont dans des dossiers parallèles (tel que \textit{'./UsersData'}). Il faut également restreindre l'accès aux dossiers personnels, pour empêcher un membre d'accéder au dossier privé d'un autre membre.
+				L'objectif de cette fonctionnalité est d'empêcher le client d'accéder aux dossiers qui sont dans les dossiers parents du serveur, ou qui sont dans des dossiers parallèles (tel que \textit{'./UsersData'}). Il faut également restreindre l'accès aux dossiers personnels, pour empêcher un membre d'accéder au dossier privé d'un autre membre.
 				Afin de satisfaire ces besoins, nous analyserons simplement le chemin d'accès envoyé par le client.
 			\subparagraph*{}
 				Pour le premier point, nous supposerons que le client utilisé est bien celui que nous avons programmé, et pas un autre fait par un tiers. En particulier, les chaînes \textit{'/..'} et \textit{'../'} ne sont jamais présentes dans le chemin d'accès fourni par le client. Par  conséquent, si l'une d'entre elles est trouvée, l'action du client sera refusée, quelle qu'elle soit.
 			\subparagraph*{}
-				Pour la deuxième vérification, nous utiliseront l'architecture des dossiers du serveur (avec \textit{foo} et \textit{bar} des membres inscrits) :
+				Pour la deuxième vérification, nous utiliseront l'architecture des dossiers du serveur (avec \textit{Jack} et \textit{Robert} des membres inscrits) :
 				\begin{samepage}
 					\input{III.2-server_architecture}
 				\end{samepage}
@@ -111,7 +111,7 @@
 				 \end{itemize}
 		\subsection{Server: Stockage des informations sur les fichiers} %4
 			\subparagraph*{}
-				Il peut être intéressant de stocker des informations sur les fichiers ayant été uploadés, tels que la date de création et l'auteur.
+				Il peut être intéressant de stocker des informations sur les fichiers ayant été téléversés, tels que la date de création et l'auteur.
 				Pour ce faire, l'architecture suivante sera utilisée :
 				\begin{samepage}
 					\input{III.4-server_architecture}
@@ -119,21 +119,21 @@
 				Où \textit{.Somefolders}, \textit{.Somefiles.ext}, \ldots{} contiennent les informations concernant \textit{SomeFolders/}, \textit{SomeFiles.ext}, \ldots{}
 				Un point est ajouté au début du nom du fichier / dossier afin de permettre la création d'un dossier et de sa description au même endroit. Il est à noter que la création d'un dossier commençant par un point doit être interdite.
 			\subparagraph*{}
-				Ainsi, lorsque \textit{foo} souhaite uploader le fichier \textit{'file'} dans \textit{'directory'}, il suffit de :
+				Ainsi, lorsque \textit{Jack} souhaite téléverser le fichier \textit{'file'} dans \textit{'directory'}, il suffit de :
 				\begin{itemize}
 					\item{} Écrire \textit{'file'} dans \textit{'directory/'}
-					\item{} Écrire la date et \textit{'foo'} dans \textit{'./Filesdata/directory/.file'}
+					\item{} Écrire la date et \textit{'Jack'} dans \textit{'./Filesdata/directory/.file'}
 				\end{itemize}
 				Algorithme utilisé, en modifiant la procédure retrieveAFile (pas de changement dans le client) :
 			\paragraph*{Algorithme, serveur:}
 				\input{III.4-algo1}
 				\input{III.4-algo2}
-		\subsection{Client: upload / download récursif} %5
+		\subsection{Client: télérversement / télécharger récursif} %5
 			\subparagraph*{}
 				Afin de permettre au client de télécharger et de téléverser un dossier, nous avons choisi une approche récursive, fonctionnant de la façon suivante :
 				\begin{itemize}
 					\item[\textbf{1 }]{} Ouvrir le dossier et lire le premier élément qu'il contient et aller à l'étape suivante.
-					\item[\textbf{2a}]{} Si c'est un dossier, recommencer l'étape 1 avec ce nouveau dossier, puis aller à l'étape 3.
+					\item[\textbf{2a}]{} Si c'est un dossier, recommencer l'étape 1 avec ce nouveau dossier.
 					\item[\textbf{2b}]{} Sinon, le télécharger/verser, puis aller à l'étape suivante.
 					\item[\textbf{3 }]{} Retourner à l'étape 2 avec l'élément suivant.
 				\end{itemize}
@@ -162,7 +162,7 @@
 				Un pointeur vers cet objet est passé à chaque thread de client.
 		\subsection{Serveur, client: Message d'accueil} %7
 			\subparagraph*{}
-				L'objectif est de permettre au propriétaire du serveur d'envoyer un message personnel a chaque utilisateur, lors de leur connexion.
+				L'objectif est de permettre au propriétaire du serveur d'envoyer un message personnel à chaque utilisateur, lors de leur connexion.
 				Dans cette optique, nous avons implémenté des variable pouvant être utilisé dans le fichier contenant le message, celles-ci ayant la syntaxe \textit{'\$[nom\_de\_variable]'}.
 				Variables utilisables :
 				\begin{itemize}
@@ -170,9 +170,9 @@
 					\item{} \textbf{date} Date du jour, au format \textit{'dd/mm/yy'}
 					\item{} \textbf{day} Jour, au format \textit{'Mon,Tue,Wed,Thu,\ldots'}
 					\item{} \textbf{hour} Heure actuelle, au format \textit{'hh:mm'}
-					\item{} \textbf{color} Change la couleur du texte pour que celle-ci corresponde à la variable indiqée
+					\item{} \textbf{color} Change la couleur du texte pour que celle-ci corresponde à la variable indiquée
 				\end{itemize}
-				\textbf{color} pouvant être : \textit{'can be blue, green, cyan, red, magenta, yellow, white'}.
+				\textbf{color} pouvant être : \textit{'blue, green, cyan, red, magenta, yellow \text{ou} white'}.
 				Pour écrire le symbole \textit{'\$'}, il suffit d'écrire \textit{'\$\$'}.
 			\paragraph*{Algorithme, serveur:}
 				\input{III.7-algo1}

@@ -20,7 +20,7 @@ function recursiveDownload( remote_working_directory: table of characters ): boo
 |
 |	for i in [1..file_list.size()]		//from 1 to the number of files/folder within 'file_list'
 |	|
-|	|	if endsBy( file_list[i], "/" ) then	//if 'file_list[i]' ends by '/', it is a folder
+|	|	if endsBy( file_list[i], "/" ) then	//if file_list[i] is a folder
 |	|	|	recursiveDownload( remote_working_directory + '/' + file_list[i] )
 |	|	|
 |	|	else

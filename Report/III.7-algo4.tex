@@ -7,9 +7,9 @@ Procedure InterpretWelcomeMessage()
 |	|	
 |	|	Print( GetTextUntilSymbol(message, '$') )
 |	|	
-|	|	switch( GetNextChar(message) ) //switch char after $
+|	|	switch( GetNextChar(message) ) //switch the char rigth after $
 |	|	|	
-|	|	|	case '$': Print('$') //there is $$ in the message, put $
+|	|	|	case '$': Print('$') //if there is $$ in the message, print $
 |	|	|	
 |	|	|	case '[': //there is $[color] in the message, change the color
 |	|	|	|	
