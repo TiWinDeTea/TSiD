@@ -3,10 +3,12 @@
 \usepackage[frenchb]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{forest}
+\usepackage{xcolor}
 
 \definecolor{folderbg}{RGB}{124,166,198}
 \definecolor{folderborder}{RGB}{110,144,169}
@@ -125,4 +127,25 @@
 			\frametitle{Interface}
 			\includegraphics[width=\linewidth]{interface}
 		\end{frame}
+\begin{frame}[fragile]
+\frametitle{Inserting source code}
+\lstset{language=C++,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#}
+	}
+
+\begin{lstlisting}
+#include<stdio.h>
+#include<iostream>
+//Comment
+int main(void)
+{
+	printf("Hello World\n");
+	return 0;
+}
+\end{lstlisting}
+\end{frame}
 \end{document}
