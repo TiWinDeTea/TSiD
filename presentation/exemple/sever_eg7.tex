@@ -1,0 +1,14 @@
+\begin{lstlisting}
+    output_file.close();
+
+    tprint();
+    std::cout << client.name() << " - ";
+    setColors("light blue");
+    std::cout << "[100%]";
+    setColors("reset");
+    std::cout << " Transfer terminated successfully" << std::endl;
+    createInformationFile(client.path, client.name());
+    delete[] input_data_array;
+    return true;
+}
+\end{lstlisting}

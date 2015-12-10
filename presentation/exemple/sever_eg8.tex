@@ -1,0 +1,16 @@
+\begin{lstlisting}
+char createInformationFile(std::string path, std::string user_name){
+
+    std::string info_path = "./FilesData" + path.substr(1, std::string::npos); //add "./FilesData" at the begening
+
+    if( fileExist(info_path) ){
+        setColors("light red");
+        std::cout << "\t-The informations file already exist" << std::endl;
+        setColors("reset");
+        return AlreadyExist;
+    }
+
+    if(isFolder(path)){
+        createDirectory(info_path);
+    }
+\end{lstlisting}

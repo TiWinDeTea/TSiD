@@ -1,0 +1,17 @@
+\begin{lstlisting}
+    if(file_size < 1024 ){
+        std::cout << "\t-File size: " << file_size << " B" << std::endl;
+    }
+    
+    else if(file_size < 1024 * 1024 ){
+        std::cout << "\t-File size: " << file_size/1024 << " KiB" << std::endl;
+    }
+    
+    else if(file_size < 1024 * 1024 * 1024 ){
+        std::cout << "\t-File size: " << file_size/(1024 * 1024)<< " MiB" << std::endl;
+    }
+    
+    else{
+        std::cout << "\t-File size: " << file_size/(1024 * 1024 * 1024)<< " GiB" << std::endl;
+    }
+\end{lstlisting}

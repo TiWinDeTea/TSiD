@@ -1,0 +1,24 @@
+\begin{lstlisting}
+//error
+client.packet.clear();
+client.packet << UnknownIssue;
+client.socket.send(client.packet);
+tprint();
+std::cout << client.name() << " -> There was an error [...]" << std::endl;
+
+bool a_retrieveData(Client& client){
+
+    unsigned int file_size;
+    unsigned int bytes_per_packet;
+
+    if( !(client.packet >> file_size >> bytes_per_packet) ){
+        //error
+        return false;
+    }
+    std::cout << "\t-File: " << client.path << std::endl;
+
+    if( file_size == 0 ){
+        //error
+        return false;
+    }
+\end{lstlisting}

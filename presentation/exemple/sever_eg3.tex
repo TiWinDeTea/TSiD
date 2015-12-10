@@ -1,0 +1,22 @@
+\begin{lstlisting}
+    client.packet.clear();
+
+    switch(createFile(client.path)){
+        
+        case AlreadyExist:
+            client.packet << AlreadyExist;
+            client.socket.send(client.packet);
+            tprint();
+            std::cout << client.name() << " -> File already exists" << std::endl;
+            return false;
+            break;
+
+        case UnknownIssue:
+            //error
+            return false;
+            break;
+
+        default:
+            break;
+    }
+\end{lstlisting}

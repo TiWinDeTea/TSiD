@@ -1,0 +1,18 @@
+\begin{lstlisting}
+    file_size -= loop_number * bytes_per_packet;
+    if( file_size > 0 ){
+        
+        client.packet.clear();
+        if(client.socket.receive( client.packet ) == sf::Socket::Disconnected){
+            //error
+            output_file.close();
+            removeFile(client.path);
+            return false;
+        }
+
+        for( unsigned int j(0) ; j < client.packet.getDataSize() ; ++j){
+            client.packet >> input_data;
+            output_file << static_cast<char>(input_data);
+        }
+    }
+\end{lstlisting}

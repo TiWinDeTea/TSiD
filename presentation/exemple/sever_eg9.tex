@@ -1,0 +1,20 @@
+\begin{lstlisting}
+    info_path = info_path.insert(info_path.find_last_of("/") + 1,"."); //insert '.' before the filename
+    createFile(info_path);
+    std::ofstream file ( info_path.c_str(), std::ios::binary | std::ios::out );
+
+    if( file.fail() ){
+        file.close();
+        std::cout << "\t-";
+        setColors("light red");
+        std::cout << "Error writting in the informations file" << std::endl;
+        setColors("reset");
+        return UnknownIssue;
+    }
+
+    file << formatedTime() << std::endl;
+    file << user_name << std::endl;
+    file.close();
+    return Created;
+}
+\end{lstlisting}

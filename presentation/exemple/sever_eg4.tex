@@ -1,0 +1,17 @@
+\begin{lstlisting}
+    std::ofstream output_file ( client.path.c_str(), std::ios::binary | std::ios::out );
+
+    unsigned int loop_number(file_size/bytes_per_packet);
+    char* input_data_array = new char[bytes_per_packet];
+    sf::Int8 input_data;
+    unsigned char percentage_count(0);
+
+    client.packet.clear();
+    client.packet << ServerReady;
+    client.socket.send(client.packet);
+
+    tprint();
+    setColors("light blue");
+    std::cout << "* Start downloading " << client.path << " from " << client.name() << std::endl;
+    setColors("reset");
+\end{lstlisting}
