@@ -1,5 +1,5 @@
 \documentclass[11pt]{beamer}
-\usetheme{Warsaw}
+\usetheme{Antibes}
 \usepackage[frenchb]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -54,7 +54,6 @@
 \section{Objectifs}
 
 	\begin{frame}
-		\frametitle{Objectifs}
 		\begin{itemize}
 			\item{} Restriction d'accès
 			\item{} Dossier privé et publique
@@ -71,7 +70,6 @@
 \section{Problèmes}
 
 	\begin{frame}
-		\frametitle{Problèmes}
 		\begin{itemize}
 			\item{} Communication client - serveur
 			\item{} Interprétation des commandes
@@ -86,119 +84,81 @@
 	\end{frame}
 
 \section{Solutions}
-	\subsection{Architecture}
+
+
+	\subsection*{Interface}
 
 		\begin{frame}
-			\frametitle{Architecture}
-			%\framesubtitle{avec un exemple de sous-titre}
-			\begin{forest}
-			  for tree={
-			    font=\ttfamily,
-			    grow'=0,
-			    child anchor=west,
-			    parent anchor=south,
-			    anchor=west,
-			    calign=first,
-			    inner xsep=7pt,
-			    edge path={
-			      \noexpand\path [draw, \forestoption{edge}]
-			      (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder} \forestoption{edge label};
-			    },
-			    before typesetting nodes={
-			      if n=1
-			        {insert before={[,phantom]}}
-			        {}
-			    },
-			    fit=band,
-			    before computing xy={l=15pt},
-			  }  
-			[server execution folder
-			  [Downloading\_Threads
-			  ]
-			  [FilesData
-			  ]
-			  [IPList
-			  ]
-			  [Public
-			  ]
-			  [Private
-			  ]
-			  [ToConf
-			  ]
-			  [UsersData
-			  ]
-			]
-			\end{forest}
-		\end{frame}
-
-	\subsection{Interface}
-
-		\begin{frame}
-			\frametitle{Interface}
 			\includegraphics[width=\linewidth]{interface}
 		\end{frame}
 
 \section{Exemple}
-	\subsection{Serveur: a\_retrieveData}
+	\subsection*{Serveur: a\_retrieveData}
 
 		\begin{frame}
-			\frametitle{Serveur: a\_retrieveData}
 			\input{exemple/sever_eg1}
 		\end{frame}
 
 		\begin{frame}
-			\frametitle{Serveur: a\_retrieveData}
 			\input{exemple/sever_eg2}
 		\end{frame}
 
 		\begin{frame}
-			\frametitle{Serveur: a\_retrieveData}
 			\input{exemple/sever_eg3}
 		\end{frame}
 
 		\begin{frame}
-			\frametitle{Serveur: a\_retrieveData}
 			\input{exemple/sever_eg4}
 		\end{frame}
 
 		\begin{frame}
-			\frametitle{Serveur: a\_retrieveData}
 			\input{exemple/sever_eg5}
 		\end{frame}
 
 		\begin{frame}
-			\frametitle{Serveur: a\_retrieveData}
 			\input{exemple/sever_eg6}
 		\end{frame}
 
 		\begin{frame}
-			\frametitle{Serveur: a\_retrieveData}
 			\input{exemple/sever_eg7}
 		\end{frame}
 
-	\subsection{Serveur: createInformationFile}
+	\subsection*{Serveur: createInformationFile}
 
 		\begin{frame}
-			\frametitle{Serveur: createInformationFile}
 			\input{exemple/sever_eg8}
 		\end{frame}
 
 		\begin{frame}
-			\frametitle{Serveur: createInformationFile}
 			\input{exemple/sever_eg9}
 		\end{frame}
 
-	\subsection{Client: sendData}
+	\subsection*{Client: sendData}
 	
 		\begin{frame}
-			\frametitle{Client: sendData}
 			\input{exemple/client_eg1}
 		\end{frame}
 
-	\subsection{Client: startUpload}
+	\subsection*{Client: startUpload}
 	
 		\begin{frame}
-			\frametitle{Client: startUpload}
 			\input{exemple/client_eg2}
 		\end{frame}
+
+	\subsection*{Client: sendData}
+	
+		\begin{frame}
+			\input{exemple/client_eg3}
+		\end{frame}
+
+	\subsection*{Client: uploadFile}
+	
+		\begin{frame}
+			\input{exemple/client_eg4}
+		\end{frame}
+
+		\begin{frame}
+			\input{exemple/client_eg5}
+		\end{frame}
+
 \end{document}
