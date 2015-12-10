@@ -122,6 +122,47 @@
 			\end{forest}
 		\end{frame}
 
+		\begin{frame}
+			%\framesubtitle{avec un exemple de sous-titre}
+			\begin{forest}
+			  for tree={
+			    font=\ttfamily,
+			    grow'=0,
+			    child anchor=west,
+			    parent anchor=south,
+			    anchor=west,
+			    calign=first,
+			    inner xsep=7pt,
+			    edge path={
+			      \noexpand\path [draw, \forestoption{edge}]
+			      (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder} \forestoption{edge label};
+			    },
+			    before typesetting nodes={
+			      if n=1
+			        {insert before={[,phantom]}}
+			        {}
+			    },
+			    fit=band,
+			    before computing xy={l=15pt},
+			  }  
+				[server execution folder
+					[Public
+						[Music
+							[AMusicFile.mp3]
+						]
+					]
+					[FilesData
+						[Public
+							[Music
+								[.AMusicFile.mp3]
+							]
+							[.Music]
+						]
+					]
+				]
+			\end{forest}
+		\end{frame}
+
 	\subsection*{Interface}
 
 		\begin{frame}
