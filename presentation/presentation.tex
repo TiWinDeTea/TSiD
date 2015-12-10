@@ -7,21 +7,12 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{forest}
 \usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{dirtree}
 
 \definecolor{folderbg}{RGB}{124,166,198}
 \definecolor{folderborder}{RGB}{110,144,169}
-
-\def\Size{4pt}
-\tikzset{
-  folder/.pic={
-    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
-      (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);  
-    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
-      (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
-  }
-}
 
 \lstset{language=C++,
 	basicstyle=\tiny\ttfamily,
@@ -35,6 +26,13 @@
 	showstringspaces=false,
 	showtabs=false,
 }
+
+%\DTsetlength{offset}{width}{sep}{rule-width}{dot-size}
+\DTsetlength{0.3em}{1em}{0em}{0.75pt}{4pt}
+\setlength{\DTbaselineskip}{20pt}
+
+\newcommand{\myfolder}[1]{\includegraphics[height=2.3ex]{folder}\ {#1}}
+\newcommand{\myfile}[1]{\includegraphics[height=2.3ex]{file}\ {#1}}
 
 \author{Lazare Lucas - Pinard Maxime}
 \title{Présentation TZ20}
@@ -81,86 +79,46 @@
 	\subsection*{Architecture}
 
 		\begin{frame}
-			%\framesubtitle{avec un exemple de sous-titre}
-			\begin{forest}
-			  for tree={
-			    font=\ttfamily,
-			    grow'=0,
-			    child anchor=west,
-			    parent anchor=south,
-			    anchor=west,
-			    calign=first,
-			    inner xsep=7pt,
-			    edge path={
-			      \noexpand\path [draw, \forestoption{edge}]
-			      (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder} \forestoption{edge label};
-			    },
-			    before typesetting nodes={
-			      if n=1
-			        {insert before={[,phantom]}}
-			        {}
-			    },
-			    fit=band,
-			    before computing xy={l=15pt},
-			  }  
-			[server execution folder
-			  [Downloading\_Threads
-			  ]
-			  [FilesData
-			  ]
-			  [IPList
-			  ]
-			  [Public
-			  ]
-			  [Private
-			  ]
-			  [ToConf
-			  ]
-			  [UsersData
-			  ]
-			]
-			\end{forest}
+			\dirtree{%
+				.1 \myfolder{server execution folder}.
+				.2 \myfolder{Downloading\_Threads}.
+				.2 \myfolder{FilesData}.
+				.2 \myfolder{IPList}.
+				.2 \myfolder{Public}.
+				.2 \myfolder{Private}.
+				.2 \myfolder{ToConf}.
+				.2 \myfolder{UsersData}.
+			}
 		\end{frame}
 
 		\begin{frame}
-			%\framesubtitle{avec un exemple de sous-titre}
-			\begin{forest}
-			  for tree={
-			    font=\ttfamily,
-			    grow'=0,
-			    child anchor=west,
-			    parent anchor=south,
-			    anchor=west,
-			    calign=first,
-			    inner xsep=7pt,
-			    edge path={
-			      \noexpand\path [draw, \forestoption{edge}]
-			      (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder} \forestoption{edge label};
-			    },
-			    before typesetting nodes={
-			      if n=1
-			        {insert before={[,phantom]}}
-			        {}
-			    },
-			    fit=band,
-			    before computing xy={l=15pt},
-			  }  
-				[server execution folder
-					[Public
-						[Music
-							[AMusicFile.mp3]
-						]
-					]
-					[FilesData
-						[Public
-							[Music
-								[.AMusicFile.mp3]
-							]
-							[.Music]
-						]
-					]
-				]
-			\end{forest}
+			\dirtree{%
+				.1 \myfolder{server execution folder}.
+					.2 \myfolder{Public}.
+						.3 \myfolder{Music}.
+							.4 \myfile{AMusicFile.mp3}.
+					.2 \myfolder{FilesData}.
+						.3 \myfolder{Public}.
+							.4 \myfolder{Music}.
+								.5 \myfile{.AMusicFile.mp3}.
+							.4 \myfile{.Music}.
+			}
+		\end{frame}
+
+		\begin{frame}
+			\dirtree{%
+				.1 \myfolder{server execution folder}.
+					.2 \myfolder{Private}.
+						.3 \myfolder{Robert}.
+							.4 \myfolder{AFolder}.
+							.4 \myfile{AMusicFile.mp3}.
+					.2 \myfolder{FilesData}.
+						.3 \myfolder{Private}.
+							.4 \myfolder{Robert}.
+								.5 \myfolder{AFolder}.
+								.5 \myfile{.AFolder}.
+								.5 \myfile{.AMusicFile.mp3}.
+			}
 		\end{frame}
 
 	\subsection*{Interface}
@@ -238,5 +196,13 @@
 		\begin{frame}
 			\input{exemple/client_eg5}
 		\end{frame}
+
+\section*{}
+
+	\begin{frame}
+		\begin{center}
+			Avez-vous des questions?
+		\end{center}
+	\end{frame}
 
 \end{document}
