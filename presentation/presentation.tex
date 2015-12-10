@@ -23,6 +23,16 @@
   }
 }
 
+\lstset{language=C++,
+	basicstyle=\tiny\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#},
+	breaklines=true,
+	breakatwhitespace=true
+}
+
 \author{Lazare Lucas - Pinard Maxime}
 \title{Présentation TZ20}
 %\setbeamercovered{transparent} 
@@ -128,24 +138,9 @@
 			\includegraphics[width=\linewidth]{interface}
 		\end{frame}
 \begin{frame}[fragile]
-\frametitle{Inserting source code}
-\lstset{language=C++,
-	basicstyle=\ttfamily,
-	keywordstyle=\color{blue}\ttfamily,
-	stringstyle=\color{red}\ttfamily,
-	commentstyle=\color{green}\ttfamily,
-	morecomment=[l][\color{magenta}]{\#}
-	}
-
+\frametitle{code}
 \begin{lstlisting}
-#include<stdio.h>
-#include<iostream>
-//Comment
-int main(void)
-{
-	printf("Hello World\n");
-	return 0;
-}
+//code
 \end{lstlisting}
 \end{frame}
 \end{document}
